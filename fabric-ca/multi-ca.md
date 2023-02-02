@@ -1,0 +1,222 @@
+### ca搭建流程
+
+前提：安装docker docker-compose go
+
+#### 步骤
+
+##### 步骤1
+
+编写docker-compose.yaml文件
+
+```yaml
+version: '2'
+networks:
+  test:
+
+services:
+  ca.org1.example.com:
+    image: hyperledger/fabric-ca:1.4.9
+    working_dir: /etc/hyperledger/fabric-ca-server
+    hostname: ca.org1.example.com
+    container_name: ca.org1.example.com
+    networks:
+      - test
+    environment:
+      - FABRIC_CA_SERVER_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CLIENT_HOME=/etc/hyperledger/fabric-ca-server/fabric-ca-client
+      - FABRIC_CA_SERVER_DEBUG=true
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_CA_NAME=ca.org1.example.com
+      - FABRIC_CA_SERVER_CSR_CN=ca.org1.example.com
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    volumes:
+      - ../organizations/fabric-ca/org1/:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw '
+```
+
+##### 步骤2
+
+编写fabric-ca-server-config.yaml文件
+
+```yaml
+version: 1.4.9
+port: 7054
+cors:
+  enabled: false
+  origins:
+    - "*"
+debug: true
+crlsizelimit: 512000
+tls:
+  enabled: true
+  certfile:
+  keyfile:
+  clientauth:
+    type: noclientcert
+    certfiles:
+ca:
+  name: ca.org1.example.com
+  keyfile:
+  certfile:
+  chainfile:
+crl:
+  expiry: 24h
+registry:
+  maxenrollments: -1
+  identities:
+    - name: admin
+      pass: adminpw
+      type: client
+      affiliation: ""
+      attrs:
+        hf.Registrar.Roles: "*"
+        hf.Registrar.DelegateRoles: "*"
+        hf.Revoker: true
+        hf.IntermediateCA: true
+        hf.GenCRL: true
+        hf.Registrar.Attributes: "*"
+        hf.AffiliationMgr: true
+db:
+  type: sqlite3
+  datasource: fabric-ca-server.db
+  tls:
+    enabled: false
+    certfiles:
+    client:
+      certfile:
+      keyfile:
+ldap:
+  enabled: false
+  url: ldap://<adminDN>:<adminPassword>@<host>:<port>/<base>
+  tls:
+    certfiles:
+    client:
+      certfile:
+      keyfile:
+  attribute:
+    names: [ 'uid','member' ]
+    converters:
+      - name:
+        value:
+    maps:
+      groups:
+        - name:
+          value:
+affiliations:
+  org1:
+    - department1
+    - department2
+  org2:
+    - department1
+signing:
+  default:
+    usage:
+      - digital signature
+    expiry: 8760h
+  profiles:
+    ca:
+      usage:
+        - cert sign
+        - crl sign
+      expiry: 43800h
+      caconstraint:
+        isca: true
+        maxpathlen: 0
+    tls:
+      usage:
+        - signing
+        - key encipherment
+        - server auth
+        - client auth
+        - key agreement
+      expiry: 8760h
+csr:
+  cn: ca.org1.example.com
+  keyrequest:
+    algo: ecdsa
+    size: 256
+  names:
+    - C: US
+      ST: "North Carolina"
+      L:
+      O: Hyperledger
+      OU: Fabric
+  hosts:
+    - ca.org1.xjipc.cas.cn
+    - localhost
+  ca:
+    expiry: 131400h
+    pathlength: 1
+idemix:
+  rhpoolsize: 1000
+  nonceexpiration: 15s
+  noncesweepinterval: 15m
+bccsp:
+  default: SW
+  sw:
+    hash: SHA2
+    security: 256
+    filekeystore:
+      keystore: msp/keystore
+cacount:
+cafiles:
+intermediate:
+  parentserver:
+    url:
+    caname:
+  enrollment:
+    hosts:
+    profile:
+    label:
+  tls:
+    certfiles:
+    client:
+      certfile:
+      keyfile:
+cfg:
+  identities:
+    passwordattempts: 10
+operations:
+  listenAddress: 127.0.0.1:9443
+  tls:
+    enabled: false
+    cert:
+      file:
+    key:
+      file:
+    clientAuthRequired: false
+    clientRootCAs:
+      files: [ ]
+metrics:
+  provider: disabled
+  statsd:
+    network: udp
+    address: 127.0.0.1:8125
+    writeInterval: 10s
+    prefix: server
+```
+
+##### 步骤3
+
+使用命令启动
+
+```shell
+docker-compose -f docker-compos-ca.yaml up -d
+```
+
+##### 步骤4
+
+使用命令停止
+
+```shell
+docker-compose -f docker-compose-ca.yaml down
+docker run --rm -v $(pwd):/data busybox sh -c "cd /data && rm -rf organizations/fabric-ca/org1/msp organizations/fabric-ca/org1/tls-cert.pem organizations/fabric-ca/org1/ca-cert.pem organizations/fabric-ca/org1/IssuerPublicKey organizations/fabric-ca/org1/IssuerRevocationPublicKey organizations/fabric-ca/org1/fabric-ca-server.db organizations/fabric-ca/org1/ca-chain.pem organizations/fabric-ca/org1/tls-ca-cert.pem
+```
+
+### 多级ca搭建流程
+
+#### 步骤
+
+##### 步骤1
