@@ -9,3 +9,5 @@
 * [package control](https://packagecontrol.io/)
 * [docker hub](https://hub.docker.com/)
 * [docker doc](https://docs.docker.com/)
+* [prometheus configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
+* [docker-compose一件部署prometheus生态(新增VM远程存储方案)](https://blog.csdn.net/litaimin/article/details/120776846)
