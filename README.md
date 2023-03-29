@@ -2,6 +2,10 @@
 
 ------
 
+### tips
+
+* 文中若涉及图片 记得clone 本地进行查看
+
 ## fabric （hyperledger fabric）
 
 * 001 安装linux（ubuntu20.04 desktop | live-server）
