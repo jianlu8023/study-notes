@@ -1,0 +1,37 @@
+#### zsh配置
+
+##### 安装
+
+```shell
+# 第一步安装
+apt install zsh
+# 第二步 克隆oh-my-zsh获取zshrc模板
+git clone https://ghproxy.com/https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+# 第三步 拷贝模板
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+# 第四步 使配置生效
+source ~/.zshrc
+# 第五步 切换默认终端
+chsh -s /bin/zsh
+# 第六步 重启电脑 或 logout
+# reboot now
+# 第七步 获取zsh插件
+git clone https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh}/plugins/zsh-syntax-highlighting
+git clone https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh}/plugins/zsh-autosuggestions
+# 第八步 修改zshrc添加配置
+vi ~/.zshrc
+# 在zshrc文件中找到下方plugins=(git) 添加插件
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+# 第九步 使配置生效
+source ~/.zshrc
+```
+
+##### 遇到问题
+
+* Syntax error: "(" unexpected &nbsp;&nbsp;&nbsp;&nbsp;解决方案
+
+```text
+1. 执行下方命令
+sudo dpkg-reconfigure dash
+2. 在弹出窗口点击否
+```
