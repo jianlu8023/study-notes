@@ -4,7 +4,7 @@
 
 ## fabric （hyperledger fabric）
 
-* [安装linux]()
+* [安装linux](./fabric/001-安装linux虚拟机.md)
 * [配置开发基础环境]()（go | java | docker | docker-compose git）
 * [配置fabric环境]()（clone fabric | pull image）
 * [搭建fabric网络]()（手动搭建步骤）
