@@ -9,16 +9,20 @@
 > * [配置fabric环境](./fabric/003-配置fabric环境.md)（clone fabric | pull image）
 > * [搭建fabric网络](./fabric/004-搭建fabric网络.md)（手动搭建步骤）
 > * [安装智能合约](./fabric/005-安装智能合约.md)（手动搭建步骤）
-
+> * [fabric国密](./fabric/006-fabric国密搭建步骤.md)
+> * [go-sdk使用](./fabric/007-fabric-go-sdk使用.md)
 ## fabric-ca （hyperledger fabric ca）
 
 > * [搭建多级ca环境](./fabric-ca/001-多级CA.md)
+>
 
 ## go
 
 > * [原生go开发web流程](./go/001-go原生web开发流程.md)
 > * [脚手架nunu学习笔记](./go/002-脚手架nunu学习笔记.md)
+> * [golang技巧](./go/005-golang使用技巧.md)
 
+[comment]:<>()
 ## makefile
 
 > * [makefile学习笔记](./makefile/001-makefile笔记.md)
