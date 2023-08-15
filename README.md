@@ -2,10 +2,6 @@
 
 ------
 
-### tips
-
-* 文中若涉及图片 记得clone 本地进行查看
-
 ## fabric （hyperledger fabric）
 
 * 001 安装linux（ubuntu20.04 desktop | live-server）
@@ -18,7 +14,7 @@
 
 * 001 multi-ca（搭建多级ca环境）
 
-## quest-solve （问题解决）
+## quest （问题解决）
 
 * 001 go mod问题 （checksum相关）
 * 002 plantUml问题 （idea插件无法正常使用问题）
