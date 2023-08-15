@@ -175,3 +175,9 @@ systemctl restart systemd-networkd
 ```text
 ping www.baidu.com
 ```
+
+### 注意事项:
+
+```text
+在配置完上述流程后，若要局域网访问，需要关闭物理机的防火墙
+```
