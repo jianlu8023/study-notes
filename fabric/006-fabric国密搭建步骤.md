@@ -1,4 +1,16 @@
+<a id = "top"></a>
+
 # hyperledger fabric 2.4 国密版本搭建流程
+
+----
+
+## 目录
+
+* [环境准备](#1)
+* [环境搭建](#2)
+* [验证搭建](#3)
+
+<a id = "1"></a>
 
 ## 环境准备
 
@@ -24,6 +36,8 @@ docker version # 查看docker版本 要求大于20
 ```bash
 docker-compose -v # 查看docker-compose版本 
 ```
+
+<a id = "2"></a>
 
 ## 环境搭建
 
@@ -65,6 +79,10 @@ make docker
 cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts
 git clone https://ghproxy.com/https://github.com/hxx258456/fabric-samples-gm.git
 ```
+
+<a id = "3"></a>
+
+## 验证搭建
 
 6. 启动测试网络进行测试
 
