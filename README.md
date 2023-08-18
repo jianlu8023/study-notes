@@ -11,6 +11,7 @@
 > * [安装智能合约](./fabric/005-安装智能合约.md)（手动搭建步骤）
 > * [fabric国密](./fabric/006-fabric国密搭建步骤.md)
 > * [go-sdk使用](./fabric/007-fabric-go-sdk使用.md)
+> * [golang智能合约](./fabric/008-fabric智能合约开发流程.md)
 
 ## fabric-ca （hyperledger fabric ca）
 
