@@ -51,10 +51,12 @@ network:
       addresses:
         #        此处是本机ip
         - 192.168.58.128/24
-      #      新版本ubuntu系统中此处是网关设置
+      #22.04使用这里      新版本ubuntu系统中此处是网关设置
       routes:
         - to: default
           via: 192.168.58.2
+          
+      # 20.04版本使用这里
       # gateway4: 192.168.58.2
       nameservers:
         addresses: [ 192.168.58.2 ]
