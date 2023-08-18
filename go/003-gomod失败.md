@@ -1,6 +1,6 @@
 ### 解决go mod相关问题
 
-* 命令: go mod vendor
+* 命令: go mod vendor:checksum mismatch
 * 错误信息
 
 ```text
