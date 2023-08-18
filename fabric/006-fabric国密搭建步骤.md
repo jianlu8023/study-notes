@@ -90,7 +90,7 @@ git clone https://ghproxy.com/https://github.com/hxx258456/fabric-samples-gm.git
 
 ```bash
 # 进入test
-cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts/fabric-simple-gm/bin
+cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts/fabric-samples-gm/bin
 
 cp ../../../../fabric-gm/release/linux-amd64/bin/* ./
 cp ../../../fabric-ca-gm/release/linux-amd64/bin/* ./ 
