@@ -28,7 +28,6 @@
 下载地址： https://www.vmware.com/cn/products/workstation-pro.html
 ```
 
-本地文件 files文件夹下</br></br>
 
 3. 安装 vmware workstation
 

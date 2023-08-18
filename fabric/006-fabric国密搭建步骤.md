@@ -96,6 +96,16 @@ cp ../../../../fabric-gm/release/linux-amd64/bin/* ./
 cp ../../../fabric-ca-gm/release/linux-amd64/bin/* ./ 
 ```
 
+检查 
+
+```text
+检查项1
+$GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts/fabric-simple-gm/test-network/configtx/configtx.yaml文件中org的端口是否为8051
+
+检查项2
+$GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts/fabric-simple-gm/test-network/organizations/ccp-generate.sh 中关于org1的部分端口是否为8051
+```
+
 启动fabric网络并创建通道:
 
 ```sh
