@@ -65,6 +65,21 @@ network:
 
 ```
 
+hosts 文件
+
+
+```text
+127.0.0.1 localhost
+# 将127.0.1.1 后面的文字修改为不同于其他机器的文字
+127.0.1.1 linux-128
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+```
+
 #### 步骤10
 
 执行下面命令
