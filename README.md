@@ -22,6 +22,7 @@
 > * [原生go开发web流程](./go/001-go原生web开发流程.md)
 > * [脚手架nunu学习笔记](./go/002-脚手架nunu学习笔记.md)
 > * [golang技巧](./go/005-golang使用技巧.md)
+> * [个性化nunu工具](./go/006-个性化nunu.md)
 
 ## makefile
 
