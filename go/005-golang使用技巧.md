@@ -11,6 +11,7 @@
 * [文件路径](#1)
 * [go测试](#2)
 * [go mod edit 用法](#3)
+* [获取当前项目根目录](#4)
 
 <a id="1"></a>
 
@@ -88,6 +89,37 @@ go mod edit -require=github.com/hxx258456/fabric-sdk-go-gm@v0.0.7
 
 ```bash
 go mod edit -replace github.com/zmap/zlint=github.com/zmap/zlint@v0.0.0-20190806154020-fd021b4cfbeb
+```
+
+<a id="4"></a>
+
+## 获取工作目录
+
+* 方式1
+
+```go
+
+wd, _ := os.Getwd() // 获取当前ml
+fmt.Println("os.Getwd(): ", wd)
+
+
+```
+
+* 方式2
+
+```go
+lookPath, _ := exec.LookPath(os.Args[0])
+abs, _ := filepath.Abs(lookPath)
+dir := path.Dir(abs)
+fmt.Println("os.Args[0]: ", dir)
+```
+
+* 方式3
+
+```go
+_, file, _, _ := runtime.Caller(0)
+fmt.Println("runtime.Caller(0): ", file)
+
 ```
 
 [回到顶部](#top)
