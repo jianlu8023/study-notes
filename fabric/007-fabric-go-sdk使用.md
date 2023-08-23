@@ -120,4 +120,4 @@ func createWallet(wallet *gateway.Wallet) error {
 
 ## sdk channel
 
-
+[comment]: <> (https://www.cnblogs.com/liuhui5599/p/14195513.html)
