@@ -19,6 +19,9 @@
 
 样例:
 
+[comment]: <> (https://blog.csdn.net/qq_28052455/article/details/130218103)
+
+
 ```go
 package example
 
@@ -121,3 +124,5 @@ func createWallet(wallet *gateway.Wallet) error {
 ## sdk channel
 
 [comment]: <> (https://www.cnblogs.com/liuhui5599/p/14195513.html)
+
+[comment]: <> (https://blog.csdn.net/qq_28052455/article/details/126819799?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169287664216800226574653%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=169287664216800226574653&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-2-126819799-null-null.268^v1^koosearch&utm_term=fabric&spm=1018.2226.3001.4450)
