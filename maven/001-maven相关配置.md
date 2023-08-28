@@ -15,7 +15,7 @@ https://repo.huaweicloud.com/apache/maven/
 
 #### 图片流程
 
-![maven-img-1.png](../img/maven-img-1.png)
+![maven-img-1.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-1.png)
 
 ### 解压配置maven
 
@@ -29,9 +29,9 @@ https://repo.huaweicloud.com/apache/maven/
 #### 图片流程
 
 3</br>
-![maven-img-2.png](../img/maven-img-2.png)
+![maven-img-2.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-2.png)
 </br>
-![maven-img-3.png](../img/maven-img-3.png)
+![maven-img-3.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-3.png)
 
 ### 修改maven配置文件
 

@@ -3,31 +3,31 @@
 #### 步骤1
 
 在虚拟机关闭状态下，配置
-![img.png](../img/img-30.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-30.png)
 
 #### 步骤2
 
-![img.png](../img/img-31.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-31.png)
 
 #### 步骤3
 
-![img.png](../img/img-32.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-32.png)
 
 #### 步骤4
 
-![img.png](../img/img-33.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-33.png)
 
 #### 步骤5
 
-![img.png](../img/img-34.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-34.png)
 
 #### 步骤6
 
-![img.png](../img/img-35.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-35.png)
 
 #### 步骤7
 
-![img.png](../img/img-36.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-36.png)
 
 #### 步骤8
 
@@ -35,7 +35,7 @@
 
 #### 步骤9
 
-![img.png](../img/img-37.png)
+![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img-37.png)
 <br/>
 内容:
 </br>

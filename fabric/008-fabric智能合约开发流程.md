@@ -12,21 +12,14 @@ import (
 
 ```
 
-
-
-
 ## hyperledger fabric gm 智能合约开发
 
-```go
+```text
 import (
 "github.com/hxx258456/fabric-contract-api-go-gm/contractapi"
 )
 
 ```
-
-
-
-
 
 ## golang智能合约模板
 
@@ -54,7 +47,6 @@ type Asset struct {
 	Owner          string `json:"owner"`
 	AppraisedValue int    `json:"appraisedValue"`
 }
-
 
 // InitLedger adds a base set of assets to the ledger
 // 初始化函数
@@ -231,8 +223,6 @@ func main() {
 	}
 }
 ```
-
-
 
 ## 流程
 

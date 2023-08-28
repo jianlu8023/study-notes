@@ -46,20 +46,21 @@
 其余基本下一步
 ```
 
-* ![img.png](../img/img.png)
-* ![img.png](../img/img_1.png)
-* ![img.png](../img/img_2.png)
-* ![](../img/img_3.png)
-* ![](../img/img_4.png)
-* ![](../img/img_5.png)
-* ![](../img/img_6.png)
-* ![](../img/img_7.png)
-* ![](../img/img_8.png)
-* ![](../img/img_9.png)
-* ![](../img/img_10.png)
-* ![](../img/img_11.png)
-* ![](../img/img_12.png)
-* ![](../img/img_13.png)
+[comment]: <> (https://github.com/jianlu8023/study-notes/blob/master/img/img.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_1.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_2.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_3.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_4.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_5.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_6.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_7.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_8.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_9.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_10.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_11.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_12.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_13.png)
 
 <a id = "3"></a>
 ### live-server ubuntu 20.04
@@ -71,35 +72,35 @@
 其余基本下一步
 ```
 
-* ![img.png](../img/img.png)
-* ![img.png](../img/img_1.png)
-* ![img.png](../img/img_2.png)
-* ![](../img/img_3.png)
-* ![](../img/img_4.png)
-* ![](../img/img_5.png)
-* ![](../img/img_6.png)
-* ![](../img/img_7.png)
-* ![](../img/img_8.png)
-* ![](../img/img_9.png)
-* ![](../img/img_10.png)
-* ![](../img/img_11.png)
-* ![](../img/img_12.png)
-* ![](../img/img_13.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_1.png)
+* ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_2.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_3.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_4.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_5.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_6.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_7.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_8.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_9.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_10.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_11.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_12.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_13.png)
 * 启动虚拟机
-* ![](../img/img_14.png)
-* ![](../img/img_15.png)
-* ![](../img/img_16.png)
-* ![](../img/img_17.png)
-* ![](../img/img_18.png)
-* ![](../img/img_19.png)
-* ![](../img/img_20.png)
-* ![](../img/img_21.png)
-* ![](../img/img_22.png)
-* ![](../img/img_23.png)
-* ![](../img/img_24.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_14.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_15.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_16.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_17.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_18.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_19.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_20.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_21.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_22.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_23.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_24.png)
 * 下方图 敲击enter
-* ![](../img/img_26.png)
-* ![](../img/img_27.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_26.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_27.png)
 * 终端执行下方命令
 
 ```shell
@@ -107,13 +108,13 @@ apt install open-vm-tools vim net-tools
 vi /etc/ssh/sshd_config
 ```
 * 进行修改
-* ![](../img/img_28.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_28.png)
 ```shell
 esc
 :wq
 ifconfig -a
 ```
-* ![](../img/img_29.png)
+* ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_29.png)
 * 记录上方ip xshell 工具需使用
 
 [ ⬆ ](#top)

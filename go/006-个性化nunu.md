@@ -1,13 +1,6 @@
 # 个性化nunu工具
 
-
-
 ------
-
-
-
-
-
 
 ## 个性化步骤
 
@@ -21,14 +14,11 @@ cd ~/myfile
 git clone https://gitee.com/go-nunu/nunu.git nunu
 ```
 
-
-
 2. 编辑需要个性化的部分相关代码
 
 根据自己需要进行修改
 
 如下为我的调整
-
 
 * config/config.go
 
@@ -43,8 +33,8 @@ const (
 	NunuCmd      = "github.com/go-nunu/nunu@latest"
 	RepoBase     = "https://gitee.com/go-nunu/nunu-layout-base.git"
 	RepoAdvanced = "https://gitee.com/go-nunu/nunu-layout-advanced.git"
-	RepoFabric = "https://gitee.com/jianlu8023/nunu-fabric.git"
-	RepoCommon = "https://gitee.com/jianlu8023/nunu-template.git"
+	RepoFabric   = "https://gitee.com/jianlu8023/nunu-fabric.git"
+	RepoCommon   = "https://gitee.com/jianlu8023/nunu-template.git"
 )
 ```
 
@@ -217,7 +207,7 @@ func (p *Project) cloneTemplate() (bool, error) {
 		fmt.Printf("git clone %s\n", repo)
 		cmd = exec.Command("git", "clone", repo, p.ProjectName)
 	} else {
-		fmt.Printf("git clone -b %s %s\n",branch, repo)
+		fmt.Printf("git clone -b %s %s\n", branch, repo)
 		cmd = exec.Command("git", "clone", "-b", branch, repo, p.ProjectName)
 	}
 
