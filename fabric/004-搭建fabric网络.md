@@ -13,16 +13,10 @@
 ```shell
 # 创建文件夹
 mkdir ~/myfabric/demo
-
 cd ~/myfabric/demo
 
 # 创建模板文件
 cryptogen showtemplate > ./organizations/crypto/crypto-config.yaml
-
-
-
-
-
 ```
 
 crypto-config.yaml
@@ -35,7 +29,6 @@ OrdererOrgs:
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer
-
 PeerOrgs:
   - Name: Org1
   Domain: org1.jianlu.com
@@ -51,18 +44,18 @@ PeerOrgs:
   Count: 1
   Users:
   Count: 1
-
 ```
 
 ```shell
-
 # 生成对应文件夹
 cryptogen generate --config ./organizations/crypto/crypto-config.yaml --output ./organizations
 
 # 编写容器编排文件
-
-
+mkdir compose
+touch compose/docker-compose.yaml
 ```
+
+docker-compose.yaml
 
 ```yaml
 version: "3.7"
@@ -225,7 +218,7 @@ services:
     depends_on:
       - couchdb1
   ca.orderer.jianlu.com:
-    image: hyperledger/fabric-ca:1.5.3
+    image: hyperledger/fabric-ca:1.5.2
     labels:
       service: hyperledger-fabric
     networks:
@@ -250,7 +243,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ../organizations/ordererOrganizations/jianlu.com/ca:/etc/hyperledger/fabric-ca-server
   ca.org1.jianlu.com:
-    image: hyperledger/fabric-ca:1.5.3
+    image: hyperledger/fabric-ca:1.5.2
     networks:
       - fabric
     container_name: ca.org1.jianlu.com
@@ -273,7 +266,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ../organizations/peerOrganizations/org1.jianlu.com/ca:/etc/hyperledger/fabric-ca-server
   ca.org2.jianlu.com:
-    image: hyperledger/fabric-ca:1.5.3
+    image: hyperledger/fabric-ca:1.5.2
     networks:
       - fabric
     container_name: ca.org2.jianlu.com
@@ -351,6 +344,13 @@ services:
       - "7984:5984"
     networks:
       - fabric
+```
+
+
+```shell
+# 创建core.yaml
+mkdir peercfg
+touch peercfg/core.yaml
 ```
 
 core.yaml
@@ -1141,11 +1141,8 @@ metrics:
 # 启动容器
 docker-compose -f compose/docker-compose.yaml up -d
 
-
 # 查看容器状态
-      # system
 docker ps -a 
-
 
 # 编写configtx.yaml 文件
 mkdir configtx
@@ -1159,7 +1156,6 @@ configtx.yaml
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
 ---
 ################################################################################
 #
@@ -1170,20 +1166,16 @@ configtx.yaml
 #
 ################################################################################
 Organizations:
-
   # SampleOrg defines an MSP using the sampleconfig.  It should never be used
   # in production but may be used as a template for other definitions
   - &OrdererOrg
     # DefaultOrg defines the organization which is used in the sampleconfig
     # of the fabric.git development environment
     Name: OrdererOrg
-
     # ID to load the MSP definition as
     ID: OrdererMSP
-
     # MSPDir is the filesystem path which contains the MSP configuration
     MSPDir: ../organizations/ordererOrganizations/jianlu.com/msp
-
     # Policies defines the set of policies at this level of the config tree
     # For organization policies, their canonical path is usually
     #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
@@ -1197,20 +1189,15 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('OrdererMSP.admin')"
-
     OrdererEndpoints:
       - orderer.jianlu.com:7050
-
   - &Org1
     # DefaultOrg defines the organization which is used in the sampleconfig
     # of the fabric.git development environment
     Name: Org1MSP
-
     # ID to load the MSP definition as
     ID: Org1MSP
-
     MSPDir: ../organizations/peerOrganizations/org1.jianlu.com/msp
-
     # Policies defines the set of policies at this level of the config tree
     # For organization policies, their canonical path is usually
     #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
@@ -1227,17 +1214,13 @@ Organizations:
       Endorsement:
         Type: Signature
         Rule: "OR('Org1MSP.peer')"
-
   - &Org2
     # DefaultOrg defines the organization which is used in the sampleconfig
     # of the fabric.git development environment
     Name: Org2MSP
-
     # ID to load the MSP definition as
     ID: Org2MSP
-
     MSPDir: ../organizations/peerOrganizations/org2.jianlu.com/msp
-
     # Policies defines the set of policies at this level of the config tree
     # For organization policies, their canonical path is usually
     #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
@@ -1254,7 +1237,6 @@ Organizations:
       Endorsement:
         Type: Signature
         Rule: "OR('Org2MSP.peer')"
-
 ################################################################################
 #
 #   SECTION: Capabilities
@@ -1286,7 +1268,6 @@ Capabilities:
     # Prior to enabling V2.0 channel capabilities, ensure that all
     # orderers and peers on a channel are at v2.0.0 or later.
     V2_0: true
-
   # Orderer capabilities apply only to the orderers, and may be safely
   # used with prior release peers.
   # Set the value of the capability to true to require it.
@@ -1298,7 +1279,6 @@ Capabilities:
     # Prior to enabling V2.0 orderer capabilities, ensure that all
     # orderers on channel are at v2.0.0 or later.
     V2_0: true
-
   # Application capabilities apply only to the peer network, and may be safely
   # used with prior release orderers.
   # Set the value of the capability to true to require it.
@@ -1310,7 +1290,6 @@ Capabilities:
     # Prior to enabling V2.0 application capabilities, ensure that all
     # peers on channel are at v2.0.0 or later.
     V2_0: true
-
 ################################################################################
 #
 #   SECTION: Application
@@ -1320,11 +1299,9 @@ Capabilities:
 #
 ################################################################################
 Application: &ApplicationDefaults
-
   # Organizations is the list of orgs which are defined as participants on
   # the application side of the network
   Organizations:
-
   # Policies defines the set of policies at this level of the config tree
   # For Application policies, their canonical path is
   #   /Channel/Application/<PolicyName>
@@ -1344,7 +1321,6 @@ Application: &ApplicationDefaults
     Endorsement:
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
-
   Capabilities:
     <<: *ApplicationCapabilities
 ################################################################################
@@ -1356,7 +1332,6 @@ Application: &ApplicationDefaults
 #
 ################################################################################
 Orderer: &OrdererDefaults
-
   # Orderer Type: The orderer implementation to start
   OrdererType: etcdraft
   # Addresses used to be the list of orderer addresses that clients and peers
@@ -1366,36 +1341,28 @@ Orderer: &OrdererDefaults
   # to include the OrdererEndpoints item in your org definition
   Addresses:
     - orderer.jianlu.com:7050
-
   EtcdRaft:
     Consenters:
       - Host: orderer.jianlu.com
         Port: 7050
         ClientTLSCert: ../organizations/ordererOrganizations/jianlu.com/orderers/orderer.jianlu.com/tls/server.crt
         ServerTLSCert: ../organizations/ordererOrganizations/jianlu.com/orderers/orderer.jianlu.com/tls/server.crt
-
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 2s
-
   # Batch Size: Controls the number of messages batched into a block
   BatchSize:
-
     # Max Message Count: The maximum number of messages to permit in a batch
     MaxMessageCount: 10
-
     # Absolute Max Bytes: The absolute maximum number of bytes allowed for
     # the serialized messages in a batch.
     AbsoluteMaxBytes: 99 MB
-
     # Preferred Max Bytes: The preferred maximum number of bytes allowed for
     # the serialized messages in a batch. A message larger than the preferred
     # max bytes will result in a batch larger than preferred max bytes.
     PreferredMaxBytes: 512 KB
-
   # Organizations is the list of orgs which are defined as participants on
   # the orderer side of the network
   Organizations:
-
   # Policies defines the set of policies at this level of the config tree
   # For Orderer policies, their canonical path is
   #   /Channel/Orderer/<PolicyName>
@@ -1414,7 +1381,6 @@ Orderer: &OrdererDefaults
     BlockValidation:
       Type: ImplicitMeta
       Rule: "ANY Writers"
-
 ################################################################################
 #
 #   CHANNEL
@@ -1440,13 +1406,11 @@ Channel: &ChannelDefaults
     Admins:
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
-
   # Capabilities describes the channel level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
   # description
   Capabilities:
     <<: *ChannelCapabilities
-
 ################################################################################
 #
 #   Profile
@@ -1456,7 +1420,6 @@ Channel: &ChannelDefaults
 #
 ################################################################################
 Profiles:
-
   TwoOrgsApplicationGenesis:
     <<: *ChannelDefaults
     Orderer:
