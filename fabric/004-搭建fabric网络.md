@@ -8,6 +8,229 @@
 
 ## fabric 2.4.3环境搭建过程
 
+### 目录结构
+```text
+fabric2.4.3-demo
+├── channel-artifacts
+│   └── mychannel.block
+├── compose
+│   └── docker-compose.yaml
+├── configtx
+│   └── configtx.yaml
+├── organizations
+│   ├── crypto
+│   │   └── crypto-config.yaml
+│   ├── ordererOrganizations
+│   │   └── jianlu.com
+│   │       ├── ca
+│   │       │   ├── ca.jianlu.com-cert.pem
+│   │       │   ├── fabric-ca-server-config.yaml
+│   │       │   ├── fabric-ca-server.db
+│   │       │   ├── IssuerPublicKey
+│   │       │   ├── IssuerRevocationPublicKey
+│   │       │   ├── msp
+│   │       │   │   └── keystore
+│   │       │   │       ├── 9771c352accb9e88982f00b7fc57a2781d4d21fd7d335fa357afcf03796047ba_sk
+│   │       │   │       ├── IssuerRevocationPrivateKey
+│   │       │   │       └── IssuerSecretKey
+│   │       │   └── priv_sk
+│   │       ├── msp
+│   │       │   ├── admincerts
+│   │       │   ├── cacerts
+│   │       │   │   └── ca.jianlu.com-cert.pem
+│   │       │   ├── config.yaml
+│   │       │   └── tlscacerts
+│   │       │       └── tlsca.jianlu.com-cert.pem
+│   │       ├── orderers
+│   │       │   └── orderer.jianlu.com
+│   │       │       ├── msp
+│   │       │       │   ├── admincerts
+│   │       │       │   ├── cacerts
+│   │       │       │   │   └── ca.jianlu.com-cert.pem
+│   │       │       │   ├── config.yaml
+│   │       │       │   ├── keystore
+│   │       │       │   │   └── priv_sk
+│   │       │       │   ├── signcerts
+│   │       │       │   │   └── orderer.jianlu.com-cert.pem
+│   │       │       │   └── tlscacerts
+│   │       │       │       └── tlsca.jianlu.com-cert.pem
+│   │       │       └── tls
+│   │       │           ├── ca.crt
+│   │       │           ├── server.crt
+│   │       │           └── server.key
+│   │       ├── tlsca
+│   │       │   ├── priv_sk
+│   │       │   └── tlsca.jianlu.com-cert.pem
+│   │       └── users
+│   │           └── Admin@jianlu.com
+│   │               ├── msp
+│   │               │   ├── admincerts
+│   │               │   ├── cacerts
+│   │               │   │   └── ca.jianlu.com-cert.pem
+│   │               │   ├── config.yaml
+│   │               │   ├── keystore
+│   │               │   │   └── priv_sk
+│   │               │   ├── signcerts
+│   │               │   │   └── Admin@jianlu.com-cert.pem
+│   │               │   └── tlscacerts
+│   │               │       └── tlsca.jianlu.com-cert.pem
+│   │               └── tls
+│   │                   ├── ca.crt
+│   │                   ├── client.crt
+│   │                   └── client.key
+│   └── peerOrganizations
+│       ├── org1.jianlu.com
+│       │   ├── ca
+│       │   │   ├── ca.org1.jianlu.com-cert.pem
+│       │   │   ├── fabric-ca-server-config.yaml
+│       │   │   ├── fabric-ca-server.db
+│       │   │   ├── IssuerPublicKey
+│       │   │   ├── IssuerRevocationPublicKey
+│       │   │   ├── msp
+│       │   │   │   └── keystore
+│       │   │   │       ├── 0c127b155cb7ed1c1c170e78dc9e6a44784c60efe3311adb33465dc5e6e79632_sk
+│       │   │   │       ├── IssuerRevocationPrivateKey
+│       │   │   │       └── IssuerSecretKey
+│       │   │   └── priv_sk
+│       │   ├── msp
+│       │   │   ├── admincerts
+│       │   │   ├── cacerts
+│       │   │   │   └── ca.org1.jianlu.com-cert.pem
+│       │   │   ├── config.yaml
+│       │   │   └── tlscacerts
+│       │   │       └── tlsca.org1.jianlu.com-cert.pem
+│       │   ├── peers
+│       │   │   └── peer0.org1.jianlu.com
+│       │   │       ├── msp
+│       │   │       │   ├── admincerts
+│       │   │       │   ├── cacerts
+│       │   │       │   │   └── ca.org1.jianlu.com-cert.pem
+│       │   │       │   ├── config.yaml
+│       │   │       │   ├── keystore
+│       │   │       │   │   └── priv_sk
+│       │   │       │   ├── signcerts
+│       │   │       │   │   └── peer0.org1.jianlu.com-cert.pem
+│       │   │       │   └── tlscacerts
+│       │   │       │       └── tlsca.org1.jianlu.com-cert.pem
+│       │   │       └── tls
+│       │   │           ├── ca.crt
+│       │   │           ├── server.crt
+│       │   │           └── server.key
+│       │   ├── tlsca
+│       │   │   ├── priv_sk
+│       │   │   └── tlsca.org1.jianlu.com-cert.pem
+│       │   └── users
+│       │       ├── Admin@org1.jianlu.com
+│       │       │   ├── msp
+│       │       │   │   ├── admincerts
+│       │       │   │   ├── cacerts
+│       │       │   │   │   └── ca.org1.jianlu.com-cert.pem
+│       │       │   │   ├── config.yaml
+│       │       │   │   ├── keystore
+│       │       │   │   │   └── priv_sk
+│       │       │   │   ├── signcerts
+│       │       │   │   │   └── Admin@org1.jianlu.com-cert.pem
+│       │       │   │   └── tlscacerts
+│       │       │   │       └── tlsca.org1.jianlu.com-cert.pem
+│       │       │   └── tls
+│       │       │       ├── ca.crt
+│       │       │       ├── client.crt
+│       │       │       └── client.key
+│       │       └── User1@org1.jianlu.com
+│       │           ├── msp
+│       │           │   ├── admincerts
+│       │           │   ├── cacerts
+│       │           │   │   └── ca.org1.jianlu.com-cert.pem
+│       │           │   ├── config.yaml
+│       │           │   ├── keystore
+│       │           │   │   └── priv_sk
+│       │           │   ├── signcerts
+│       │           │   │   └── User1@org1.jianlu.com-cert.pem
+│       │           │   └── tlscacerts
+│       │           │       └── tlsca.org1.jianlu.com-cert.pem
+│       │           └── tls
+│       │               ├── ca.crt
+│       │               ├── client.crt
+│       │               └── client.key
+│       └── org2.jianlu.com
+│           ├── ca
+│           │   ├── ca.org2.jianlu.com-cert.pem
+│           │   ├── fabric-ca-server-config.yaml
+│           │   ├── fabric-ca-server.db
+│           │   ├── IssuerPublicKey
+│           │   ├── IssuerRevocationPublicKey
+│           │   ├── msp
+│           │   │   └── keystore
+│           │   │       ├── 8ceb540b8d60d0105e49cee106f60588134c794ff5dc769bf42df834c384c7e0_sk
+│           │   │       ├── IssuerRevocationPrivateKey
+│           │   │       └── IssuerSecretKey
+│           │   └── priv_sk
+│           ├── msp
+│           │   ├── admincerts
+│           │   ├── cacerts
+│           │   │   └── ca.org2.jianlu.com-cert.pem
+│           │   ├── config.yaml
+│           │   └── tlscacerts
+│           │       └── tlsca.org2.jianlu.com-cert.pem
+│           ├── peers
+│           │   └── peer0.org2.jianlu.com
+│           │       ├── msp
+│           │       │   ├── admincerts
+│           │       │   ├── cacerts
+│           │       │   │   └── ca.org2.jianlu.com-cert.pem
+│           │       │   ├── config.yaml
+│           │       │   ├── keystore
+│           │       │   │   └── priv_sk
+│           │       │   ├── signcerts
+│           │       │   │   └── peer0.org2.jianlu.com-cert.pem
+│           │       │   └── tlscacerts
+│           │       │       └── tlsca.org2.jianlu.com-cert.pem
+│           │       └── tls
+│           │           ├── ca.crt
+│           │           ├── server.crt
+│           │           └── server.key
+│           ├── tlsca
+│           │   ├── priv_sk
+│           │   └── tlsca.org2.jianlu.com-cert.pem
+│           └── users
+│               ├── Admin@org2.jianlu.com
+│               │   ├── msp
+│               │   │   ├── admincerts
+│               │   │   ├── cacerts
+│               │   │   │   └── ca.org2.jianlu.com-cert.pem
+│               │   │   ├── config.yaml
+│               │   │   ├── keystore
+│               │   │   │   └── priv_sk
+│               │   │   ├── signcerts
+│               │   │   │   └── Admin@org2.jianlu.com-cert.pem
+│               │   │   └── tlscacerts
+│               │   │       └── tlsca.org2.jianlu.com-cert.pem
+│               │   └── tls
+│               │       ├── ca.crt
+│               │       ├── client.crt
+│               │       └── client.key
+│               └── User1@org2.jianlu.com
+│                   ├── msp
+│                   │   ├── admincerts
+│                   │   ├── cacerts
+│                   │   │   └── ca.org2.jianlu.com-cert.pem
+│                   │   ├── config.yaml
+│                   │   ├── keystore
+│                   │   │   └── priv_sk
+│                   │   ├── signcerts
+│                   │   │   └── User1@org2.jianlu.com-cert.pem
+│                   │   └── tlscacerts
+│                   │       └── tlsca.org2.jianlu.com-cert.pem
+│                   └── tls
+│                       ├── ca.crt
+│                       ├── client.crt
+│                       └── client.key
+├── peercfg
+│   └── core.yaml
+└── scripts
+```
+
+
 ### 步骤
 
 ```shell
