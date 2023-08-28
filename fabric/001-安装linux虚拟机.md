@@ -50,7 +50,7 @@
 
 [comment]: <> (https://github.com/jianlu8023/study-notes/blob/master/img/img.png)
 
-* ![img.png](img/img.png)
+* ![img.png](../img/img.png)
 * ![img.png](../img/img_1.png)
 * ![img.png](../img/img_2.png)
 * ![](../img/img_3.png)

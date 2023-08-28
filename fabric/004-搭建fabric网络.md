@@ -9,6 +9,7 @@
 ## fabric 2.4.3环境搭建过程
 
 ### 目录结构
+
 ```text
 fabric2.4.3-demo
 ├── channel-artifacts
@@ -230,7 +231,6 @@ fabric2.4.3-demo
 └── scripts
 ```
 
-
 ### 步骤
 
 ```shell
@@ -260,7 +260,7 @@ PeerOrgs:
   Count: 1
   Users:
   Count: 1
-    - Name: Org2
+           - Name: Org2
   Domain: org2.jianlu.com
   EnableNodeOUs: true
   Template:
@@ -569,7 +569,6 @@ services:
       - fabric
 ```
 
-
 ```shell
 # 创建core.yaml
 mkdir peercfg
@@ -577,6 +576,7 @@ touch peercfg/core.yaml
 ```
 
 core.yaml
+
 ```yaml
 # Copyright IBM Corp. All Rights Reserved.
 #
@@ -1359,7 +1359,6 @@ metrics:
 
 ```
 
-
 ```shell
 # 启动容器
 docker-compose -f compose/docker-compose.yaml up -d
@@ -1690,8 +1689,6 @@ Status: 201
 # 2. peer channel join -b ./channel-artifacts/mychannel.block
 
 ```
-
-
 
 ## other context
 

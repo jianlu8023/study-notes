@@ -294,6 +294,7 @@ func postParam(name string, str string) (returns string) {
 ```
 
 #### 模板方式返回
+
 ```go
 package controller
 

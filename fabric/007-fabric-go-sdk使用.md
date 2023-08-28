@@ -21,7 +21,6 @@
 
 [comment]: <> (https://blog.csdn.net/qq_28052455/article/details/130218103)
 
-
 ```go
 package example
 
@@ -30,7 +29,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
-	
+
 	"github.com/hyperledger/fabric-sdk-go/pkg/gateway"
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
 )

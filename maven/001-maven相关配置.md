@@ -15,7 +15,7 @@ https://repo.huaweicloud.com/apache/maven/
 
 #### 图片流程
 
-![maven-img-1.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-1.png)
+![maven-img-1.png](../img/maven-img-1.png)
 
 ### 解压配置maven
 
@@ -29,9 +29,9 @@ https://repo.huaweicloud.com/apache/maven/
 #### 图片流程
 
 3</br>
-![maven-img-2.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-2.png)
+![maven-img-2.png](../img/maven-img-2.png)
 </br>
-![maven-img-3.png](https://github.com/jianlu8023/study-notes/blob/master/img/maven-img-3.png)
+![maven-img-3.png](../img/maven-img-3.png)
 
 ### 修改maven配置文件
 
@@ -43,8 +43,8 @@ https://repo.huaweicloud.com/apache/maven/
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns = "http://maven.apache.org/SETTINGS/1.2.0" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation = "http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
     <!--<localRepository>这里输入repo文件夹路径，即本地maven仓库</localRepository>-->
     <localRepository>F:\repo</localRepository>
     <pluginGroups>

@@ -96,7 +96,7 @@ cp ../../../../fabric-gm/release/linux-amd64/bin/* ./
 cp ../../../fabric-ca-gm/release/linux-amd64/bin/* ./ 
 ```
 
-检查 
+检查
 
 ```text
 检查项1
