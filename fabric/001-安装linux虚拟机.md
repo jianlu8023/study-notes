@@ -72,7 +72,7 @@
 其余基本下一步
 ```
 
-* ![img.png](https://github.com/jianlu8023/raw/study-notes/blob/master/img/img.png)
+* ![img.png](https://gitee.com/jianlu8023/study-notes/raw/master/img/img.png)
 * ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_1.png)
 * ![img.png](https://github.com/jianlu8023/study-notes/blob/master/img/img_2.png)
 * ![](https://github.com/jianlu8023/study-notes/blob/master/img/img_3.png)
