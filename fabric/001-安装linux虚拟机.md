@@ -108,7 +108,7 @@
 * 终端执行下方命令
 
 ```shell
-apt install open-vm-tools vim net-tools
+apt install open-vm-other vim net-other
 vi /etc/ssh/sshd_config
 ```
 

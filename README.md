@@ -34,24 +34,26 @@
 
 ## passage （文章链接）
 
-> * [文章连接](./passage/001-文章链接.md)
+> * [文章连接](other/001-文章链接.md)
 
 ## quest （问题解决）
 
 > * [go mod失败问题](./go/003-gomod失败.md) （checksum相关）
-> * [plantUml问题](./quest/001-plantUml-缺少工具.md) （idea插件无法正常使用问题）
-> * [ubuntu虚拟机配置静态ip](./quest/003-ubuntu20.04虚拟机配置静态ip及dns服务.md)（虚拟机在局域网访问）
+> * [plantUml问题](other/001-plantUml-缺少工具.md) （idea插件无法正常使用问题）
+> * [ubuntu虚拟机配置静态ip](linux/002-ubuntu20.04虚拟机配置静态ip及dns服务.md)（虚拟机在局域网访问）
 
 ## tools （工具推荐配置教程）
 
-> * [plantUml工具](./tools/001-plantUml.md)（idea中画图插件）
-> * [zsh工具](./tools/002-zsh配置.md)（ubuntu终端美化）
-> * [定时更新hosts](./tools/003-定时更新hosts.md)（ubuntu定时更新hosts上github）
+> * [plantUml工具](other/001-plantUml.md)（idea中画图插件）
+> * [zsh工具](other/002-zsh配置.md)（ubuntu终端美化）
+> * [定时更新hosts](other/003-定时更新hosts.md)（ubuntu定时更新hosts上github）
 > * [goanno工具](./go/004-go语言注释代码工具.md)（go语言注释工具）
 
 
 ## docker
 
-* [基础服务容器编排](./tools/006-基础服务容器部署.md) mysql、redis、nginx服务
+> * [基础服务容器编排](docker/002-基础服务容器部署.md) mysql、redis、nginx服务
+> * [docker搭建私有镜像](./docker/001-docker私有镜像搭建.md)
+
 
 

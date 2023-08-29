@@ -39,4 +39,4 @@ mvnw.cmd
 pom.xml
 
 
-!standard/build
+!go/standard/build

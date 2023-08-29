@@ -967,7 +967,7 @@ peer:
     # Type for the local MSP - by default it's of type bccsp
     localMspType: bccsp
 
-    # Used with Go profiling tools only in none production environment. In
+    # Used with Go profiling other only in none production environment. In
     # production, it should be disabled (eg enabled: false)
     profile:
         enabled:     false
@@ -1150,7 +1150,7 @@ chaincode:
 
     java:
         # This is an image based on java:openjdk-8 with addition compiler
-        # tools added for java shim layer packaging.
+        # other added for java shim layer packaging.
         # This image is packed with shim layer libraries that are necessary
         # for Java chaincode runtime.
         runtime: $(DOCKER_NS)/fabric-javaenv:$(TWO_DIGIT_VERSION)
