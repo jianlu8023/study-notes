@@ -329,7 +329,7 @@ services:
       - 7053:7053
       - 9443:9443
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - /var/run/docker.sock:/host/var/run/docker.sock
       # msp tls
       - ../organizations/ordererOrganizations/jianlu.com/orderers/orderer.jianlu.com/msp:/var/hyperledger/orderer/msp
@@ -381,7 +381,7 @@ services:
       - 7051:7051
       - 9444:9443
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - /var/run/docker.sock:/host/var/run/docker.sock
       - ../organizations/peerOrganizations/org1.jianlu.com/peers/peer0.org1.jianlu.com:/etc/hyperledger/fabric
       - peer0.org1.jianlu.com:/var/hyperledger/production
@@ -433,7 +433,7 @@ services:
       - 9051:9051
       - 9445:9443
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - /var/run/docker.sock:/host/var/run/docker.sock
       - ../organizations/peerOrganizations/org2.jianlu.com/peers/peer0.org2.jianlu.com:/etc/hyperledger/fabric
       - peer0.org2.jianlu.com:/var/hyperledger/production
@@ -463,7 +463,7 @@ services:
       - "9054:9054"
       - "19054:19054"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - ../organizations/ordererOrganizations/jianlu.com/ca:/etc/hyperledger/fabric-ca-server
   ca.org1.jianlu.com:
     image: hyperledger/fabric-ca:1.5.2
@@ -486,7 +486,7 @@ services:
       - "7054:7054"
       - "17054:17054"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - ../organizations/peerOrganizations/org1.jianlu.com/ca:/etc/hyperledger/fabric-ca-server
   ca.org2.jianlu.com:
     image: hyperledger/fabric-ca:1.5.2
@@ -509,7 +509,7 @@ services:
       - "8054:8054"
       - "18054:18054"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - ../organizations/peerOrganizations/org2.jianlu.com/ca:/etc/hyperledger/fabric-ca-server
   cli:
     container_name: cli
