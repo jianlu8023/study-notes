@@ -53,7 +53,7 @@
 ## docker
 
 > * [基础服务容器编排](docker/002-基础服务容器部署.md) mysql、redis、nginx服务
-> * [docker搭建私有镜像](./docker/001-docker私有镜像搭建.md)
+> * [docker搭建私有镜像](./docker/001-docker搭建私有镜像.md)
 
 
 
