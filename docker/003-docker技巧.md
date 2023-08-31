@@ -79,4 +79,58 @@ chmod +x *.sh
 
 <a id="2"></a>
 
-## 技巧2
+## 批量导入docker镜像
+
+0. 准备要导入的镜像的tarball
+1. 创建load.sh
+
+```shell
+touch load.sh
+```
+
+2. 将下方shell脚本输入到load.sh中
+
+```shell
+#bin/bash
+
+folders=""
+echo "load image start..."
+
+if [[ -z  $1 ]]; then
+    folders="$1"
+else
+  folders="$(pwd)"
+fi
+
+files=`ls $folders`
+
+file_type='.tar'
+for file in $files ; do
+  if [[ $file =~ $file_type ]]; then
+    image_origin_name_tar=`basename $file`
+    docker image load -i $image_origin_name_tar
+  fi
+  sleep 1
+done
+
+```
+
+3. 加权
+
+```shell
+chmod +x *.sh
+```
+
+4. 执行
+
+```shell
+# 二选一
+bash load.sh
+
+./load.sh
+```
+
+
+## 技巧3
+
+docker rmi $(docker images --format "{{.Repository}}:{{.Tag}}" | grep 'gcbaas-gm' )
