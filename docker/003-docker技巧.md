@@ -43,7 +43,7 @@ for i in $docker_rmi ;do
   echo "current image: " +$i
   set -x
   docker_name=$(echo $i | sed -e 's/gcbaas-gm\/fabric/fabric/g')
-  docker image save $i -o './'$docker_name'.tar'
+  docker image save $i -o './'""$docker_name""'.tar'
   { set +x; } 2>/dev/null
   sleep 5
 done
