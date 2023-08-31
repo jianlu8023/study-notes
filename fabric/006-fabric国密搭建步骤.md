@@ -1,6 +1,6 @@
 <a id = "top"></a>
 
-# hyperledger fabric 2.4 国密版本搭建流程
+# hyperledger fabric 2.2.5 国密版本搭建流程
 
 ----
 
@@ -43,9 +43,13 @@ docker-compose -v # 查看docker-compose版本
 
 1. 克隆国密2.4版本仓库
 
+选择最下方的clone代码
+
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/
 git clone https://ghproxy.com/https://github.com/hxx258456/fabric-gm.git
+
+git clone -b v0.0.6 https://gitee.com/zhaochuninhefei/fabric-gm.git
 ```
 
 2. 重构fabric-docker镜像
@@ -59,9 +63,13 @@ make docker
 
 3. 克隆国密版本ca
 
+选择最下方的clone代码
+
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm
 git clone https://ghproxy.com/https://github.com/hxx258456/fabric-ca-gm.git
+
+git clone -b v0.0.2 https://gitee.com/zhaochuninhefei/fabric-ca-gm.git
 ```
 
 4. 重构ca-docker镜像
@@ -75,9 +83,13 @@ make docker
 
 5. 克隆fabric-sample
 
+选择最下方的clone代码
+
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts
 git clone https://ghproxy.com/https://github.com/hxx258456/fabric-samples-gm.git
+
+git clone https://gitee.com/zhaochuninhefei/fabric-samples-gm.git
 ```
 
 <a id = "3"></a>
