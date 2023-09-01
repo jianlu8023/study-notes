@@ -41,6 +41,7 @@
 > * [go mod失败问题](./go/003-gomod失败.md) （checksum相关）
 > * [plantUml问题](other/001-plantUml-缺少工具.md) （idea插件无法正常使用问题）
 > * [ubuntu虚拟机配置静态ip](linux/002-ubuntu20.04虚拟机配置静态ip及dns服务.md)（虚拟机在局域网访问）
+> * [go语言低版本环境使用低版本包](./go/007-go1.16使用golang.x相关包.md)
 
 ## tools （工具推荐配置教程）
 
