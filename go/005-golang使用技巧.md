@@ -122,4 +122,30 @@ fmt.Println("runtime.Caller(0): ", file)
 
 ```
 
+## 快速读取文件内容
+
+[comment]: <> (//go:embed)
+
+```go
+
+package main
+ 
+import (
+ _ "embed"
+ "fmt"
+ "strings"
+)
+ 
+var (
+ Version string = strings.TrimSpace(version)
+ //go:embed version.txt
+ version string
+)
+ 
+func main() {
+ fmt.Printf("Version %q\n", Version)
+}
+
+```
+
 [回到顶部](#top)
