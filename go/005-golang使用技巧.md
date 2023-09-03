@@ -12,6 +12,11 @@
 * [go测试](#2)
 * [go mod edit 用法](#3)
 * [获取当前项目根目录](#4)
+* [go embed](#5)
+* [获取本机ip](#6)
+
+
+
 
 <a id="1"></a>
 
@@ -122,6 +127,8 @@ fmt.Println("runtime.Caller(0): ", file)
 
 ```
 
+<a id="5"></a>
+
 ## 快速读取文件内容
 
 [comment]: <> (//go:embed)
@@ -129,23 +136,73 @@ fmt.Println("runtime.Caller(0): ", file)
 ```go
 
 package main
- 
+
 import (
- _ "embed"
- "fmt"
- "strings"
+	_ "embed"
+	"fmt"
+	"strings"
 )
- 
+
 var (
- Version string = strings.TrimSpace(version)
- //go:embed version.txt
- version string
+	Version string = strings.TrimSpace(version)
+	//go:embed 005-golang使用技巧.md
+	version string
 )
- 
+
 func main() {
- fmt.Printf("Version %q\n", Version)
+	fmt.Printf("Version %q\n", Version)
 }
 
+```
+
+<a id="6"></a>
+
+## 获取本机ip
+
+```go
+package main
+
+import (
+	"fmt"
+	"net"
+)
+
+func GetIp() {
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		panic(err)
+	}
+	for _, iface := range interfaces {
+		if iface.Flags&net.FlagUp == 0 {
+			continue // interface down
+		}
+		if iface.Flags&net.FlagLoopback != 0 {
+			continue // loopback interface
+		}
+		addrs, err := iface.Addrs()
+		if err != nil {
+			fmt.Println(err)
+		}
+		for _, addr := range addrs {
+			var ip net.IP
+			switch v := addr.(type) {
+			case *net.IPNet:
+				ip = v.IP
+			case *net.IPAddr:
+				ip = v.IP
+			}
+			if ip == nil || ip.IsLoopback() {
+				continue
+			}
+			ip = ip.To4()
+			if ip == nil {
+				continue // not an ipv4 address
+			}
+			fmt.Println("ip: ", ip.String(), "mac: ", iface.HardwareAddr.String())
+		}
+	}
+
+}
 ```
 
 [回到顶部](#top)
