@@ -423,3 +423,11 @@ services:
     networks:
       - basic
 ```
+
+## wire 使用
+
+[comment]: <> (https://github.com/google/wire)
+
+[comment]: <> (https://zhuanlan.zhihu.com/p/338926709)
+
+
