@@ -26,30 +26,26 @@ cd ~/docker
 1. 根据需求改写下方shell
 
 ```shell
-# /bin/bash
+#bin/bash
 
-ehco "save image start..."
+ehco "start..."
 
-# 通用
-# docker_rmi=$(docker images --format "{{.Repository}}:{{.Tag}}")
+key=""
 
-# 指定某一类
-# docker_rmi=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "此处填写导出镜像关键词")
+if [[ ! -z $1  ]]; then
+	key="$1"
+fi
 
-# 举例 导出hyperledger fabric国密的相关镜像
-
-docker_rmi=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "gcbaas-gm")
+docker_rmi=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "$key")
 
 for i in $docker_rmi ;do
   echo "current image: " +$i
   set -x
-  docker_name=$(echo $i | sed -e 's/gcbaas-gm\/fabric/fabric/g')
+  docker_name=$(echo $i | sed -e 's/\//-/g')
   docker image save $i -o './'""$docker_name""'.tar'
   { set +x; } 2>/dev/null
-  sleep 5
+  sleep 1
 done
-
-echo "save image finish..."
 ```
 
 2. 创建save.sh
@@ -97,8 +93,8 @@ touch load.sh
 
 folders=""
 echo "load image start..."
-
-if [[ -z  $1 ]]; then
+# $1 不为 0
+if [[ ! -z  $1 ]]; then
     folders="$1"
 else
   folders="$(pwd)"
