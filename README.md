@@ -39,15 +39,15 @@
 ## quest （问题解决）
 
 > * [go mod失败问题](./go/003-gomod失败.md) （checksum相关）
-> * [plantUml问题](other/001-plantUml-缺少工具.md) （idea插件无法正常使用问题）
+> * [plantUml问题](other/002-plantUml-缺少工具.md) （idea插件无法正常使用问题）
 > * [ubuntu虚拟机配置静态ip](linux/002-ubuntu20.04虚拟机配置静态ip及dns服务.md)（虚拟机在局域网访问）
 > * [go语言低版本环境使用低版本包](./go/007-go1.16使用golang.x相关包.md)
 
 ## tools （工具推荐配置教程）
 
 > * [plantUml工具](other/001-plantUml.md)（idea中画图插件）
-> * [zsh工具](other/002-zsh配置.md)（ubuntu终端美化）
-> * [定时更新hosts](other/003-定时更新hosts.md)（ubuntu定时更新hosts上github）
+> * [zsh工具](other/003-zsh配置.md)（ubuntu终端美化）
+> * [定时更新hosts](other/004-定时更新hosts.md)（ubuntu定时更新hosts上github）
 > * [goanno工具](./go/004-go语言注释代码工具.md)（go语言注释工具）
 
 
@@ -58,3 +58,6 @@
 > * [docker技巧](./docker/003-docker技巧.md)
 
 
+## rpc
+
+> * [grpc使用demo](./rpc/001-grpc使用.md)
