@@ -132,3 +132,6 @@ bash load.sh
 ## 技巧3
 
 docker rmi $(docker images --format "{{.Repository}}:{{.Tag}}" | grep 'gcbaas-gm' )
+
+
+docker restart `docker ps -a -f "status=exited" --format "{{.ID}}"`
