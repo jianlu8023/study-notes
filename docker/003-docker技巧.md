@@ -77,6 +77,7 @@ chmod +x *.sh
 <a id="2"></a>
 
 <a id="2"></a>
+
 ## 批量导入docker镜像
 
 0. 准备要导入的镜像的tarball
@@ -128,10 +129,96 @@ bash load.sh
 ./load.sh
 ```
 
+## 限制容器占用资源
 
-## 技巧3
+```yaml
+version: "3.8"
+networks:
+  basic:
+    name: basic
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7.18
+    container_name: mysql
+    # 此部分
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 100M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
+    # 此部分
+    networks:
+      - basic
+    volumes:
+      - ./mysql/mydir:/mydir
+      - ./mysql/datadir:/var/lib/mysql
+      - ./mysql/conf/my.cnf:/etc/my.cnf
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+      - ./mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=basic"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 3306:3306
+```
+
+[comment]: <> (https://blog.csdn.net/qq_36148847/article/details/79427878)
+
+## 技巧4
 
 docker rmi $(docker images --format "{{.Repository}}:{{.Tag}}" | grep 'gcbaas-gm' )
 
-
 docker restart `docker ps -a -f "status=exited" --format "{{.ID}}"`
+
+## 制作基于alpine镜像的mysql镜像
+
+```dockerfile
+# 基镜像
+# 基础镜像
+FROM alpine:3.18
+
+# 设置国科大镜像
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories \
+    && apk update \
+    && apk upgrade
+
+# 安装 mysql和musql客户端
+RUN apk add mysql mysql-client
+
+# 创建目录，作为数据库存储路径
+RUN mkdir -p /var/lib/mysql
+
+
+RUN mkdir /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    mkdir /docker-entrypoint-initdb.d
+
+RUN echo "mysqld --user=mysql" > /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN ln -s /usr/local/bin/entrypoint.sh /
+
+
+
+RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+VOLUME /var/lib/mysql
+
+EXPOSE 3306
+
+WORKDIR /
+
+ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["mysqld", "--user=mysql"]
+
+
+```
+
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/docker-library/mysql/master/5.7/docker-entrypoint.sh >
+docker-entrypoint.sh
