@@ -50,14 +50,16 @@
 > * [定时更新hosts](other/004-定时更新hosts.md)（ubuntu定时更新hosts上github）
 > * [goanno工具](./go/004-go语言注释代码工具.md)（go语言注释工具）
 
-
 ## docker
 
 > * [基础服务容器编排](docker/002-基础服务容器部署.md) mysql、redis、nginx服务
 > * [docker搭建私有镜像](./docker/001-docker搭建私有镜像.md)
 > * [docker技巧](./docker/003-docker技巧.md)
 
-
 ## rpc
 
 > * [grpc使用demo](./rpc/001-grpc使用.md)
+
+## shell
+
+> * [shell技巧](./linux/003-shell技巧.md)
