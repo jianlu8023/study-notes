@@ -14,9 +14,9 @@
 * [获取当前项目根目录](#4)
 * [go embed](#5)
 * [获取本机ip](#6)
-
-
-
+* [fasthttp库使用](#7)
+* [uuid库使用](#8)
+* [fastjson库使用](#9)
 
 <a id="1"></a>
 
@@ -204,5 +204,25 @@ func GetIp() {
 
 }
 ```
+
+<a id="7"></a>
+
+## fasthttp库使用
+
+[comment]: <> (https://cloud.tencent.com/developer/article/1839675)
+
+
+<a id="8"></a>
+
+## uuid库使用
+
+github.com/google/uuid
+
+<a id="9"></a>
+
+## fastjson库使用
+
+[comment]: <> (https://cloud.tencent.com/developer/article/1827699)
+
 
 [回到顶部](#top)
