@@ -42,6 +42,8 @@
 > * [plantUml问题](other/002-plantUml-缺少工具.md) （idea插件无法正常使用问题）
 > * [ubuntu虚拟机配置静态ip](linux/002-ubuntu20.04虚拟机配置静态ip及dns服务.md)（虚拟机在局域网访问）
 > * [go语言低版本环境使用低版本包](./go/007-go1.16使用golang.x相关包.md)
+> * [ubuntu虚拟机扩展磁盘](./linux/004-虚拟机扩展磁盘.md)
+> * [github-action使用](./other/006-github-action使用.md)
 
 ## tools （工具推荐配置教程）
 
