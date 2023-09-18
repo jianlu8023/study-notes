@@ -17,6 +17,7 @@
 * [fasthttp库使用](#7)
 * [uuid库使用](#8)
 * [fastjson库使用](#9)
+* [fastjson+fasthttp的demo](#10)
 
 <a id="1"></a>
 
@@ -224,5 +225,64 @@ github.com/google/uuid
 
 [comment]: <> (https://cloud.tencent.com/developer/article/1827699)
 
+
+<a id="10"></a>
+
+### fastjson+fasthttp的demo
+
+```go
+package test
+
+import (
+	"encoding/base64"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+
+	"github.com/valyala/fasthttp"
+	"github.com/valyala/fastjson"
+)
+
+func TestFastHttp(t *testing.T) {
+
+	var p fastjson.Parser
+	code, body, err := fasthttp.Post(nil, "http://172.25.138.35:9999/chainmaker?cmb=GetCaptcha", nil)
+	if err != nil {
+		fmt.Println(fmt.Errorf("err:%s", err))
+	}
+	if code == fasthttp.StatusOK {
+		fmt.Println(string(body))
+		bytes, _ := p.ParseBytes(body)
+		get := bytes.Get("Response").Get("Data").Get("Content")
+
+		split := strings.Split(get.String(), ",")
+
+		if len(split) != 2 {
+			fmt.Println(fmt.Errorf("无效的base64字符串"))
+			return
+		}
+		decodeString, err := base64.StdEncoding.DecodeString(split[1])
+		if err != nil {
+			fmt.Println(fmt.Errorf("解析base64失败:%s", err))
+		}
+
+		wd, _ := os.Getwd()
+		img := filepath.Join(wd, "out.png")
+
+		err = ioutil.WriteFile(img, decodeString, 0644)
+		if err != nil {
+			fmt.Println(fmt.Errorf("输入图片过程中出现错误:%s", err))
+		}
+
+		fmt.Println(get)
+	} else {
+		fmt.Println(fmt.Errorf("code != fasthttp.StatusOK"))
+	}
+}
+
+```
 
 [回到顶部](#top)
