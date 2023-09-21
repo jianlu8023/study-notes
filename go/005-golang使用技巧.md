@@ -385,7 +385,6 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func
 func main() {
 	login := `{"code":200,"msg":"The request service returned successfully","data":{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJZCI6ImFkbWluMSIsIkFwcFJvbGUiOjEsImV4cCI6MTY5NTEyNDg0NX0.9waSPKGT7Slj__zVXf778Ce-CXCcs2LEQV4B4P3Sf_Q","expiressIn":7200}}`
 
