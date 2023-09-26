@@ -2,7 +2,7 @@
 
 ------
 
-## fabric （hyperledger fabric）
+## fabric (hyperledger fabric)
 
 > * [安装linux](./fabric/001-安装linux虚拟机.md)
 > * [配置开发基础环境](./fabric/002-配置开发基础环境.md)（go | java | docker | docker-compose git）
@@ -13,7 +13,7 @@
 > * [go-sdk使用](./fabric/007-fabric-go-sdk使用.md)
 > * [golang智能合约](./fabric/008-fabric智能合约开发流程.md)
 
-## fabric-ca （hyperledger fabric ca）
+## fabric-ca (hyperledger fabric ca)
 
 > * [搭建多级ca环境](./fabric-ca/001-多级CA.md)
 
@@ -51,6 +51,7 @@
 > * [zsh工具](other/003-zsh配置.md)（ubuntu终端美化）
 > * [定时更新hosts](other/004-定时更新hosts.md)（ubuntu定时更新hosts上github）
 > * [goanno工具](./go/004-go语言注释代码工具.md)（go语言注释工具）
+> * [格式化shell脚本](./other/007-Jetbrains中Shfmt配置.md)(JetBrains系列软件中如何格式化shell脚本)
 
 ## docker
 
