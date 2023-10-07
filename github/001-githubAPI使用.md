@@ -328,7 +328,7 @@ var (
 // @param repositoryName:
 // @param token:
 func DeleteARepository(owner, repositoryName, token string) {
-	authorization := fmt.Sprintf("token %s", token)
+	authorization := fmt.Sprintf("Bearer %s", token)
 	url := fmt.Sprintf("https://api.github.com/repos/%s/%s", owner, repositoryName)
 	response, err := client.R().SetHeaders(map[string]string{
 		"Authorization": authorization,
@@ -341,7 +341,6 @@ func DeleteARepository(owner, repositoryName, token string) {
 
 }
 
-
 // main
 // @Description: 
 //
@@ -350,9 +349,9 @@ func DeleteARepository(owner, repositoryName, token string) {
 //
 //
 func main() {
-owner := "jianlu8023"
-repository := "demo"
-token := "token"
-DeleteARepository(owner, repository, token)
+	owner := "jianlu8023"
+	repository := "demo"
+	token := "token"
+	DeleteARepository(owner, repository, token)
 }
 ```
