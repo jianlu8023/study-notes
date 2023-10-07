@@ -1,5 +1,30 @@
 # githubAPI 使用
 
+* ChatGPT 回答
+
+```text
+GitHub 提供了强大的 API，允许你通过编程方式访问和操作 GitHub 上的资源，如存储库、问题、合并请求等。GitHub 的 API 文档可以在官方文档中找到，以下是一些有用的链接和基本信息：
+
+	1.	GitHub REST API 文档:
+	•	官方 REST API 文档：https://docs.github.com/en/rest
+	•	REST API 入门指南：https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api
+	2.	GitHub GraphQL API 文档:
+	•	官方 GraphQL API 文档：https://docs.github.com/en/graphql
+	•	GraphQL API 入门指南：https://docs.github.com/en/graphql/guides/introduction-to-graphql
+	3.	GitHub API 认证:
+	•	GitHub API 使用 OAuth2 认证，你需要生成访问令牌（Access Token）来进行身份验证。如何创建令牌请参考：https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+	4.	示例代码:
+	•	GitHub 提供了多种编程语言的示例代码，帮助你入门和使用他们的 API。这些示例代码可以在他们的 GitHub 存储库中找到：https://github.com/github
+	5.	API 访问限制:
+	•	注意，GitHub 对 API 的使用有一些限制，包括每小时的请求数限制。查看文档以了解详细信息。
+	6.	API 终结点:
+	•	GitHub API 的终结点 URL 可以通过拼接到 https://api.github.com 来访问。例如，获取某个用户信息的终结点是 https://api.github.com/users/username。
+
+这些文档和资源应该足够帮助你开始使用 GitHub API 进行自动化的开发和集成。如果你有特定的问题或需要更详细的信息，请查阅官方文档或提出具体问题。
+```
+
+[comment]: <GitHubAPI文档> (https://docs.github.com/zh/rest)
+
 ## 查询拥有的仓库
 
 * 仓库结构
@@ -199,3 +224,135 @@ func main() {
 
 ## 创建仓库
 
+* 使用golang调用demo
+
+```go
+package create
+
+import (
+	"fmt"
+
+	"github.com/go-resty/resty/v2"
+)
+
+// CreateRepository
+// @Description:
+// @Author ght
+// @Date 2023-10-07 12:52:14
+type CreateRepository struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Private     bool   `json:"private"`
+}
+
+var (
+	client = resty.New()
+)
+
+// CreateARepository
+// @Description: CreateARepository
+// @author ght
+// @date 2023-10-07 12:57:22
+// @param name:
+// @param description:
+// @param token:
+// @param private:
+func CreateARepository(name, description, token string, private bool) {
+	// GitHub API endpoint
+	url := "https://api.github.com/user/repos"
+
+	// Create repository struct
+	repo := CreateRepository{
+		Name:        name,
+		Description: description,
+		Private:     private,
+	}
+
+	authorization := fmt.Sprintf("%s %s", "Bearer", token)
+	fmt.Println(authorization)
+	response, err := client.R().SetHeaders(map[string]string{
+		"Content-Type":  "application/json",
+		"Authorization": authorization,
+	}).SetBody(repo).Post(url)
+
+	if err != nil {
+		fmt.Println("Request failed:", err)
+		return
+	}
+
+	// Print response status code
+	fmt.Println("Response status code:", response.StatusCode())
+
+}
+
+// main
+// @Description: 
+//
+// @author ght
+// @date 2023-10-07 13:19:53
+//
+//
+func main() {
+	name := "demo"
+	description := "这是一个使用github api创建仓库的demo"
+	private := false
+	token := "token"
+	CreateARepository(name, description, token, private)
+}
+```
+
+## 删除仓库
+
+* 使用golang调用demo
+
+```go
+
+package delete
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/go-resty/resty/v2"
+)
+
+var (
+	client = resty.New()
+)
+
+// DeleteARepository
+// @Description: DeleteARepository
+// @author ght
+// @date 2023-10-07 13:07:19
+// @param owner:
+// @param repositoryName:
+// @param token:
+func DeleteARepository(owner, repositoryName, token string) {
+	authorization := fmt.Sprintf("token %s", token)
+	url := fmt.Sprintf("https://api.github.com/repos/%s/%s", owner, repositoryName)
+	response, err := client.R().SetHeaders(map[string]string{
+		"Authorization": authorization,
+	}).Delete(url)
+	if err != nil {
+		fmt.Println(fmt.Sprintf("err:%s", err))
+		os.Exit(1)
+	}
+	fmt.Println(response.StatusCode())
+
+}
+
+
+// main
+// @Description: 
+//
+// @author ght
+// @date 2023-10-07 13:20:51
+//
+//
+func main() {
+owner := "jianlu8023"
+repository := "demo"
+token := "token"
+DeleteARepository(owner, repository, token)
+}
+```
