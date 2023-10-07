@@ -52,6 +52,7 @@
 > * [定时更新hosts](other/004-定时更新hosts.md)（ubuntu定时更新hosts上github）
 > * [goanno工具](./go/004-go语言注释代码工具.md)（go语言注释工具）
 > * [格式化shell脚本](./other/007-Jetbrains中Shfmt配置.md)(JetBrains系列软件中如何格式化shell脚本)
+> * [githubAPI使用](./github/001-githubAPI使用.md)
 
 ## docker
 
