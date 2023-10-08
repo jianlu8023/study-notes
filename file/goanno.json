@@ -1,47 +1,47 @@
 {
-  "convertSelected" : false,
-  "settingConfigs" : [
+  "convertSelected": false,
+  "settingConfigs": [
     {
-      "name" : "Normal Method",
-      "key" : "ganno.setting.config",
-      "defaultValue" : "//\n// ${function_name}\n//  @Description: ${todo}\n//  @receiver ${receiver}\n//  @param ${params}\n//  @return ${return_types}\n//",
-      "value" : "// ${function_name}\n// @Description: ${todo}\n//\n// @author ght\n// @date ${date}\n//\n// @param ${params}\n//\n// @return ${return_types}"
+      "name": "Normal Method",
+      "key": "ganno.setting.config",
+      "defaultValue": "//\n// ${function_name}\n//  @Description: ${todo}\n//  @receiver ${receiver}\n//  @param ${params}\n//  @return ${return_types}\n//",
+      "value": "// ${function_name}\n// @Description: ${function_name}\n// @author ght\n// @date ${date}\n// @param ${params}:\n// @return ${return_types}:"
     },
     {
-      "name" : "Interface",
-      "key" : "ganno.setting.config.interface",
-      "defaultValue" : "//\n//  ${interface_name}\n//  @Description: ${todo}\n//",
-      "value" : "//  ${interface_name}\n//  @Description: ${todo}\n"
+      "name": "Interface",
+      "key": "ganno.setting.config.interface",
+      "defaultValue": "//\n//  ${interface_name}\n//  @Description: ${todo}\n//",
+      "value": "// ${interface_name}\n// @Description: ${todo}\n// @author ght\n// @date ${date}\n"
     },
     {
-      "name" : "Interface Method",
-      "key" : "ganno.setting.config.interface.method",
-      "defaultValue" : "//\n// ${function_name}\n//  @Description: ${todo}\n//  @receiver ${receiver}\n//  @param ${params}\n//  @return ${return_types}\n//",
-      "value" : "// ${function_name}\n//  @Description: ${todo}\n//  \n//  @param ${params}\n//\n//  @return ${return_types}\n"
+      "name": "Interface Method",
+      "key": "ganno.setting.config.interface.method",
+      "defaultValue": "//\n// ${function_name}\n//  @Description: ${todo}\n//  @receiver ${receiver}\n//  @param ${params}\n//  @return ${return_types}\n//",
+      "value": "// ${function_name}\n// @Description: ${todo}\n// @author ght\n// @date ${date}\n// @param ${params}\n// @return ${return_types}\n"
     },
     {
-      "name" : "Struct",
-      "key" : "ganno.setting.config.struct",
-      "defaultValue" : "//\n//  ${struct_name}\n//  @Description: ${todo}\n//",
-      "value" : "// ${struct_name}\n// @Description: ${todo}\n//\n// @author ght\n// @date ${date}"
+      "name": "Struct",
+      "key": "ganno.setting.config.struct",
+      "defaultValue": "//\n//  ${struct_name}\n//  @Description: ${todo}\n//",
+      "value": "// ${struct_name}\n// @Description: ${todo}\n// @Author ght\n// @Date ${date}"
     },
     {
-      "name" : "Struct Field",
-      "key" : "ganno.setting.config.struct.field",
-      "defaultValue" : "//\n//  ${struct_field_name}\n//  @Description: ${todo}\n//",
-      "value" : "//  ${struct_field_name}\n//  @Description: ${todo}\n"
+      "name": "Struct Field",
+      "key": "ganno.setting.config.struct.field",
+      "defaultValue": "//\n//  ${struct_field_name}\n//  @Description: ${todo}\n//",
+      "value": "// ${struct_field_name}\n// @Description: ${todo}\n"
     },
     {
-      "name" : "Package",
-      "key" : "ganno.setting.config.package",
-      "defaultValue" : "// Package ${package_name}\n// @Description: ${todo}",
-      "value" : "// Package ${package_name}\n// @Description: ${todo}"
+      "name": "Package",
+      "key": "ganno.setting.config.package",
+      "defaultValue": "// Package ${package_name}\n// @Description: ${todo}",
+      "value": ""
     },
     {
-      "name" : "Other",
-      "key" : "ganno.setting.config.none",
-      "defaultValue" : "//  ${todo}",
-      "value" : "//  ${todo}"
+      "name": "Other",
+      "key": "ganno.setting.config.none",
+      "defaultValue": "//  ${todo}",
+      "value": "//  ${todo}"
     }
   ]
 }
