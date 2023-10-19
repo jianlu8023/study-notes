@@ -112,12 +112,103 @@ repeated 消息中可重复字段
 4. grpc Server 开始lis.Accept 直到stop
 
 
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"net"
+
+	pb "github.com/jianlu8023/grpc/server/proto"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+)
+
+type helloService struct {
+	pb.UnimplementedSayHelloServer
+}
+
+func (s *helloService) SayHello(ctx context.Context, request *pb.HelloRequest) (*pb.HelloResponse, error) {
+
+	fmt.Println("server: ", request.GetRequestName())
+	return &pb.HelloResponse{ResponseName: "hello : " + request.GetRequestName()}, nil
+}
+
+func NewService() *helloService {
+	return &helloService{}
+}
+
+type pingServer struct {
+	pb.UnimplementedPingServer
+}
+
+func (p *pingServer) Ping(ctx context.Context, request *pb.PingRequest) (*pb.PingResponse, error) {
+	log.Println("request: ", request.GetPint())
+	return &pb.PingResponse{Pong: "111"}, nil
+}
+
+func NewPingProtoc() *pingServer {
+	return &pingServer{}
+}
+
+func main() {
+	listen, err := net.Listen("tcp", ":9000")
+	if err != nil {
+		fmt.Println(fmt.Sprintf("err:%s", err))
+	}
+	server := grpc.NewServer()
+	pb.RegisterSayHelloServer(server, NewService())
+	pb.RegisterPingServer(server, NewPingProtoc())
+	log.Println("start grpc server on 9000")
+	reflection.Register(server)
+	err = server.Serve(listen)
+	if err != nil {
+		fmt.Println(fmt.Sprintf("err:%s", err))
+	}
+
+}
+
+```
+
+
 * 客户端
 
 1. 创建与给定目标的连接交互
 2. 创建server的客户端对象
 3. 发送rpc请求，等待同步响应，得到回调后返回响应结果
 4. 输出响应结果
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	pb "github.com/jianlu8023/grpc/server/proto"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+)
+
+func main() {
+	conn, err := grpc.Dial("127.0.0.1:9000", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		fmt.Println(fmt.Sprintf("err:%s", err))
+	}
+	defer conn.Close()
+	client := pb.NewSayHelloClient(conn)
+	response, err := client.SayHello(context.Background(), &pb.HelloRequest{RequestName: "test"})
+	if err != nil {
+		fmt.Println(fmt.Sprintf("err:%s", err))
+	}
+
+	fmt.Println(response.GetResponseName())
+}
+
+```
+
 
 ## 认证与安全传输
 
