@@ -22,6 +22,7 @@
 > 长安链
 >
 >> * [长安链学习笔记](./chainmaker/001-学习记录.md)
+>
 
 ## go
 
@@ -77,3 +78,4 @@
 > * [zsh工具](other/003-zsh配置.md)--(ubuntu终端美化)
 > * [定时更新hosts](other/004-定时更新hosts.md)--(ubuntu定时更新hosts上github)
 > * [格式化shell脚本](./other/007-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
+> * [command命令](./other/008-command记录.md)
