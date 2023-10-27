@@ -24,5 +24,5 @@ unrar e file.rar         # 解压 rar
 unzip file.zip           # 解压 zip 
 
 
-
+# https://mirrors.tuna.tsinghua.edu.cn/help/debian/
 ```
