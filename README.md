@@ -68,15 +68,17 @@
 
 ## github
 
-> * [github-action使用](./other/006-github-action使用.md)
 > * [githubAPI使用](./github/001-githubAPI使用.md)
+> * [github-action使用](github/002-github-action使用.md)
 
 ## other
 
-> * [文章连接](other/001-文章链接.md)-- 文章链接
+> * [文章连接](other/002-文章链接.md)-- 文章链接
 > * [plantUml工具](other/001-plantUml.md)--(jetbrains系列ide中画图插件)
-> * [plantUml问题](other/002-plantUml-缺少工具.md)--(jetbrains系列ide插件无法正常使用问题)
-> * [zsh工具](other/003-zsh配置.md)--(ubuntu终端美化)
-> * [定时更新hosts](other/004-定时更新hosts.md)--(ubuntu定时更新hosts上github)
-> * [格式化shell脚本](./other/007-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
-> * [command命令](./other/008-command记录.md)
+> * [plantUml问题](other/003-plantUml-缺少工具.md)--(jetbrains系列ide插件无法正常使用问题)
+> * [zsh工具](other/004-zsh配置.md)--(ubuntu终端美化)
+> * [定时更新hosts](linux/005-定时更新hosts.md)--(ubuntu定时更新hosts上github)
+> * [格式化shell脚本](./other/006-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
+> * [command命令](./other/007-command记录.md)
+
+
