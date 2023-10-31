@@ -86,5 +86,5 @@
 > * [定时更新hosts](linux/005-定时更新hosts.md)--(ubuntu定时更新hosts上github)
 > * [格式化shell脚本](./other/006-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
 > * [command命令](./other/007-command记录.md)
-
+> * [linux中jetbrains外部文件更新慢](./other/008-linux-jetbrains-external-file-changes-sync-slow.md)
 
