@@ -57,6 +57,12 @@
 
 > * [grpc使用demo](./rpc/001-grpc使用.md)
 
+## p2p
+
+### libp2p
+
+> * [go-libp2p学习](./p2p/libp2p/001-go-libp2p学习.md)
+
 ## shell
 
 > * [shell技巧](./linux/003-shell技巧.md)
