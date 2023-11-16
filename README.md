@@ -38,6 +38,7 @@
 ## java
 
 > * [springboot项目打包docker运行](./java/001-springboot打包.md)
+> * [datafaker库使用](./java/002-datafaker库使用.md)--(造假数据)
 
 ## makefile
 
