@@ -65,6 +65,11 @@
 
 > * [go-libp2p学习](./p2p/libp2p/001-go-libp2p学习.md)
 
+## ipfs
+
+> * [ipfs使用docker部署](./ipfs/001-ipfs打镜像.md)
+> * [ipfs生成swarm.key](./ipfs/002-ipfs-swarmkey生成.md)
+
 ## shell
 
 > * [shell技巧](./linux/003-shell技巧.md)
