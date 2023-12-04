@@ -40,6 +40,7 @@
 > * [springboot项目打包docker运行](./java/001-springboot打包.md)
 > * [datafaker库使用](./java/002-datafaker库使用.md)--(造假数据)
 > * [mybatis-plus注入InsertBatchSomeColumn实现批量上传](./java/003-Mybatis-plus注入InsertBatchSomeColumn教程.md)
+> * [application.yaml|logback.xml](./java/004-springboot项目配置.md)
 
 ## makefile
 
