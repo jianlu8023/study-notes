@@ -12,9 +12,9 @@
 
 > JetBrains系列IDE软件
 >
->> ![](../img/MyBatisX-001.png)
+>> ![](../img/mybatis/MyBatisX-001.png)
 >
->> ![](../img/MyBatisX-002.png)
+>> ![](../img/mybatis/MyBatisX-002.png)
 
 3. 选择要逆向生成的表
 
@@ -22,7 +22,7 @@
 >
 > 在user表右键
 >
->> ![](../img/MyBatisX-003.png)
+>> ![](../img/mybatis/MyBatisX-003.png)
 >
 > 选择MybatisX-Generator
 >
@@ -33,7 +33,7 @@
 > 4 extra class suffix 实体类后缀 如 Entity</br>
 > 5 class name strategy 选择camel / same as tablename</br>
 >
->> ![](../img/MyBatisX-004.png)
+>> ![](../img/mybatis/MyBatisX-004.png)
 >
 >  点击下一步
 >
@@ -41,6 +41,6 @@
 > 1 annotation 注解类型 按需选</br>
 > 2 options 选项 按需选</br>
 > 3 template 模板 按需选</br>
->> ![](../img/MyBatisX-005.png)
+>> ![](../img/mybatis/MyBatisX-005.png)
 >
 > 点击finish

@@ -50,20 +50,20 @@
 
 [comment]: <> (https://github.com/jianlu8023/study-notes/blob/master/img/img.png)
 
-* ![img.png](../img/img.png)
-* ![img.png](../img/img_1.png)
-* ![img.png](../img/img_2.png)
-* ![](../img/img_3.png)
-* ![](../img/img_4.png)
-* ![](../img/img_5.png)
-* ![](../img/img_6.png)
-* ![](../img/img_7.png)
-* ![](../img/img_8.png)
-* ![](../img/img_9.png)
-* ![](../img/img_10.png)
-* ![](../img/img_11.png)
-* ![](../img/img_12.png)
-* ![](../img/img_13.png)
+* ![img.png](../img/linux/install/desktop/install-001.png)
+* ![img.png](../img/linux/install/desktop/install-002.png)
+* ![img.png](../img/linux/install/desktop/install-003.png)
+* ![](../img/linux/install/desktop/install-004.png)
+* ![](../img/linux/install/desktop/install-005.png)
+* ![](../img/linux/install/desktop/install-006.png)
+* ![](../img/linux/install/desktop/install-007.png)
+* ![](../img/linux/install/desktop/install-008.png)
+* ![](../img/linux/install/desktop/install-009.png)
+* ![](../img/linux/install/desktop/install-010.png)
+* ![](../img/linux/install/desktop/install-011.png)
+* ![](../img/linux/install/desktop/install-012.png)
+* ![](../img/linux/install/desktop/install-013.png)
+* ![](../img/linux/install/desktop/install-014.png)
 
 <a id = "3"></a>
 
@@ -76,35 +76,35 @@
 其余基本下一步
 ```
 
-* ![img.png](../img/img.png)
-* ![img.png](../img/img_1.png)
-* ![img.png](../img/img_2.png)
-* ![](../img/img_3.png)
-* ![](../img/img_4.png)
-* ![](../img/img_5.png)
-* ![](../img/img_6.png)
-* ![](../img/img_7.png)
-* ![](../img/img_8.png)
-* ![](../img/img_9.png)
-* ![](../img/img_10.png)
-* ![](../img/img_11.png)
-* ![](../img/img_12.png)
-* ![](../img/img_13.png)
+* ![img.png](../img/linux/install/desktop/install-001.png)
+* ![img.png](../img/linux/install/desktop/install-002.png)
+* ![img.png](../img/linux/install/desktop/install-003.png)
+* ![](../img/linux/install/desktop/install-004.png)
+* ![](../img/linux/install/desktop/install-005.png)
+* ![](../img/linux/install/desktop/install-006.png)
+* ![](../img/linux/install/desktop/install-007.png)
+* ![](../img/linux/install/desktop/install-008.png)
+* ![](../img/linux/install/desktop/install-009.png)
+* ![](../img/linux/install/desktop/install-010.png)
+* ![](../img/linux/install/desktop/install-011.png)
+* ![](../img/linux/install/desktop/install-012.png)
+* ![](../img/linux/install/desktop/install-013.png)
+* ![](../img/linux/install/desktop/install-014.png)
 * 启动虚拟机
-* ![](../img/img_14.png)
-* ![](../img/img_15.png)
-* ![](../img/img_16.png)
-* ![](../img/img_17.png)
-* ![](../img/img_18.png)
-* ![](../img/img_19.png)
-* ![](../img/img_20.png)
-* ![](../img/img_21.png)
-* ![](../img/img_22.png)
-* ![](../img/img_23.png)
-* ![](../img/img_24.png)
+* ![](../img/linux/install/server/install-015.png)
+* ![](../img/linux/install/server/install-016.png)
+* ![](../img/linux/install/server/install-017.png)
+* ![](../img/linux/install/server/install-018.png)
+* ![](../img/linux/install/server/install-019.png)
+* ![](../img/linux/install/server/install-020.png)
+* ![](../img/linux/install/server/install-021.png)
+* ![](../img/linux/install/server/install-022.png)
+* ![](../img/linux/install/server/install-023.png)
+* ![](../img/linux/install/server/install-024.png)
+* ![](../img/linux/install/server/install-025.png)
 * 下方图 敲击enter
-* ![](../img/img_26.png)
-* ![](../img/img_27.png)
+* ![](../img/linux/install/server/install-027.png)
+* ![](../img/linux/install/server/install-028.png)
 * 终端执行下方命令
 
 ```shell
@@ -113,7 +113,7 @@ vi /etc/ssh/sshd_config
 ```
 
 * 进行修改
-* ![](../img/img_28.png)
+* ![](../img/linux/install/server/install-029.png)
 
 ```shell
 esc
@@ -121,7 +121,7 @@ esc
 ifconfig -a
 ```
 
-* ![](../img/img_29.png)
+* ![](../img/linux/install/server/install-030.png)
 * 记录上方ip xshell 工具需使用
 
 [ ⬆ ](#top)
