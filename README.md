@@ -96,3 +96,6 @@
 > * [command命令](./other/007-command记录.md)
 > * [linux中jetbrains外部文件更新慢](./other/008-linux-jetbrains-external-file-changes-sync-slow.md)
 > * [MyBatisX使用](./other/009-MyBatisX使用.md)
+> * [直接下载windows10.iso](./other/010-卡bug从微软官方下载iso镜像.md)
+
+
