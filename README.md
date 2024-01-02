@@ -41,6 +41,7 @@
 > * [datafaker库使用](./java/002-datafaker库使用.md)--(造假数据)
 > * [mybatis-plus注入InsertBatchSomeColumn实现批量上传](./java/003-Mybatis-plus注入InsertBatchSomeColumn教程.md)
 > * [application.yaml|logback.xml](./java/004-springboot项目配置.md)
+> * [mysql读写分离](./java/005-mysql读写分离.md)
 
 ## makefile
 
