@@ -6,22 +6,22 @@
 
 > fabric (hyperledger fabric)
 >
->> * [安装linux](./fabric/001-安装linux虚拟机.md)
->> * [配置开发基础环境](./fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose git)
->> * [配置fabric环境](./fabric/003-配置fabric环境.md)--(clone fabric | pull image)
->> * [搭建fabric网络](./fabric/004-搭建fabric网络.md)--(手动搭建步骤)
->> * [安装智能合约](./fabric/005-安装智能合约.md)--(手动搭建步骤)
->> * [fabric国密](./fabric/006-fabric国密搭建步骤.md)
->> * [go-sdk使用](./fabric/007-fabric-go-sdk使用.md)
->> * [golang智能合约](./fabric/008-fabric智能合约开发流程.md)
+>> * [安装linux](blockchain/hyperledger/fabric/001-安装linux虚拟机.md)
+>> * [配置开发基础环境](blockchain/hyperledger/fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose git)
+>> * [配置fabric环境](blockchain/hyperledger/fabric/003-配置fabric环境.md)--(clone fabric | pull image)
+>> * [搭建fabric网络](blockchain/hyperledger/fabric/004-搭建fabric网络.md)--(手动搭建步骤)
+>> * [安装智能合约](blockchain/hyperledger/fabric/005-安装智能合约.md)--(手动搭建步骤)
+>> * [fabric国密](blockchain/hyperledger/fabric/006-fabric国密搭建步骤.md)
+>> * [go-sdk使用](blockchain/hyperledger/fabric/007-fabric-go-sdk使用.md)
+>> * [golang智能合约](blockchain/hyperledger/fabric/008-fabric智能合约开发流程.md)
 >
 > fabric-ca (hyperledger fabric ca)
 >
->> * [搭建多级ca环境](./fabric-ca/001-多级CA.md)
+>> * [搭建多级ca环境](blockchain/hyperledger/fabric-ca/001-多级CA.md)
 >
 > 长安链
 >
->> * [长安链学习笔记](./chainmaker/001-学习记录.md)
+>> * [长安链学习笔记](blockchain/chainmaker/001-学习记录.md)
 >
 
 ## go
