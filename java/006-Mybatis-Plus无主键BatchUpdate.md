@@ -1,16 +1,34 @@
 # Mybatis-Plus无主键BatchUpdate
 
-使用MybatisPlus中SqlHelper.saveOrUpdateBatch进行批量更新操作。
+使用MybatisPlus中SqlHelper.saveOrUpdateBatch实现根据某个或者多个非ID字段进行批量更新。
 
 mybatisPlus SqlHelper.saveOrUpdateBatch源码
+调用方法
+
+```java
+    public static <E> boolean saveOrUpdateBatch(Class<?> entityClass, Class<?> mapper, Log log, Collection<E> list, int batchSize, BiPredicate<SqlSession, E> predicate, BiConsumer<SqlSession, E> consumer) {
+        String sqlStatement = getSqlStatement(mapper, SqlMethod.INSERT_ONE);
+        return executeBatch(entityClass, log, list, batchSize, (sqlSession, entity) -> {
+            if (predicate.test(sqlSession, entity)) {
+                sqlSession.insert(sqlStatement, entity);
+            } else {
+                consumer.accept(sqlSession, entity);
+            }
+        });
+    }
+```
+
 首先调用
+
 ```java
     @Deprecated
     public static <E> boolean executeBatch(Class<?> entityClass, Log log, Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
         return executeBatch(sqlSessionFactory(entityClass), log, list, batchSize, consumer);
     }
 ```
+
 然后调用
+
 ```java
     public static <E> boolean executeBatch(SqlSessionFactory sqlSessionFactory, Log log, Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
         Assert.isFalse(batchSize < 1, "batchSize must not be less than one", new Object[0]);
@@ -33,7 +51,7 @@ mybatisPlus SqlHelper.saveOrUpdateBatch源码
 
 ```
 
-## 实例
+## 根据wrapper条件进行批量更新
 
 ExampleEntity.java
 ```java
@@ -91,7 +109,8 @@ ExampleEntityService.java
 
 ```java
 public interface ExampleEntityService extends IService<ExampleEntityEntity> {
-    Boolean updateBatchByQueryWrapper(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction);
+    Boolean updateBatch(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction);
+    Boolean updateBatchSomeColumn(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction);
 }
 ```
 
@@ -103,21 +122,19 @@ ExampleEntityServiceImpl.java
 public class ExampleEntityServiceImpl extends ServiceImpl<ExampleEntityMapper, ExampleEntity>
         implements ExampleEntityService {
 
-    /**
-     * updateBatchByQueryWrapper
-     * <p>
-     * create time: 2024/1/10 上午11:58
-     * create by: ght
-     *
-     * @param entityList    :
-     * @param queryFunction :
-     *
-     * @return Boolean
-     */
-    public Boolean updateBatchByQueryWrapper(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction) {
+    public Boolean updateBatch(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction){
+	String sqlStatement = this.getSqlStatement(SqlMethod.UPDATE);
+        return this.executeBatch(entityList, DEFAULT_BATCH_SIZE, (sqlSession, entity) -> {
+            Map<String, Object> param = CollectionUtils.newHashMapWithExpectedSize(2);
+            param.put(Constants.ENTITY, entity);
+            param.put(Constants.WRAPPER, wrapperFunction.apply(entity));
+            sqlSession.update(sqlStatement, param);
+        });
+    }
+
+    public Boolean updateBatchSomeColumn(Collection<ExampleEntity> entityList, Function<ExampleEntity, QueryWrapper<ExampleEntity>> queryFunction) {
         return SqlHelper.saveOrUpdateBatch(
-		// 这里直接传入实体class文件的原因是因为要通过反射获取实体相关变量
-		// 传入this.entityClass则传入的是动态代理后的对象 无法获取相关信息
+		// 传入this.entityClass则传入的是动态代理后的对象，不是原来的类 
 		ExampleEntity.class,
 		// 同上
                 FilerecordMapper.class,
@@ -127,6 +144,7 @@ public class ExampleEntityServiceImpl extends ServiceImpl<ExampleEntityMapper, E
 		entityList,
 		// 批次大小 此值为1000 在内部执行时会进行Math.min(entityList.size(),DEFAULT_BATCH_SIZE)
                 DEFAULT_BATCH_SIZE,
+		// 在这里随你想做什么就做什么，最后返回一个boolean类型就行了。返回的boolean用于后面判断是新增还是编辑
 		// BiPredicate 进行验证
 		// if (predicate.test(sqlSession, entity)) {
                 //     sqlSession.insert(sqlStatement, entity);
@@ -141,6 +159,7 @@ public class ExampleEntityServiceImpl extends ServiceImpl<ExampleEntityMapper, E
 		    return CollectionUtils.isEmpty(sqlSession.selectList(this.getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
                 },
 		// 更新操作 根据传入的wrapper进行更新操作
+		// 想干嘛就干嘛,这里面主要用来做编辑（update）操作，由于源码中没有执行sqlSession.update()方法，因此这里的编辑方法得自己写。
                 (sqlSession, entity) -> {
                     Map<String, Object> param = new HashMap<>();
                     param.put(Constants.ENTITY, entity);
@@ -151,7 +170,63 @@ public class ExampleEntityServiceImpl extends ServiceImpl<ExampleEntityMapper, E
 }
 ```
 
+## 调用ServiceImpl的saveOrUpdateBatch()方法
 
+
+```java
+
+public class DemoServiceImple implements DemoService{
+
+
+	@Autowired
+	private ExampleService exampleService;
+
+
+	public boolean saveOrUpdateEntityList(List<DemoEntity> entityList){
+		return exampleService.saveOrUpdateBatch(entityList);
+	}
+}
+```
+
+此过程调用的saveOrUpdateBatch方法
+
+底层也是调用SqlHelper.saveOrUpdateBatch方法
+
+Tips: 在这里entityClass mapperClass 传值为this.entityClass 原因是 在此service实现类中针对这两个class参数进行处理。
+
+```java
+public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
+    protected final Class<?>[] typeArguments = GenericTypeUtils.resolveTypeArguments(this.getClass(), ServiceImpl.class);
+    protected Class<T> entityClass = this.currentModelClass();
+    protected Class<M> mapperClass = this.currentMapperClass();
+     protected Class<M> currentMapperClass() {
+        return this.typeArguments[0];
+    }
+
+    protected Class<T> currentModelClass() {
+        return this.typeArguments[1];
+    }
+
+    // ------------------------------- 上方解释为什么在此类中可以传this. ------------------------------------
+    @Transactional(
+        rollbackFor = {Exception.class}
+    )
+    public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
+        TableInfo tableInfo = TableInfoHelper.getTableInfo(this.entityClass);
+        Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!", new Object[0]);
+        String keyProperty = tableInfo.getKeyProperty();
+        Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!", new Object[0]);
+        return SqlHelper.saveOrUpdateBatch(this.entityClass, this.mapperClass, this.log, entityList, batchSize, (sqlSession, entity) -> {
+            Object idVal = tableInfo.getPropertyValue(entity, keyProperty);
+            return StringUtils.checkValNull(idVal) || CollectionUtils.isEmpty(sqlSession.selectList(this.getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
+        }, (sqlSession, entity) -> {
+            ParamMap<T> param = new ParamMap();
+            param.put("et", entity);
+            sqlSession.update(this.getSqlStatement(SqlMethod.UPDATE_BY_ID), param);
+        });
+    }
+}
+```
 
 
 
