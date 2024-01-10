@@ -42,6 +42,7 @@
 > * [mybatis-plus注入InsertBatchSomeColumn实现批量上传](./java/003-Mybatis-plus注入InsertBatchSomeColumn教程.md)
 > * [application.yaml|logback.xml](./java/004-springboot项目配置.md)
 > * [mysql读写分离](./java/005-mysql读写分离.md)
+> * [mybatisPlus无主键批量更新](./java/006-Mybatis-Plus无主键BatchUpdate.md)
 
 ## makefile
 
