@@ -172,6 +172,7 @@ public class ExampleEntityServiceImpl extends ServiceImpl<ExampleEntityMapper, E
 
 ## 调用ServiceImpl的saveOrUpdateBatch()方法
 
+Tips: 调用serviceImpl的saveOrUpdateBatch()方法时是根据主键进行更新，由于表中没有主键且存在相同的记录会进行全部更新
 
 ```java
 
