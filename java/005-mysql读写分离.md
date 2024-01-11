@@ -79,5 +79,9 @@ logging:
 
 ```
 
-
+[多数据源配置](https://blog.csdn.net/chinawangfei/article/details/113618469)
+[读写分离](https://blog.csdn.net/u011215412/article/details/103025380)
+[读写分离](https://www.cnblogs.com/blacksmith4/p/13748414.html)
+[读写分离](https://blog.csdn.net/weixin_42477252/article/details/109713227)
+[读写分离](https://developer.aliyun.com/article/1291278)
 
