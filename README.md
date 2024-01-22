@@ -82,6 +82,7 @@
 
 > * [ubuntu虚拟机配置静态ip](linux/002-ubuntu20.04虚拟机配置静态ip及dns服务.md)--(虚拟机在局域网访问)
 > * [ubuntu虚拟机扩展磁盘](./linux/004-虚拟机扩展磁盘.md)
+> * [ubuntu扩展swap内存](./linux/006-扩展swap内存.md)
 
 ## github
 
