@@ -43,6 +43,7 @@
 > * [application.yaml|logback.xml](./java/004-springboot项目配置.md)
 > * [mysql读写分离](./java/005-mysql读写分离.md)
 > * [mybatisPlus无主键批量更新](./java/006-Mybatis-Plus无主键BatchUpdate.md)
+> * [wrapper过多时，整合wrapper创建](./java/007-WrapperUtils整合.md)
 
 ## makefile
 
