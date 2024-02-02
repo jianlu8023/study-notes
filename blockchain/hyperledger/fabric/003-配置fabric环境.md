@@ -62,7 +62,7 @@ cloneSamplesRepo() {
     else
         echo "===> Cloning hyperledger/fabric-samples repo"
         # 这里有修改
-        git clone -b main https://ghproxy.com/https://github.com/hyperledger/fabric-samples.git && cd fabric-samples
+        git clone -b main https://mirror.ghproxy.com/https://github.com/hyperledger/fabric-samples.git && cd fabric-samples
     fi
     if GIT_DIR=.git git rev-parse v${VERSION} >/dev/null 2>&1; then
         echo "===> Checking out v${VERSION} of hyperledger/fabric-samples"
@@ -75,7 +75,7 @@ cloneSamplesRepo() {
 pullBinaries() {
     echo "===> Downloading version ${FABRIC_TAG} platform specific fabric binaries"
             # 这里有修改
-    download "${BINARY_FILE}" "https://ghproxy.com/https://github.com/hyperledger/fabric/releases/download/v${VERSION}/${BINARY_FILE}"
+    download "${BINARY_FILE}" "https://mirror.ghproxy.com/https://github.com/hyperledger/fabric/releases/download/v${VERSION}/${BINARY_FILE}"
     if [ $? -eq 22 ]; then
         echo
         echo "------> ${FABRIC_TAG} platform specific fabric binary is not available to download <----"
@@ -84,7 +84,7 @@ pullBinaries() {
     fi
     echo "===> Downloading version ${CA_TAG} platform specific fabric-ca-client binary"
 # 这里有修改
-    download "${CA_BINARY_FILE}" "https://ghproxy.com/https://github.com/hyperledger/fabric-ca/releases/download/v${CA_VERSION}/${CA_BINARY_FILE}"
+    download "${CA_BINARY_FILE}" "https://mirror.ghproxy.com/https://github.com/hyperledger/fabric-ca/releases/download/v${CA_VERSION}/${CA_BINARY_FILE}"
     if [ $? -eq 22 ]; then
         echo
         echo "------> ${CA_TAG} fabric-ca-client binary is not available to download  (Available from 1.1.0-rc1) <----"

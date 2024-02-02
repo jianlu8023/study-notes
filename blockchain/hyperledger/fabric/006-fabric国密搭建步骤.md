@@ -47,7 +47,7 @@ docker-compose -v # 查看docker-compose版本
 
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/
-git clone https://ghproxy.com/https://github.com/hxx258456/fabric-gm.git
+git clone https://mirror.ghproxy.com/https://github.com/hxx258456/fabric-gm.git
 
 git clone -b v0.0.6 https://gitee.com/zhaochuninhefei/fabric-gm.git
 ```
@@ -67,7 +67,7 @@ make docker
 
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm
-git clone https://ghproxy.com/https://github.com/hxx258456/fabric-ca-gm.git
+git clone https://mirror.ghproxy.com/https://github.com/hxx258456/fabric-ca-gm.git
 
 git clone -b v0.0.2 https://gitee.com/zhaochuninhefei/fabric-ca-gm.git
 ```
@@ -87,7 +87,7 @@ make docker
 
 ```bash
 cd $GOPATH/src/github.com/hyperledger/fabric/fabric-gm/scripts
-git clone https://ghproxy.com/https://github.com/hxx258456/fabric-samples-gm.git
+git clone https://mirror.ghproxy.com/https://github.com/hxx258456/fabric-samples-gm.git
 
 git clone https://gitee.com/zhaochuninhefei/fabric-samples-gm.git
 ```

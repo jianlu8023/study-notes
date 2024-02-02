@@ -12,7 +12,7 @@
 ## 安装 protobuf工具,用于生成各种不同语言的代码
 
 ```shell
-wget https://ghproxy.com/https://github.com/protocolbuffers/protobuf/releases/download/v24.4/protoc-24.4-linux-x86_64.zip
+wget https://mirror.ghproxy.com/https://github.com/protocolbuffers/protobuf/releases/download/v24.4/protoc-24.4-linux-x86_64.zip
 ```
 
 ## 安装golang代码生成器

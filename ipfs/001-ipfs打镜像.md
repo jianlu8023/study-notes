@@ -4,7 +4,7 @@
 ## clone 
 
 ```shell
-git clone -b v0.12.1 https://ghproxy.com/https://github.com/ifps/go-ipfs.git go-ipfs
+git clone -b v0.12.1 https://mirror.ghproxy.com/https://github.com/ifps/go-ipfs.git go-ipfs
 ```
 
 
@@ -57,12 +57,12 @@ RUN set -eux; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac; \
   cd /tmp \
-  && git clone https://ghproxy.com/https://github.com/ncopa/su-exec.git \
+  && git clone https://mirror.ghproxy.com/https://github.com/ncopa/su-exec.git \
   && cd su-exec \
   && git checkout -q $SUEXEC_VERSION \
   && make su-exec-static \
   && cd /tmp \
-  && wget -q -O tini https://ghproxy.com/https://github.com/krallin/tini/releases/download/$TINI_VERSION/$tiniArch \
+  && wget -q -O tini https://mirror.ghproxy.com/https://github.com/krallin/tini/releases/download/$TINI_VERSION/$tiniArch \
   && chmod +x tini
 
 # Now comes the actual target image, which aims to be as small as possible.

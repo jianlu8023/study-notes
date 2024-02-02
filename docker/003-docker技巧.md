@@ -220,5 +220,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 ```
 
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/docker-library/mysql/master/5.7/docker-entrypoint.sh >
+curl -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/docker-library/mysql/master/5.7/docker-entrypoint.sh >
 docker-entrypoint.sh
