@@ -7,7 +7,8 @@
 > fabric (hyperledger fabric)
 >
 >> * [安装linux](blockchain/hyperledger/fabric/001-安装linux虚拟机.md)
->> * [配置开发基础环境](blockchain/hyperledger/fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose git)
+>> * [配置开发基础环境](blockchain/hyperledger/fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose
+     git)
 >> * [配置fabric环境](blockchain/hyperledger/fabric/003-配置fabric环境.md)--(clone fabric | pull image)
 >> * [搭建fabric网络](blockchain/hyperledger/fabric/004-搭建fabric网络.md)--(手动搭建步骤)
 >> * [安装智能合约](blockchain/hyperledger/fabric/005-安装智能合约.md)--(手动搭建步骤)
@@ -91,6 +92,10 @@
 
 > * [githubAPI使用](./github/001-githubAPI使用.md)
 > * [github-action使用](github/002-github-action使用.md)
+
+## python
+
+> * [ubuntu安装pyenv](./python/001-使用pyenv安装python.md)
 
 ## other
 
