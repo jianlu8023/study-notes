@@ -46,6 +46,7 @@
 > * [mybatisPlus无主键批量更新](./java/006-Mybatis-Plus无主键BatchUpdate.md)
 > * [wrapper过多时，整合wrapper创建](./java/007-WrapperUtils整合.md)
 > * [EntityUtils](./java/008-EntityUtils整合.md)
+> * [idea中自定义方法注释](./java/009-idea使用技巧.md)
 
 ## makefile
 
