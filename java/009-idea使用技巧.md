@@ -69,7 +69,7 @@
 
 	time		time()
 
-	param 		groovyScript(" def result=''; if(\"${_1}}\" == \"\") return result; def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList(); if(params.size() == 0) return result; for(i = 0; i < params.size(); i++) { if(i!=0) result+= ' * '; if(params[i] == 'null') continue; if(params[i] == 'NULL') continue; if(params[i] == '') continue; result+='@param ' + params[i] + ' : ' +((i < (params.size() - 1)) ? '\\n' : ''); }; return result", methodParameters()) }
+	param 		groovyScript(" def result=''; if(\"${_1}}\" == \"\") return result; def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList(); if(params.size() == 0) return result; for(i = 0; i < params.size(); i++) { if(i!=0) result+= ' * '; if(params[i] == 'null') continue; if(params[i] == 'NULL') continue; if(params[i] == '') continue; result+='@param ' + params[i] + ' : ' +((i < (params.size() - 1)) ? '\\n' : ''); }; return result", methodParameters()) 
 
 	return 		groovyScript("def result='';if(\"${_1}}\" == \"\") return result; def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split('<').toList(); for(i = 0; i < params.size(); i++){ if( i==0 ){ if( params[i] == '')continue; if(params[i] == 'null') continue; if(params[i] == 'NULL') continue; if(params[i] == 'void') continue; result+='@return '; }; if(i!=0){result+='<';}; def p1=params[i].split(',').toList(); for(i2 = 0; i2 < p1.size(); i2++) { def p2=p1[i2].split('\\\\.').toList(); result+=p2[p2.size()-1]; if(i2!=p1.size()-1){result+=','} }; }; return result",methodReturnType()) 	
 
