@@ -7,8 +7,7 @@
 > fabric (hyperledger fabric)
 >
 >> * [安装linux](blockchain/hyperledger/fabric/001-安装linux虚拟机.md)
->> * [配置开发基础环境](blockchain/hyperledger/fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose
-     git)
+>> * [配置开发基础环境](blockchain/hyperledger/fabric/002-配置开发基础环境.md)--(go | java | docker | docker-compose git)
 >> * [配置fabric环境](blockchain/hyperledger/fabric/003-配置fabric环境.md)--(clone fabric | pull image)
 >> * [搭建fabric网络](blockchain/hyperledger/fabric/004-搭建fabric网络.md)--(手动搭建步骤)
 >> * [安装智能合约](blockchain/hyperledger/fabric/005-安装智能合约.md)--(手动搭建步骤)
@@ -61,6 +60,7 @@
 > * [基础服务容器编排](docker/002-基础服务容器部署.md)--(mysql、redis、nginx服务)
 > * [docker搭建私有镜像](./docker/001-docker搭建私有镜像.md)
 > * [docker技巧](./docker/003-docker技巧.md)
+> * [docker问题收集](./docker/004-docker问题收集.md)
 
 ## rpc
 
@@ -89,6 +89,10 @@
 > * [ubuntu扩展swap内存](./linux/006-扩展swap内存.md)
 > * [ubuntu配置root登录及ssh连接](./linux/007-配置root登录及ssh连接.md)
 
+## centos
+
+> * [centos安装指定版本软件包](./linux/008-centos使用yum安装指定版本指定软件.md)
+
 ## github
 
 > * [githubAPI使用](./github/001-githubAPI使用.md)
@@ -110,5 +114,3 @@
 > * [linux中jetbrains外部文件更新慢](./other/008-linux-jetbrains-external-file-changes-sync-slow.md)
 > * [MyBatisX使用](./other/009-MyBatisX使用.md)
 > * [直接下载windows10.iso](./other/010-卡bug从微软官方下载iso镜像.md)
-
-
