@@ -14,6 +14,7 @@
 >> * [fabric国密](blockchain/hyperledger/fabric/006-fabric国密搭建步骤.md)
 >> * [go-sdk使用](blockchain/hyperledger/fabric/007-fabric-go-sdk使用.md)
 >> * [golang智能合约](blockchain/hyperledger/fabric/008-fabric智能合约开发流程.md)
+>> * [caliper性能测试](./blockchain/hyperledger/fabric/010-caliper性能测试.md)
 >
 > fabric-ca (hyperledger fabric ca)
 >
