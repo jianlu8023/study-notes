@@ -36,6 +36,19 @@
 #### 步骤9
 
 ![img.png](../img/linux/static-ip/static-ip-008.png)
+
+<p>
+查看当前配置文件名称
+```bash
+ip a
+```
+查看ip a结果，观察服务名是ens33 还是ens32 还是其他
+lo为本地环路
+Tips: 此处是名称ensxx为下方内容中ethernets下方的名称，若不进行对应，使用netplan apply 无法生效
+</p>
+
+
+
 <br/>
 内容:
 </br>
