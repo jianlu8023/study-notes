@@ -1,5 +1,10 @@
 # maven 相关配置
 
+## 說明
+1. idea2021只支持3.6.3版本以下的maven
+2. settings.xml文件不能直接複製粘貼，只用按需拷貝
+3. 
+
 ## 配置流程
 
 ### 下载maven
@@ -23,7 +28,7 @@ https://repo.huaweicloud.com/apache/maven/
 1将下载压缩包解压到电脑指定路径(自定)
 2进入改文件夹 拷贝文件夹路径
 3进行环境配置
-
+Tip: 环境配置M2_HOME
 ```
 
 #### 图片流程
