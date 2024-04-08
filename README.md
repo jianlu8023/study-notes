@@ -78,6 +78,7 @@
 > * [ipfs使用docker部署](./ipfs/001-ipfs打镜像.md)
 > * [ipfs生成swarm.key](./ipfs/002-ipfs-swarmkey生成.md)
 > * [ipfsAPI调用](./ipfs/003-ipfsAPI.md)
+> * [ipfs-cluster](./ipfs/004-ipfs-cluster.md)
 
 ## shell
 
