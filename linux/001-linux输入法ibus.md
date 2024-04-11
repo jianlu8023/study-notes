@@ -48,6 +48,8 @@ ibus restart
 
 7. 个性化配置
 
+* 方案一
+
 ```bash
 cd ~/.config/ibus/rime
 
@@ -83,6 +85,10 @@ vi ibus_rime.yaml
 style:
   horizontal: true
 ```
+
+* 方案二
+
+克隆https://github.com/ssnhd/rime.git 项目，将配制文件放到~/.config/ibus/rime/文件夹下
 
 8. 重启ibus
 
