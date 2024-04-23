@@ -79,6 +79,7 @@
 > * [ipfs生成swarm.key](./ipfs/002-ipfs-swarmkey生成.md)
 > * [ipfsAPI调用](./ipfs/003-ipfsAPI.md)
 > * [ipfs-cluster](./ipfs/004-ipfs-cluster.md)
+> * [ipfs简单使用](./ipfs/005-ipfs使用.md)
 
 ## shell
 
