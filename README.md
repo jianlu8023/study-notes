@@ -31,10 +31,16 @@
 > * [脚手架nunu学习笔记](./go/002-脚手架nunu学习笔记.md)
 > * [golang技巧](./go/005-golang使用技巧.md)
 > * [个性化nunu工具](./go/006-个性化nunu.md)
-> * [go mod失败问题](./go/003-gomod失败.md)--(checksum相关)
-> * [go语言低版本环境使用低版本包](./go/007-go1.16使用golang.x相关包.md)
 > * [goanno工具](./go/004-go语言注释代码工具.md)--(go语言注释工具)
 > * [golang获取docker相关信息](./go/008-go获取docker相关信息.md)
+> * [go方面错误收集](./go/010-go错误收集.md)
+>> 错误收集
+>>> 1 checksum相关
+>>> 2 低版本goland进行高版本go的debug工作
+>>> 3 go1.16使用golang.org/x/sys包
+>
+
+
 
 ## java
 
