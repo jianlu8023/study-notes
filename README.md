@@ -35,12 +35,11 @@
 > * [golang获取docker相关信息](./go/008-go获取docker相关信息.md)
 > * [go方面错误收集](./go/010-go错误收集.md)
 >> 错误收集
->>> 1 checksum相关
->>> 2 低版本goland进行高版本go的debug工作
->>> 3 go1.16使用golang.org/x/sys包
->
-
-
+>>> * checksum相关
+>>> * 低版本goland进行高版本go的debug工作
+>>> * go1.16使用golang.org/x/sys包
+>>> *
+>>> *
 
 ## java
 
