@@ -33,6 +33,7 @@
 > * [个性化nunu工具](./go/006-个性化nunu.md)
 > * [goanno工具](./go/004-go语言注释代码工具.md)--(go语言注释工具)
 > * [golang获取docker相关信息](./go/008-go获取docker相关信息.md)
+> * [gitlab私服当module依赖](./go/011-gitlab私服当module依赖.md)
 > * [go方面错误收集](./go/010-go错误收集.md)
 >> 错误收集
 >>> * checksum相关
