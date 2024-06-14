@@ -1,0 +1,1 @@
+# 011-gitlab私服当module依赖
