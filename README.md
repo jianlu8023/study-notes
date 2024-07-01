@@ -123,3 +123,5 @@
 > * [linux中jetbrains外部文件更新慢](./other/008-linux-jetbrains-external-file-changes-sync-slow.md)
 > * [MyBatisX使用](./other/009-MyBatisX使用.md)
 > * [直接下载windows10.iso](./other/010-卡bug从微软官方下载iso镜像.md)
+> * [https请求跳过证书验证](./https/001-https请求.md)
+
