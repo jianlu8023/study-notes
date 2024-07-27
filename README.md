@@ -68,6 +68,7 @@
 > * [docker搭建私有镜像](./docker/001-docker搭建私有镜像.md)
 > * [docker技巧](./docker/003-docker技巧.md)
 > * [docker问题收集](./docker/004-docker问题收集.md)
+> *[docker获取镜像](./docker/005-docker获取镜像.md)
 
 ## rpc
 
