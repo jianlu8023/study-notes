@@ -99,6 +99,7 @@
 > * [ubuntu扩展swap内存](./linux/006-扩展swap内存.md)
 > * [ubuntu配置root登录及ssh连接](./linux/007-配置root登录及ssh连接.md)
 > * [ubuntu网络导致启动慢](./linux/009-ubuntu网络导致启动慢.md)
+> * [ubuntu下载deb包](./linux/010-ubuntu下载deb包.md)
 
 ## centos
 
