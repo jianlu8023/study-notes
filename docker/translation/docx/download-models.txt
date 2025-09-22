@@ -1,0 +1,3 @@
+wget https://ghfast.top/https://github.com/xxnuo/MTranServer/releases/download/models/zhen.zip -O zhen.zip
+
+只需要替换最后的zhen 假设下载 英译中 zhen改为enzh即可

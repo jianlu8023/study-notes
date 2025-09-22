@@ -1,0 +1,70 @@
+networks:
+  datax:
+    name: "datax"
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.31.0.0/24
+          gateway: 172.31.0.254
+services:
+  datax-web:
+    image: datax-web:1.0.0
+    container_name: datax-web
+    networks:
+      - datax
+    ports:
+      - "9527:9527/tcp"
+    volumes:
+      - ./compose/datax/datax/log:/opt/datax/datax/log
+      - ./compose/datax/datax/log_perf:/opt/datax/datax/log_perf
+      - ./compose/datax/datax/tmp:/opt/datax/datax/tmp
+      - ./compose/datax/datax-web/logs:/opt/datax/datax-web/logs
+      - ./compose/datax/datax-web/modules/datax-admin/bin/env.properties:/opt/datax/datax-web/modules/datax-admin/bin/env.properties
+      - ./compose/datax/datax-web/modules/datax-admin/logs:/opt/datax/datax-web/modules/datax-admin/logs
+      - ./compose/datax/datax-web/modules/datax-admin/data:/opt/datax/datax-web/modules/datax-admin/data
+      - ./compose/datax/datax-web/modules/datax-admin/conf:/opt/datax/datax-web/modules/datax-admin/conf
+      - ./compose/datax/datax-web/modules/datax-executor/bin/env.properties:/opt/datax/datax-web/modules/datax-executor/bin/env.properties
+      - ./compose/datax/datax-web/modules/datax-executor/logs:/opt/datax/datax-web/modules/datax-executor/logs
+      - ./compose/datax/datax-web/modules/datax-executor/data:/opt/datax/datax-web/modules/datax-executor/data
+      - ./compose/datax/datax-web/modules/datax-executor/conf:/opt/datax/datax-web/modules/datax-executor/conf
+      - ./compose/datax/datax-web/modules/datax-executor/json:/opt/datax/datax-web/modules/datax-executor/json
+    #depends_on:
+      #mysql:
+        #condition: service_healthy
+  #mysql:
+    #restart: always
+    #image: mysql:8.4.2
+    #container_name: datax_mysql
+    #networks:
+      #- datax
+    #security_opt:
+      #- seccomp:unconfined
+    #volumes:
+      #- ./compose/mysql/datadir:/var/lib/mysql
+      #- ./compose/mysql/conf/my.cnf:/etc/my.cnf
+      #- ./compose/mysql/source:/docker-entrypoint-initdb.d  # 初始化数据库脚本
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
+    #environment:
+      #- "MYSQL_ROOT_PASSWORD=123456"
+      #- "MYSQL_DATABASE=basic"
+      #- "TZ=Asia/Shanghai"
+      # ports:
+      #- "0.0.0.0:3306:3306"
+    #env_file:
+      #- .env
+    #healthcheck:
+      #test: [ "CMD","mysqladmin","ping","-h","localhost","-u","root","-p${MYSQL_ROOT_PASSWORD}" ]
+      #interval: 60s
+      #timeout: 3s
+      #retries: 5
+      #start_period: 15s
+    #deploy:
+      #resources:
+        #limits:
+          #cpus: '2' # 限制容器使用的CPU个数
+          #memory: 2G # 限制容器使用的内存大小
+        #reservations:
+          #cpus: '1' # 预留 CPU 为 1 个核心
+          #memory: 1G # 预留内存为 2 GB

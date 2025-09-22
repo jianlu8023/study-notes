@@ -1,0 +1,119 @@
+﻿{	
+	"root": {
+		"color": {
+			"?screenBGColor": "页面的背景颜色",
+			"screenBGColor": "#060918",
+            "?modalBGColor": "切割出来的块的背景颜色",
+			"modalBGColor": "#213463"
+		}
+	},
+	"publicContent": {
+		"pageTitle": {
+			"title": {
+				"?font": "显示时间的文字样式（不包含颜色）",
+				"font": "italic bold 14px Microsoft YaHei",
+				"?color": "显示时间的文字颜色",
+				"color":"#88d3f9"
+			},
+			"?titleImgPath":	"界面标题的图片路径",
+			"titleImgPath": "assets/desk/img/title.png",
+			"time": {
+				"font": "normal bold 12px Microsoft YaHei",
+				"color": "#88d3f9"
+			}
+		},
+		"?modal": "每个模块的公共样式",
+		"modal": {
+			"title": {
+				"font": "normal bold 18px Microsoft YaHei",
+				"color": "#fff",
+				"imgPath": "assets/desk/img/icon_right_gwlx.png",
+				"backgroundColor": "rgba(32,20,50,0)"
+			}
+		},
+		"menuListContent": {
+			"font": "normal bold 14px Microsoft YaHei",
+			"color":  "#88d3f9",
+			"backgroundColor": "#121b2a",
+			"?SelectBackgroundColor": "列表界面选中内容的背景颜色",
+			"SelectBackgroundColor": "#213242",
+			"?SelectBorderBottom": "列表界面选中内容的下框线样式",
+			"SelectBorderBottom": "1px #7e9faa solid", 
+			"?SelectTextColor": "列表界面选中内容的文字颜色",
+			"SelectTextColor": "#05ecfe"
+		},
+		"tableContent": {
+			"?rowOtherColor": "交叉行的颜色",
+			"rowOtherColor": "#2a404e",
+			"?backgroundColor": "选中行的背景颜色",
+			"backgroundColor": "#202434",
+			"font": "normal bold 12px Microsoft YaHei",
+			"color": "#fff"
+		},
+		"tabContent": {
+			"font": "normal bold 16px Microsoft YaHei",
+			"color": "#fff",
+			"?selectColor": "选中字体颜色",
+			"selectColor": "#05ecfe",
+			"border": "2px solid #7e9faa",
+			"?img1Path": "页签1中的引入图片",
+			"img1Path": "assets/desk/daping2/Mid_icon_all_default.png",
+			"?img2Path": "页签2中的引入图片",
+			"img2Path": "assets/desk/daping2/Mid_icon_byh_default.png",
+			"?img3Path": "页签3中的引入图片",
+			"img3Path": "assets/desk/daping2/Mid_icon_wtp_default.png",
+			"?selectImg1Path": "页签1中的选中效果图片",
+			"selectImg1Path": "assets/desk/daping2/Mid_icon_all_selected.png",
+			"?selectImg2Path": "页签2中的选中效果图片",
+			"selectImg2Path": "assets/desk/daping2/Mid_icon_byh_selected.png",
+			"?selectImg3Path": "页签3中的选中效果图片",
+			"selectImg3Path": "assets/desk/daping2/Mid_icon_wtp_selected.png",
+			"backgroundColor": "#121b2a",
+			"selectBackgroundColor": "#213242"
+		}
+	},
+	"barContent": {
+		"?color": "柱体颜色数组",
+		"color": [
+			{"color1": "rgba(5,236,254,0)", "color2": "rgba(5,236,254,1)"},
+			{"color1": "rgba(169,156,229,0)", "color2": "rgba(169,156,229,1)"}
+		],
+		"xAxis": {
+			"xAxisLabelColor": "#bdbcd5",
+			"xAxisLine": "#a99ce5",
+			"xAxisTickColor": "#a99ce5"
+		},
+		"yAxis": {
+			"yAxisLabelColor": "#bdbcd5",
+			"yAxisLine": "#a99ce5",
+			"yAxisTickColor": "#a99ce5",
+			"ySplitLineColor": "#202332"
+		}
+	},
+	"pieDefaultContent": {
+		"?color": "饼状图颜色数组",
+		"color": [
+			{"color1": "#c7ff11", "color2": "#c7ff11"},
+			{"color1": "#fa851c", "color2": "#fa851c"},
+			{"color1": "#ff3b2e", "color2": "#ff3b2e"},
+			{"color1": "#2b8cef", "color2": "#2b8cef"},
+			{"color1": "#e5ac25", "color2": "#e5ac25"},
+			{"color1": "#29e525", "color2": "#29e525"},
+			{"color1": "#fa4661", "color2": "#fa4661"},
+			{"color1": "#ff0000", "color2": "#ff0000"},
+			{"color1": "#c714d2", "color2": "#c714d2"}
+		],
+		"?circleSize1": "圆环内圈大小",
+		"circleSize1": "45%",
+		"?circleSize2": "圆环外圈大小",
+		"circleSize2": "60%",
+		"?pieSize": "饼状的大小",
+		"pieSize": "60%"
+	},
+	"LineDefaultContent": {
+		"?lineColor": "折线颜色",
+		"lineColor": "#2580e6",
+		"?linePointColor": "折线上圆点的颜色",
+		"linePointColor": "#1e81f0"
+	}
+}

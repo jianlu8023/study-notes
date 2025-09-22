@@ -1,0 +1,91 @@
+networks:
+  webchat:
+    name: "webchat_net"
+
+services:
+  # http模式启动api服务
+  api-http:
+    profiles: [ 'http' ]
+    image: iamtsm/tl-rtc-file-api
+    container_name: api
+    env_file:
+      - ./tlrtcfile.env
+    networks:
+      - webchat
+    environment:
+      tl_rtc_file_env_mode: http
+    command:
+      - tlapi
+    ports:
+      - "9092:9092"
+    depends_on:
+      - coturn
+
+  # https模式启动api服务
+  api-https:
+    profiles: [ 'https' ]
+    image: iamtsm/tl-rtc-file-api
+    container_name: api
+    env_file:
+      - ./tlrtcfile.env
+    networks:
+      - webchat
+    environment:
+      tl_rtc_file_env_mode: https
+    command:
+      - tlapi
+    ports:
+      - "9092:9092"
+    depends_on:
+      - coturn
+
+  # http模式启动socket服务
+  socket-http:
+    profiles: [ 'http' ]
+    image: iamtsm/tl-rtc-file-socket
+    container_name: socket
+    env_file:
+      - ./tlrtcfile.env
+    networks:
+      - webchat
+    command:
+      - tlsocket
+    environment:
+      tl_rtc_file_env_mode: http
+    ports:
+      - "8444:8444"
+    depends_on:
+      - coturn
+
+  # https模式启动socket服务
+  socket-https:
+    profiles: [ 'https' ]
+    image: iamtsm/tl-rtc-file-socket
+    container_name: socket
+    env_file:
+      - ./tlrtcfile.env
+    networks:
+      - webchat
+    command:
+      - tlsocket
+    environment:
+      tl_rtc_file_env_mode: https
+    ports:
+      - "8444:8444"
+    depends_on:
+      - coturn
+
+  # coturn服务
+  coturn:
+    profiles: [ 'http','https' ]
+    image: coturn/coturn:latest
+    container_name: coturn
+    env_file:
+      - ./tlrtcfile.env
+    networks:
+      - webchat
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+    volumes:
+      - ./turnserver-with-secret-user.conf:/etc/turnserver.conf

@@ -1,0 +1,75 @@
+tee /etc/docker/daemon.json <<-'EOF'
+{
+        "registry-mirrors": [
+                "https://5test4aw.mirror.aliyuncs.com",
+       	"https://registry.docker-cn.com",
+        	"https://dockerproxy.com",
+        	"https://hub-mirror.c.163.com",
+        	"https://mirror.baidubce.com",
+        	"https://ccr.ccs.tencentyun.com",
+        	"https://docker.nju.edu.cn",
+        	"https://dockerhub.azk8s.cn",
+        	"https://reg-mirror.qiniu.com",
+	        "https://docker.m.daocloud.io",
+	        "https://reg-mirror.qiniu.com",
+        	"https://mirror.iscas.ac.cn",
+	        "https://docker.rainbond.cc",
+        	"https://hub.uuuadc.top",
+	        "https://docker.anyhub.us.kg",
+        	"https://dockerhub.jobcher.com",
+	        "https://dockerhub.icu",
+	        "https://docker.ckyl.me",
+	        "https://docker.awsl9527.cn",
+	        "https://docker.rainbond.cc",
+	        "https://hub-mirror.c.163.com",
+	        "https://mirror.baidubce.com",
+	        "https://cr.console.aliyun.com",
+        ]
+}
+EOF
+
+systemctl daemon-reload
+systemctl restart docker
+
+网易：http://hub-mirror.c.163.com
+中科大镜像地址：http://mirrors.ustc.edu.cn/
+中科大github地址：https://github.com/ustclug/mirrorrequest
+Azure中国镜像地址：http://mirror.azure.cn/
+Azure中国github地址：https://github.com/Azure/container-service-for-azure-china
+DockerHub镜像仓库: https://hub.docker.com/ 
+阿里云镜像仓库： https://cr.console.aliyun.com 
+google镜像仓库： https://console.cloud.google.com/gcr/images/google-containers/GLOBAL （如果你本地可以翻墙的话是可以连上去的 ）
+coreos镜像仓库： https://quay.io/repository/ 
+RedHat镜像仓库： https://access.redhat.com/containers
+
+https://hub.docker.com/
+
+
+
+"https://5test4aw.mirror.aliyuncs.com",
+        "https://registry.docker-cn.com",
+        "https://dockerproxy.com",
+        "https://hub-mirror.c.163.com",
+        "https://mirror.baidubce.com",
+        "https://ccr.ccs.tencentyun.com",
+        "https://docker.nju.edu.cn",
+        "https://dockerhub.azk8s.cn",
+        "https://reg-mirror.qiniu.com",
+        "http://mirrors.ustc.edu.cn/",
+        "http://mirror.azure.cn/",
+        "https://github.com/Azure/container-service-for-azure-china",
+        "https://github.com/ustclug/mirrorrequest",
+        "https://hub.docker.com/",
+        "https://quay.io/repository/",
+        "https://access.redhat.com/containers",
+        "https://console.cloud.google.com/gcr/images/google-containers/GLOBAL",
+        "https://cr.console.aliyun.com",
+        "https://docker.m.daocloud.io",
+        "https://mirror.iscas.ac.cn",
+        "https://docker.rainbond.cc",
+        "https://hub.uuuadc.top",
+        "https://docker.anyhub.us.kg",
+        "https://dockerhub.jobcher.com",
+        "https://dockerhub.icu",
+        "https://docker.ckyl.me",
+        "https://docker.awsl9527.cn",

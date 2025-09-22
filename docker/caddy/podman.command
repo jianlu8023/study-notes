@@ -1,0 +1,1 @@
+podman run --rm --name caddy -v ${PWD}/Caddyfile:/etc/caddy/Caddyfile:ro -v ${PWD}/data:/data -v ${PWD}/config:/config -v ${PWD}/srv:/srv -v ${PWD}/caddy.d:/etc/caddy/caddy.d -p 81:80 -p 2019:2019 caddy:alpine

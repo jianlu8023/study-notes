@@ -1,0 +1,20 @@
+networks:
+  basic:
+    #external: true
+
+services:
+  picoshare:
+    image: mtlynch/picoshare:latest
+    container_name: picoshare
+    environment:
+      - PORT=4001
+      - PS_SHARED_SECRET=nihao
+    ports:
+      - "4001:4001"
+    command: -db /data/store.db
+    volumes:
+      - ./picoshare/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/zoneinfo:/etc/zoneinfo:ro
+    networks:
+      - basic

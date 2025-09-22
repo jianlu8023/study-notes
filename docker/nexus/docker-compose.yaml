@@ -1,0 +1,30 @@
+networks:
+  nexus:
+    name: "net_nexus"
+
+services:
+  nexus-pre:
+    image: sonatype/nexus3:latest
+    privileged: true
+    user: root
+    container_name: nexus-prepare
+    volumes:
+      - ./compose/nexus/data:/nexus-data
+    command: chown -R nexus:nexus /nexus-data
+  nexus:
+    image: sonatype/nexus3:latest 
+    networks:
+      - nexus
+    container_name: nexus3
+    #user: root
+    #privileged: true
+    ports:
+      - "8181:8081"
+    volumes:
+      - ./compose/nexus/data:/nexus-data
+      - /etc/localtime:/etc/loaltime:ro
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      nexus-pre:
+        condition: service_started
+

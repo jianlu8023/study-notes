@@ -1,0 +1,207 @@
+networks:
+  ragflow:
+    name: "ragflow_net"
+    driver: bridge
+
+services:
+  es:
+    container_name: ragflow-es
+    profiles:
+      - elasticsearch
+    image: elasticsearch:8.11.3
+    #user: root
+    #privileged: true
+    volumes:
+      - ./es/data:/usr/share/elasticsearch/data
+      - ./es/logs:/usr/share/elasticsearch/logs
+    #ports:
+      #- "9200:9200"
+    # env_file: .env
+    environment:
+      - node.name=es
+      - ELASTIC_PASSWORD=infini_rag_flow
+      - bootstrap.memory_lock=false
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      #- cluster.routing.allocation.disk.watermark.low=5gb
+      #- cluster.routing.allocation.disk.watermark.high=3gb
+      #- cluster.routing.allocation.disk.watermark.flood_stage=2gb
+      - TZ=Asia/Shanghai
+    mem_limit: 4294967296
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://localhost:9200" ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    networks:
+      - ragflow
+    restart: on-failure
+
+  infinity:
+    container_name: ragflow-infinity
+    profiles:
+      - infinity
+    image: infiniflow/infinity:v0.6.0-dev3
+    volumes:
+      - ./infinity/data:/var/infinity
+      - ./infinity/config/conf.toml:/infinity/conf.toml
+    command: [ "-f", "/infinity/conf.toml" ]
+    ports:
+      - "23817:23817"
+      - "23820:23820"
+      - "5432:5432"
+    # env_file: .env
+    environment:
+      - TZ=Asia/Shanghai
+    #mem_limit: 8073741824
+    mem_limit: 4294967296
+    ulimits:
+      nofile:
+        soft: 500000
+        hard: 500000
+    networks:
+      - ragflow
+    healthcheck:
+      test: [ "CMD", "curl", "http://localhost:23820/admin/node/current" ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    restart: on-failure
+
+  mysql:
+    # mysql:5.7 linux/arm64 image is unavailable.
+    image: mysql:8.0.39
+    container_name: ragflow-mysql
+    # env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=infini_rag_flow
+      - TZ=Asia/Shanghai
+    command:
+      --max_connections=1000
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+      --tls_version="TLSv1.2,TLSv1.3"
+      --init-file /data/application/init.sql
+      --binlog_expire_logs_seconds=604800
+    #ports:
+      #- "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initialize/init.sql:/data/application/init.sql
+    networks:
+      - ragflow
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-uroot", "-pinfini_rag_flow" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    restart: on-failure
+
+  minio:
+    image: quay.io/minio/minio:RELEASE.2023-12-20T01-00-02Z
+    container_name: ragflow-minio
+    command: server --console-address ":9001" /data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file: .env
+    environment:
+      - MINIO_ROOT_USER=rag_flow
+      - MINIO_ROOT_PASSWORD=infini_rag_flow
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./minio/data:/data
+    networks:
+      - ragflow
+    restart: on-failure
+
+  redis:
+    # swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/valkey/valkey:8
+    image: valkey/valkey:8
+    container_name: ragflow-redis
+    command: redis-server --requirepass infini_rag_flow --maxmemory 128mb --maxmemory-policy allkeys-lru
+    env_file: .env
+    #ports:
+      #- "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    networks:
+      - ragflow
+    restart: on-failure
+
+  ragflow:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    # To download the RAGFlow Docker image with embedding models, uncomment the following line instead:
+    # image: infiniflow/ragflow:v0.17.2
+    # The Docker image of the v0.17.2 edition includes built-in embedding models:
+    #   - BAAI/bge-large-zh-v1.5
+    #   - maidalun1020/bce-embedding-base_v1
+    image: infiniflow/ragflow:v0.17.2-slim
+    #image: registry.cn-hangzhou.aliyuncs.com/infiniflow/ragflow:nightly-slim
+
+    # example to setup MCP server
+    # command:
+    #   - --enable-mcpserver
+    #   - --mcp-host=0.0.0.0
+    #   - --mcp-port=9382
+    #   - --mcp-base-url=http://127.0.0.1:9380
+    #   - --mcp-script-path=/ragflow/mcp/server/server.py
+    container_name: ragflow-server
+    ports:
+      - "9380:9380"
+      - "80:80"
+      - "443:443"
+      - "5678:5678"
+      - "5679:5679"
+      - "9382:9382" # entry for MCP (host_port:docker_port). The docker_port should match with the value you set for `mcp-port` above
+    volumes:
+      - ./ragflow/logs:/ragflow/logs
+      - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
+      - ./nginx/proxy.conf:/etc/nginx/proxy.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./ragflow/history_data_agent:/ragflow/history_data_agent
+      - ./ragflow/template/service_conf.yaml.template:/ragflow/conf/service_conf.yaml.template
+    # env_file: .env
+    environment:
+      - TZ=Asia/Shanghai
+      #- HF_ENDPOINT=https://hf-mirror.com # Uncomment the following line if you have limited access to huggingface.co
+      - MACOS=0
+      # - MACOS=1 # Uncomment the following line if your operating system is MacOS
+    networks:
+      - ragflow
+    restart: on-failure
+    # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
+    # If you're using Docker Desktop, the --add-host flag is optional. This flag makes sure that the host's internal IP gets exposed to the Prometheus container.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  # executor:
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #   image: ${RAGFLOW_IMAGE}
+  #   container_name: ragflow-executor
+  #   volumes:
+  #     - ./ragflow-logs:/ragflow/logs
+  #     - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
+  #   env_file: .env
+  #   environment:
+  #     - TZ=${TIMEZONE}
+  #     - HF_ENDPOINT=${HF_ENDPOINT}
+  #     - MACOS=${MACOS}
+  #   entrypoint: "/ragflow/entrypoint_task_executor.sh 1 3"
+  #   networks:
+  #     - ragflow
+  #   restart: on-failure
+  #   # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
+  #   # If you're using Docker Desktop, the --add-host flag is optional. This flag makes sure that the host's internal IP gets exposed to the Prometheus container.
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"

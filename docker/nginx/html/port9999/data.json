@@ -1,0 +1,26 @@
+[
+  {
+    "url": "/private-computing",
+    "desc": "隐私计算",
+    "router": "/private-computing/router",
+    "skip": false
+  },
+  {
+    "url": "/pricomp-visual",
+    "desc": "隐私计算整体可视化",
+    "router": "/pricomp-visual/router",
+    "skip": false
+  },
+  {
+    "url": "/prompt",
+    "desc": "提示词优化",
+    "router": "",
+    "skip": false
+  },
+  {
+    "url": "xxx",
+    "desc": "预留占位",
+    "router": "xxx",
+    "skip": true
+  }
+]

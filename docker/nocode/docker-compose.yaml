@@ -1,0 +1,84 @@
+networks:
+  nocode:
+    name: "nocode"
+
+services:
+  nocobase:
+    image: nocobase/nocobase:1.5.11
+    #image: nocobase/nocobase:latest
+    networks:
+      - nocode
+    environment:
+      - TZ=Asia/Shanghai
+      # 应用环境 默认development 可选 production development
+      - APP_ENV=production
+      # 应用的密钥 用于生成用户token
+      # 如果app_key修改了 旧的token也会失效
+      # 可以是随机字符串 确保不外泄
+      - APP_KEY=nihaonocobase
+      # 应用端口 默认13000
+      - APP_PORT=13000
+      # nocobase api地址前缀 默认/api/
+      - API_BASE_PATH=/api/
+
+      # 数据库日志开关，默认值 off
+      - DB_LOGGING=on
+      # 数据库类型 postgres mysql mariad sqlite
+      - DB_DIALECT=sqlite
+      # sqlite的数据库文件路径 仅 db_dialect=sqlite时生效
+      - DB_STORAGE=storage/db/nocobase.db
+      # 日志输出方式，多个用 , 分隔。开发环境默认值 console, 生产环境默认值 console,dailyRotateFile. 可选项：
+      # console - console.log
+      # file - 文件
+      # dailyRotateFile - 按天滚动文件
+      - LOGGER_TRANSPORT=console,dailyRotateFile
+      # 基于文件的日志存储路径，默认为 storage/logs
+      - LOGGER_BASE_PATH=storage/logs
+      # 输出日志级别，开发环境默认值 debug, 生产环境默认值 info. 可选项 error warn info debug trace
+      - LOGGER_LEVEL=debug
+      # 最大保留日志文件数 
+      # LOGGER_TRANSPORT 为 file 时，默认值为 10.
+      # LOGGER_TRANSPORT 为 dailyRotateFile, 使用 [n]d 代表天数。默认值为 14d.
+      - LOGGER_MAX_FILES=14d
+      # 按大小滚动日志。
+      # LOGGER_TRANSPORT 为 file 时，单位为 byte, 默认值为 20971520 (20 * 1024 * 1024).
+      # LOGGER_TRANSPORT 为 dailyRotateFile, 可以使用 [n]k, [n]m, [n]g. 默认不配置。
+      - LOGGER_MAX_SIZE=5m
+      # 日志打印格式，开发环境默认 console, 生产环境默认 json. 可选项 console json logfmt delimiter
+      - LOGGER_FORMAT=console
+      # 数据表前缀
+      - DB_TABLE_PREFIX=nocobase_
+      # 数据库主机
+      - DB_HOST=
+      # 数据库主机端口
+      - DB_PORT=
+      # 数据库名称
+      - DB_DATABASE=nocobase
+      # 数据库用户
+      - DB_USER=nocobase
+      # 数据库密码
+      - DB_PASSWORD=nocobase
+    volumes:
+      - ./compose/nocobase/storage:/app/nocobase/storage
+    ports:
+      - "13000:80"
+    container_name: nocobase
+
+  appsmith:
+    #image: appsmith/appsmith-ee:latest
+    #image: appsmith/appsmith-ee:v1.62
+    #image: appsmith/appsmith-ee:release
+    #image: appsmith/appsmith-ce:latest
+    image: appsmith/appsmith-ce:release
+    #image: appsmith/appsmith-ce:v1.62
+    networks:
+      - nocode
+    ports:
+      - "13001:80"
+      - "10443:443"
+    volumes:
+      - ./compose/appsmith/stacks:/appsmith-stacks
+    environment:
+      - TZ=Asia/Shanghai
+    container_name: appsmith
+    restart: unless-stopped

@@ -1,0 +1,7 @@
+podman pod create --name webchat --infra-name webchat-infra --ip 172.110.0.6 --network basic -p 9092:9092 -p 8444:8444 -p 3478:3478/udp -p 3478:3478/tcp
+
+podman run --name webchat-coturn --pod webchat -d -v ${PWD}/coturn/turnserver-with-secret-user.conf:/etc/turnserver.conf coturn/coturn
+
+podman run --name webchat-socket -d --pod webchat -e tl_rtc_file_env_mode=https --env-file ${PWD}/tlrtcfile.env iamtsm/tl-rtc-file-socket tlsocket
+
+podman run --name webchat-api -d --pod webchat -e tl_rtc_file_env_mode=https --env-file ${PWD}/tlrtcfile.env iamtsm/tl-rtc-file-api tlapi

@@ -1,0 +1,53 @@
+networks:
+  ldap:
+    name: "ldap_net"
+
+services:
+  ldap:
+    image: osixia/openldap:1.5.0
+    #image: osixia/openldap:stable
+    networks:
+      - ldap
+    ports:
+      - "1389:389"
+      - "1636:636"
+    volumes:
+      - ./compose/openldap/local:/usr/local/ldap
+      - ./compose/openldap/lib:/var/lib/ldap
+      - ./compose/openldap/slapd.d:/etc/ldap/slapd.d
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
+    environment:
+      - LDAP_ORGANISATION=example
+      - LDAP_DOMAIN=example.com
+      - LDAP_ADMIN_PASSWORD=123456
+      - LDAP_TLS=false
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    #healthcheck:
+      #test: ["CMD","ldapsearch","-x","-b","dc=example,dc=com","-LLL","(objectClass=*)"]
+      #interval: 60s
+      #timeout: 5s
+      #retries: 3
+      #start_period: 5s
+    container_name: openldap
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    #image: osixia/phpldapadmin:stable
+    networks:
+      - ldap
+    ports:
+      - "8090:80"
+    #privileged: true
+    #user: root
+    environment:
+      - PHPLDAPADMIN_HTTPS=false
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
+      - PHPLDAPADMIN_LDAP_PORT=389
+      - TZ=Asia/Shanghai
+    depends_on:
+      ldap:
+        condition: service_started
+    container_name: phpldapadmin
+

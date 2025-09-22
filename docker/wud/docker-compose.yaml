@@ -1,0 +1,47 @@
+networks:
+  wud:
+    name: "wud_net"
+    ipam:
+      config:
+        - gateway: 10.90.1.254
+          subnet: 10.90.1.0/24
+
+services:
+  whatsupdocker:
+    container_name: whatsupdocker
+    environment:
+      # 是否启动web
+      #- WUD_SERVER_ENABLED=false
+      # 默认监控全部容器
+      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
+      # 时区
+      - TZ=Asia/Shanghai
+      # === 自定义镜像源配置 ===
+      # 详情参照下文“镜像源配置”章节
+      # WUD_REGISTRY_CUSTOM_{{镜像源显示名}}_URL: http://localhost:5000
+      # WUD_REGISTRY_CUSTOM_{{镜像源显示名}}_LOGIN: username
+      # WUD_REGISTRY_CUSTOM_{{镜像源显示名}}_PASSWORD: password
+      # WUD_REGISTRY_CUSTOM_{{镜像源显示名}}_AUTH: token
+
+      # === 触发器(执行器)配置 ===
+      # 详情参照下文“触发器配置”章节
+      # WUD_TRIGGER_{{触发器类型}}_{{触发器名}}_{{触发器配置项}}: XXX
+
+      # === 监控源配置 ===
+      # 详情参照下文“监控源配置”章节
+      # WUD_WATCHER_{{监控源显示名}}_{{配置项}}: XXX
+
+      # === 杂项配置 ===
+      # HTTP_PROXY: http://<代理连接地址>:<代理端口> # 若要使用代理，请替换成你自己的代理地址
+      # HTTPS_PROXY: http://<代理连接地址>:<代理端口> # 若要使用代理，请替换成你自己的代理地址
+      # NO_PROXY: 127.0.0.0/8,192.168.0.0/16,localhost
+    image: getwud/wud:latest
+    ports:
+     - "3001:3000"
+    volumes:
+      - ./wud/data:/store
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - wud
+    restart: unless-stopped
+

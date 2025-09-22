@@ -1,0 +1,14 @@
+# 服务端口
+server.port: 5601
+# 服务IP
+server.host: "0.0.0.0"
+# ES
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+monitoring.ui.container.elasticsearch.enabled: true
+# 汉化
+i18n.locale: "zh-CN"
+
+# 这里填写连接 elastic search 的账号密码，
+# 账号名称是固定的，就是 kibana_system ，密码后续由 ElasticSearch 生成，这里先不填写
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "kibana_systempw"

@@ -1,0 +1,87 @@
+log:
+    level: info    # 日志级别。可选 "debug" "info" "warn" "error"。默认 "info"。
+    production: false    # 纯 json 输出。
+    file: "/var/log/mosdns/mosdns.log"    # (实验性) 记录日志到文件。默认输出至 stderr。
+                                          # 注意: 日志应由守护进程处理而不是直接写入文件。
+                                          # 此选项仅用于调试。panic 日志不会被记录，其内容仍会
+                                          # 输出至 stderr 。
+
+# (实验性) API 入口设置
+#api:
+#  http: "127.0.0.1:8080" # 在该地址启动 api 接口。
+
+# []string, 从其他配置文件载入 plugins 插件设置。
+# include 的插件会比本配置文件中的插件先初始化。
+include:
+  - "/etc/mosdns/mosdns_load_rules.yaml"
+  - "/etc/mosdns/mosdns_forward.yaml"
+
+# 插件设置
+plugins:
+  - tag: "match_qtype65"
+    type: "sequence"
+    args:
+      - exec: query_summary
+      - exec: reject 3
+
+  - tag: "match_private"
+    type: "sequence"
+    args:
+      - exec: query_summary
+      - exec: reject 5
+
+  - tag: "match_hosts"
+    type: "sequence"
+    args:
+      - exec: query_summary
+      - exec: accept
+
+  #- tag: "match_cache"
+  #  type: "sequence"
+  #  args:
+  #    - exec: query_summary
+  #    - exec: accept
+
+  - tag: "main_sequence"
+    type: "sequence"
+    args:
+      - matches:
+        - qtype 65
+        exec: jump match_qtype65        # 屏蔽 QTYPE 65
+
+      - matches:
+        - qname $geosite-private "ip6-localhost" "ip6-loopback"
+        exec: jump match_private        # 屏蔽内网域名
+
+      - exec: $hosts-local
+      - matches: has_wanted_ans     # 如果有期望的 ANSWER，返回 true 。"期望的ANSWER "指应答的 ANSWER 中包含和 QUESTOIN 类型相同的 record。比如请求 A 记录，应答里返回了 A 记录，则该判断为 true。请求 AAAA 记录，虽然返回了SUCCESS 应答但无 AAAA 记录，返回 false 。
+        exec: jump match_hosts
+
+      #- exec: $cache-local
+      #- matches: has_wanted_ans
+      #  exec: jump match_cache
+
+      - exec: prefer_ipv4     #  优先使用 IPv4
+
+      # mainland 域名解析
+      - matches:
+        - qname $geosite-cn
+        exec: jump dns_mainland
+      - matches: has_wanted_ans
+        exec: accept
+
+      # gfw 域名解析
+      - matches:
+        - qname $geosite-nocn
+        exec: jump dns_gfw
+      - matches: has_wanted_ans
+        exec: accept
+
+      # 其它域名解析
+      - exec: $final_forward
+
+  - tag: "udp_server"
+    type: "udp_server"
+    args:
+      entry: main_sequence
+      listen: 0.0.0.0:5053

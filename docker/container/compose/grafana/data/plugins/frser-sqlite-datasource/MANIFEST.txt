@@ -1,0 +1,43 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "frser",
+  "signedByOrgName": "frser",
+  "plugin": "frser-sqlite-datasource",
+  "version": "3.3.2",
+  "time": 1689787649334,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "gpx_sqlite-datasource_freebsd_amd64": "22b1f06ef16a80ebda08de4afb27959e10a706ec24dfbf73ef2b7dbfd3132e57",
+    "plugin.json": "758aafc262e0f29b81f6ba58f15014db66de1140c1f8c1607d52ad06db352d6f",
+    "CHANGELOG.md": "a279b4e7cb8414e1800e8d05d04ff934d6334949605f295b869f8f71679dceeb",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "img/sine-wave-timeseries-panel-edit.png": "e52d90d3701117fba30a1a3be7b598c62dca672dc54b6260d19942af5f78d9bf",
+    "img/logo.svg": "0c351f39397f811a8ffe664474f1435f342b3be3657bd1ea6353e443acbecf6e",
+    "img/sine-wave-example-dashboard.png": "ccde2cf5e0cd648cdca99bcf8e295cefecbcf6e477645d09fceda3ee17af7737",
+    "README.md": "b311e76cedbee2ed366d69cbe2698788d173f970e094804a13f09fc4731679d5",
+    "gpx_sqlite-datasource_linux_amd64": "db28190bfe5ff533916776694333cc06de5ae1621e8097f1ee66c0b04c3ec974",
+    "gpx_sqlite-datasource_linux_arm": "1a9c4215a775eafefa44a795df85926364e5c1771886abd5e7ea09bda5988e2e",
+    "module.js.map": "b1c4c56380b5269982b3ef677f90a60d452a39679aead8e9d889f1a7fedc9887",
+    "gpx_sqlite-datasource_windows_amd64.exe": "55154c8af6bb3cf597209d1444bf8746f42ba671cfd4e7302806c24b24f7af3f",
+    "gpx_sqlite-datasource_linux_arm64": "1b77042fc09a6529b44850845a329ba450c0288e19b4a129c9a49be3995360f3",
+    "module.js": "f06259ea00a42eab9cbc3225a0558a236622c9abfecc38a7b2294bc30c33d7db",
+    "gpx_sqlite-datasource_darwin_amd64": "88776c1c3a4e7cfcbef243910ab0c425ce81f0ad3bb91c2ce5e70f157401f229",
+    "gpx_sqlite-datasource_darwin_arm64": "9b5c343395ff1089279ea52bf8c24c6f0dbfb29e0e50a677a15ead718ed0397f"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.10
+Comment: https://openpgpjs.org
+
+wrgEARMKAAYFAmS4HQEAIQkQfk0ManCIZucWIQTzOyW2kQdOhGNlcPN+TQxq
+cIhm5wTQAgiKT4QVpro+2Ue0sMWPGW5+BWOeKEmXL9H6OodikkOcfHXr6WHn
+jWagZkn3gYieJgbecDD3iNZ8FDj1SBKFDYmlSwIJASiuwf6PPnWpJLfwnu4m
+pstzVmgiI+XHV0i5lXOykwy3JEMe8MEms6WrTgS/aHGEqVLawPRxaNio5JHE
+sineMY/X
+=KuTm
+-----END PGP SIGNATURE-----

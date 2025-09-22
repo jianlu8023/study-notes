@@ -1,0 +1,110 @@
+networks:
+  adguard:
+    name: "adguardhome"
+
+services:
+  adguardhome:
+    image: adguard/adguardhome:v0.107.57
+    # image: adguard/adguardhome:latest
+    # image: adguard/adguardhome:edge
+    networks:
+      - adguard
+    ports:
+      - "0.0.0.0:53:53/tcp"
+      - "0.0.0.0:53:53/udp"
+      #- "67:67/udp"
+      #- "68:68/udp"
+      #- "10080:80/tcp"
+      #- "443:443/tcp"
+      #- "443:443/udp"
+      - "0.0.0.0:3000:3000/tcp"
+      #- "853:853/tcp"
+      #- "784:784/udp"
+      #- "853:853/udp"
+      #- "8853:8853/udp"
+      #- "5443:5443/tcp"
+      #- "5443:5443/udp"
+    volumes:
+      - ./compose/adguardhome/work:/opt/adguardhome/work
+      - ./compose/adguardhome/conf:/opt/adguardhome/conf
+    environment:
+      TZ: Asia/Shanghai
+    container_name: adguardhome
+    # hostname: adguardhome
+    depends_on:
+      smartdns:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1g
+        reservations:
+          memory: 1g
+          cpus: 1
+
+  smartdns:
+    image: pymumu/smartdns:latest
+    networks:
+      - adguard
+    container_name: smartdns
+    ports:
+      #- "0.0.0.0:8053:53/udp"
+      #- "8053:53/tcp"
+    volumes:
+      - ./compose/smartdns/conf:/etc/smartdns
+      - ./compose/smartdns/logs:/var/log/smartdns
+      - ./compose/smartdns/cache:/var/cache/smartdns
+      - /etc/ssl/certs:/etc/ssl/certs
+    environment:
+      - TZ=ASia/Shanghai
+    healthcheck:
+      test: [ "CMD","sh","-c","test `nslookup dns.pub 127.0.0.1 | grep answer | wc -l` -gt 0" ]
+      interval: 5m
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1g
+        reservations:
+          memory: 1g
+          cpus: 1
+    restart: unless-stopped
+
+  coredns:
+    image: coredns/coredns:1.12.0
+    #image: coredns/coredns:latest
+    networks:
+      - adguard
+    environment:
+      - TZ=Asia/Shanghai
+    container_name: coredns
+    command: -conf /data/coredns/Corefile
+    ports:
+      #- "2053:53/tcp"
+      #- "2053:53/udp"
+      #- "9153:9153/tcp"
+    volumes:
+      - ./compose/coredns/conf:/data/coredns
+    restart: unless-stopped
+
+  mosdns:
+    #image: irinesistiana/mosdns:latest
+    image: irinesistiana/mosdns:v5.3.3
+    networks:
+      - adguard
+    restart: unless-stopped
+    volumes:
+      - ./compose/mosdns/conf:/etc/mosdns
+      - ./compose/mosdns/logs:/var/log/mosdns
+      - ./compose/mosdns/cache:/var/cache/moddns
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      #- "0.0.0.0:3053:53/tcp"
+      #- "0.0.0.0:3053:53/udp"
+    container_name: mosdns

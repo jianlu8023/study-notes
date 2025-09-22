@@ -1,0 +1,60 @@
+networks:
+  panel: 
+    name: "panel_net"
+
+services:
+  baota:
+    image: btpanel/baota:9.0_lts_fresh
+    #image: btpanel/baota:9.0_lts_lib
+    restart: unless-stopped
+    container_name: baota
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - panel
+    volumes:
+      - ./compose/baota/website_data:/www/wwwroot
+      - ./compose/baota/mysql_data:/www/server/data
+      - ./compose/baota/vhost:/www/server/panel/vhost
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "8888:8888"
+      - "22:22"
+      - "443:443"
+      - "80:80"
+      - "888:888"
+    deploy:
+      resources:
+        limits:
+          cpus: '4' # 限制容器使用的CPU个数
+          memory: 4G # 限制容器使用的内存大小
+        reservations:
+          cpus: '2' # 预留 CPU 为 1 个核心
+          memory: 2G # 预留内存为 2 GB
+
+  1panel:
+    image: moelin/1panel:v1.10.24-lts
+    #image: moelin/1panel:global-v1.10.24-lts
+    networks:
+      - panel
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - GIN_MODE=release
+    volumes:
+      - ./compose/1panel/opt:/opt
+      - ./compose/1panel/root:/root
+      #- ./compose/1panel/docker:/etc/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "10086:10086"
+    deploy:
+      resources:
+        limits:
+          cpus: '4' # 限制容器使用的CPU个数
+          memory: 4G # 限制容器使用的内存大小
+        reservations:
+          cpus: '2' # 预留 CPU 为 1 个核心
+          memory: 2G # 预留内存为 2 GB
+    container_name: 1panel

@@ -1,0 +1,51 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "grafadruid",
+  "signedByOrgName": "grafadruid",
+  "plugin": "grafadruid-druid-datasource",
+  "version": "1.4.1",
+  "time": 1674588039093,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "grafadruid-druid-datasource_linux_arm64": "3ef1bdbb45ba9453085e7a5c59ac773ade0891c0ae8db4021861469d1e1d8cf6",
+    "grafadruid-druid-datasource_linux_arm": "d93692aaf344dc010b3cd543b4ed198a3eaf1ebcd43d9c3f335ba20b347a5b5d",
+    "module.js.map": "d59294df6f895cb74f4433cd533a0f472e30dd6e18a8817b97a1de2aeb1d3610",
+    "grafadruid-druid-datasource_darwin_amd64": "69def29c821b72318fcf142caf93ded58e2b423eb7d7534022f3acffb0776b10",
+    "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "grafadruid-druid-datasource_linux_amd64": "9198dffd8be7391597b991f101ac5f5edf220583996f02db694fa2dd69b977a7",
+    "grafadruid-druid-datasource_darwin_arm64": "78191c6e4a95a133671bb6143f5555771edb4d02ebc518ee57ffeddfc423258e",
+    "img/screenshot-panels.png": "e422307147037dbe776f190384688665df4aae09134cf3a060b703c1e5113e99",
+    "img/screenshot-querybuilder-formatter-druidjson.png": "9d1e2f95173364536f8401b2bf3063f30c9788d9c956580188907c83f9c8c393",
+    "img/screenshot-querybuilder-settings.png": "6e2356578d3ca08b96f173b31af81935b70668f4d0074aa68b914c85a02446e5",
+    "img/screenshot-querybuilder-json.png": "e544cbae28f384ec9b7f11bc2c867bee436f2e8104af1f3595d9cf5be0b9396e",
+    "img/screenshot-querybuilder-settings-logs.png": "2d3451d92e545630b85f3a3e8128f394ee918c2eccee326efd84cbbfa95fb13e",
+    "img/screenshot-querybuilder-timeseries.png": "f824202db6e1a070c1f0db909a9b7a28a29b14928725259bb53c4ae28a69ea6c",
+    "img/screenshot-datasource-default-settings.png": "f221461d92f65d0fa26a3c535d36e9c49cea1e495cc5e9a0d9d19719fb4c9d46",
+    "img/druid.svg": "10ec098bb044b2f41933780f89de72912ab59273f9461866daf03d6b8daac17b",
+    "img/screenshot-explore-logs.png": "97dbdd4e9aecbe6ddb1c0fe9ab64e46267960efc1f236245f67df358bf479ec9",
+    "img/screenshot-variables.png": "2a1dfe8d6af004b7d57c8282c78d73d54f291c3ffa2f6911449eb9242dcad52e",
+    "img/screenshot-datasource-connection.png": "b177aa8065b008539fdee185191a6df520b0c2658efba5ef6dc18f0a7a832be8",
+    "img/screenshot-querybuilder-sql.png": "f3c4233dd1ab624e637d179e3037ca9b8088cf221446cfb22cb376961d063585",
+    "grafadruid-druid-datasource_windows_amd64.exe": "e72f7e3cbc2d4405f72ec61bd69a21f39688f237fcdd813ce9e6d635a42f97c4",
+    "module.js.LICENSE.txt": "e8682d4698089309280eb3eaac23263fc4b954c25db84a6b82627e72eb5cf5b9",
+    "module.js": "cc541d2b690ebf7c2247a00554e29f92d8a5a421c998554db57c9a07ba969bea",
+    "README.md": "48d50c25c33e73eba640e1cbce9e790e3698af1833a53e6e77d9dfe71cebfb87",
+    "plugin.json": "72a73fdf4a8455905f329b2f8ff14ec1820f8c78090d89f8dd039c560df13993"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.10
+Comment: https://openpgpjs.org
+
+wrgEARMKAAYFAmPQL4cAIQkQfk0ManCIZucWIQTzOyW2kQdOhGNlcPN+TQxq
+cIhm547qAgkBYivLXUJhUquOQC13AaUruXsDBsi0Kl6qUNRV5vs7VMHoTQvJ
+VmE8APKtQfCIEozOj5T14GxAbJJIONmbcrTJNw0CB0ttEitl0l3QYGrYFG3L
+hDFT2qy2odItKahWLtu3KArF62l6ktYsits0APxcJq9/NihJ2tewACmE0qo5
+uTXtBDdO
+=lwkf
+-----END PGP SIGNATURE-----

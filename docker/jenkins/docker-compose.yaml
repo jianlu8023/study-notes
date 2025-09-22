@@ -1,0 +1,31 @@
+networks:
+  jenkins:
+    name: "jenkins"
+
+services:
+  pre:
+    image: jenkins/jenkins:2.497-alpine-jdk21
+    #image: jenkinsci/blueocean:1.25.7
+    user: root
+    command: chown -R jenkins:jenkins /var/jenkins_home
+    container_name: jenkins-prepare
+    volumes:
+      - ./compose/jenkins/data:/var/jenkins_home
+    networks:
+      - jenkins
+
+  jenkins:
+    image: jenkins/jenkins:2.497-alpine-jdk21
+    #image: jenkinsci/blueocean:1.25.7
+    networks:
+      - jenkins
+    ports:
+      - "5000:5000"
+      - "8099:8080"
+    volumes:
+      - ./compose/jenkins/data:/var/jenkins_home
+    container_name: jenkins
+    depends_on: 
+      pre:
+        condition: service_started
+

@@ -1,0 +1,84 @@
+﻿.card-moudle {
+	width: calc(30% - 10px);
+	height: calc(100% - 10px);
+	float: left;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.root-moudle {
+	background-color: #060918;
+}
+.page-title-title {
+	font: italic bold 14px Microsoft YaHei;
+	color: #88d3f9;
+	margin-left: 6%;
+	float: left;
+	margin-top: 3%;
+}
+.page-title-time {
+	font: normal bold 12px Microsoft YaHei;
+	color: #88d3f9;
+	margin-right: 6%;
+	font-size: 1em;
+	float: right;
+	margin-top: 3%;
+}
+.chart-title-title {
+	font: normal bold 18px Microsoft YaHei;
+	color: #fff;
+}
+.list-list {
+	font: normal bold 14px Microsoft YaHei;
+	/*color: #88d3f9;
+	background-color: #121b2a;
+	border-bottom: 1px #7e9faa solid;*/
+
+}
+.list-list-selected {
+	background-color: #213242;
+	color: #05ecfe;
+	border-bottom: 1px #7e9faa solid;
+}
+.list-list-noselected {
+	background-color: #121b2a;
+	color: #88d3f9;
+}
+.table-moudle {
+	font: normal bold 12px Microsoft YaHei;
+	color: #fff;
+	background-color: #2a404e;
+
+}
+.table-back-color {
+	background-color: #2a404e;
+}
+.table-moudle-selected {
+	background-color: #202434;
+	color:#fff;
+}
+.table-moudle-noselected {
+	background-color: none;
+}
+.tab-moudle {
+	font: normal bold 16px Microsoft YaHei;
+	color: #fff;
+	background-color: #121b2a;
+	border: 2px solid #7e9faa;
+	line-height: 35px;
+}
+.tab-moudle-selected {
+	color: #05ecfe;
+	background-color: #213242;
+}
+.label-moudle {
+	font: normal bold 16px Microsoft YaHei;
+	color: #fff;
+	background-color: #121b2a;
+	border: 2px solid #7e9faa;
+	line-height: 35px;
+}
+.label-moudle-selected {
+	color: #05ecfe;
+	background-color: #213242;
+}

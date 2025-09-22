@@ -1,0 +1,13 @@
+{"Peers":[{"id":"Org1 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org2 Peer1","block_num":"70","endoser":"1","connect_app":"1","app_id":"test_app_2"},
+	{"id":"Org3 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org4 Peer1","block_num":"70","endoser":"1"},
+	{"id":"Org5 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org6 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org7 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org8 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org9 Peer1","block_num":"70","endoser":"0"},
+	{"id":"Org10 Peer1","block_num":"70","endoser":"0"}],
+	"Apps":[{"id":"test_app_2", "peer_id":"Org2 Peer1"}],
+	"Orders": [{"id": "test_order_2"}]
+}

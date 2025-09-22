@@ -1,0 +1,742 @@
+networks:
+  basic:
+    name: basic
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+          gateway: 10.0.0.1
+    driver_opts:
+      com.docker.network.bridge.enable_icc: 'true'
+    internal: false # true 标识此网络是内部网络，主机无法访问 仅限容器间使用
+    attachable: true # true 此网络可以被外部容器(不在当前compose文件中定义的容器)连接
+    enable_ipv6: false # true 启用 IPv6 网络
+
+
+services:
+  mysql:
+    restart: always
+    image: mysql:8.4.2
+    container_name: mysql
+    networks:
+      - basic
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./compose/mysql/datadir:/var/lib/mysql
+      - ./compose/mysql/conf/my.cnf:/etc/my.cnf
+      - ./compose/mysql/source:/docker-entrypoint-initdb.d  # 初始化数据库脚本
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=basic"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD","mysqladmin","ping","-h","localhost","-u","root","-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 60s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 2G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+
+  nginx:
+    restart: always
+    container_name: nginx
+    #image: nginx:mainline-alpine3.18
+    image: nginx:1.27.3-alpine3.20-perl
+    ports:
+      - "8081-8082:81-82"
+      - "80:80"
+    volumes:
+      - ./compose/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./compose/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./compose/nginx/html/:/usr/share/nginx/html
+      - ./compose/nginx/logs:/var/nginx/log
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    networks:
+      - basic
+    healthcheck:
+      test: [ "CMD","curl","-s","http://localhost:80/health" ]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 1G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+
+  redis:
+    restart: always
+    networks:
+      - basic
+    env_file:
+      - .env
+    image: redis:7.2.0-alpine3.18
+    container_name: redis
+    volumes:
+      - ./compose/redis/datadir:/data
+      - ./compose/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./compose/redis/logs:/logs
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    #command: redis-server --requirepass 123456
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: [ "CMD","redis-cli","-a","${REDIS_PASSWORD}","ping" ]
+      interval: 60s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 1G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    restart: always
+    command: mongod
+    networks:
+      - basic
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_DATABASE: basic
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+      wiredTigerCacheSizeGB: 5
+    volumes:
+      - ./compose/mongo/data:/data/db
+      - ./compose/mongo/logs:/var/log/mongodb
+      - ./compose/mongo/init.d:/docker-entrypoint-initdb.d
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 1G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.runCommand('ping').ok" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    container_name: prometheus
+    volumes:
+      - ./compose/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./compose/prometheus/data:/prometheus/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    networks:
+      - basic
+    restart: always
+    depends_on:
+      - node-exporter
+      - cadvisor
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '1'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9090/-/healthy" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    container_name: grafana
+    user: "104"
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./compose/grafana/data:/var/lib/grafana
+      - ./compose/grafana/provisioning/:/etc/grafana/provisioning/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    env_file:
+      - ./compose/grafana/config.monitoring
+    restart: always
+    networks:
+      - basic
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  cadvisor:
+    image: lagoudocker/cadvisor:v0.37.0
+    privileged: true
+    networks:
+      - basic
+    container_name: cadvisor
+    volumes:
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      #- /cgroup:/cgroup:ro
+    ports:
+      - '8082:8080'
+    restart: always
+
+  node-exporter:
+    image: prom/node-exporter:v1.3.1
+    privileged: true
+    restart: always
+    networks:
+      - basic
+    container_name: node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - '9100:9100'
+
+  portainer:
+    image: portainer/portainer-ce:2.26.0-alpine
+    container_name: portainer
+    networks:
+      - basic
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./compose/portainer/data:/data
+      - ./compose/portainer/logs:/logs
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - '9000:9000'
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/api/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.15
+    container_name: elasticsearch
+    hostname: elasticsearch
+    privileged: true
+    #user: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      #- cluster.name=elasticsearch-cluster
+      #- cluster.initial_master_nodes=elasticsearch
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - http.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx2048m"
+      #- ELASTICSEARCH_PASSWORD=123456
+      #- xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    volumes:
+      - ./compose/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./compose/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      #- ./elasticsearch/config:/usr/share/elasticsearch/config
+      #- ./elasticsearch/config/certs/:/uar/share/elasticsearch/config/certs/
+      - ./compose/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./compose/elasticsearch/logs:/usr/share/elasticsearch/logs
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - basic
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2'      # 限制 CPU 使用为 2 个核心
+          memory: 4G    # 限制内存使用为 4 GB
+        reservations:
+          cpus: '1'      # 预留 CPU 为 1 个核心
+          memory: 2G    # 预留内存为 2 GB
+
+  elasticsearch-head:
+    image: mobz/elasticsearch-head:5-alpine
+    container_name: elasticsearch-head
+    ports:
+      - '9101:9100'
+    networks:
+      - basic
+    depends_on:
+      - elasticsearch
+    restart: always
+
+  elasticsearch-kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.15
+    container_name: elasticsearch-kibana
+    networks:
+      - basic
+    ports:
+      - '5601:5601'
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./compose/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./compose/kibana/data:/usr/share/kibana/data
+      - ./compose/kibana/logs:/usr/share/kibana/logs
+
+  ipfs:
+    image: ipfs/kubo:v0.30.0
+    #image: ipfs/kubo:latest
+    restart: unless-stopped
+    container_name: ipfs
+    volumes:
+      - ./compose/ipfs/ipfs-data:/data/ipfs
+      - ./compose/ipfs/ipfs-fuse:/ipfs
+      - ./compose/ipfs/ipns-fuse:/ipns
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - IPFS_PATH=/data/ipfs
+    ports:
+      - '4001:4001/tcp'
+      - '4001:4001/udp'
+      - '5001:5001'
+      - '8083:8080'
+    networks:
+      - basic
+
+  zookeeper1:
+    image: zookeeper:3.9.3-jre-17
+    networks:
+      - basic
+    container_name: zookeeper1
+    restart: always
+    ports:
+      - "2181:2181"
+      - '8084:8080'
+    volumes:
+      - ./compose/zookeeper/zookeeper1/data:/data
+      - ./compose/zookeeper/zookeeper1/logs:/datalog
+      - ./compose/zookeeper/zookeeper1/config:/conf
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_TICK_TIME=2000
+      - ZOO_INIT_LIMIT=5
+      - ZOO_SYNC_LIMIT=2
+      - ZOO_MAX_CLIENT_CNXNS=1200
+    privileged: true
+
+  zookeeper2:
+    image: zookeeper:3.9.3-jre-17
+    networks:
+      - basic
+    container_name: zookeeper2
+    restart: always
+    ports:
+      - "2182:2181"
+      - '8085:8080'
+    volumes:
+      - ./compose/zookeeper/zookeeper2/data:/data
+      - ./compose/zookeeper/zookeeper2/logs:/datalog
+      - ./compose/zookeeper/zookeeper2/config:/conf
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_TICK_TIME=2000
+      - ZOO_INIT_LIMIT=5
+      - ZOO_SYNC_LIMIT=2
+      - ZOO_MAX_CLIENT_CNXNS=1200
+    privileged: true
+
+  zookeeper3:
+    image: zookeeper:3.9.3-jre-17
+    networks:
+      - basic
+    container_name: zookeeper3
+    restart: always
+    ports:
+      - "2183:2181"
+      - '8086:8080'
+    volumes:
+      - ./compose/zookeeper/zookeeper3/data:/data
+      - ./compose/zookeeper/zookeeper3/logs:/datalog
+      - ./compose/zookeeper/zookeeper3/config:/conf
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_TICK_TIME=2000
+      - ZOO_INIT_LIMIT=5
+      - ZOO_SYNC_LIMIT=2
+      - ZOO_MAX_CLIENT_CNXNS=1200
+    privileged: true
+
+  zookeeper-exporter:
+    image: dabealu/zookeeper-exporter:v0.1.13
+    restart: always
+    container_name: zookeeper_exporter
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    ports:
+      - "9141:9141"
+    command: --zk-hosts="zookeeper1:2181,zookeeper2:2181,zookeeper3:2181"
+    privileged: true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    networks:
+      - basic
+
+  kafka:
+    image: bitnami/kafka:3.9-debian-12
+    container_name: kafka
+    networks:
+      - basic
+    environment:
+      # 日志文件保存120个小时
+      - KAFKA_LOG_RETENTION_HOURS=120
+      # broker的topic分区leader接受数据的时候，允许的单条消息的最大值，默认为1M
+      #- KAFKA_MESSAGE_MAX_BYTES=10000000
+      #- KAFKA_REPLICA_FETCH_MAX_BYTES=10000000
+      # broker端的leader分区在想其他follower分区复制消息时候 ，允许的单条消息的最大值  
+      #- KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS=60000
+      # topic的分区数
+      #- KAFKA_NUM_PARTITIONS=3
+      #- KAFKA_DELETE_RETENTION_MS=1000
+      #  # Zookeeper连接地址，格式：zoo1：port1,zoo2:port2:/path
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+      # Kafka广播地址及端口，告诉客户端，使用什么地址和端口能连接到Kafka，不指定，宿主机以外的客户端将无法连接到Kafka
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.58.131:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      # 指定BrokerId，如果不指定，将会自己生成
+      - KAFKA_BROKER_ID=0
+      # kafaka 启动后初始化 2 partition 1 副本 名为basic的topic
+      - KAFKA_CREATE_TOPICS=basic:2:1
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_AUTO_CREATE_TOPICS=true
+    restart: always
+    ports:
+      - '9092:9092'
+    depends_on:
+      zookeeper1:
+        condition: service_started
+      zookeeper2:
+        condition: service_started
+      zookeeper3:
+        condition: service_started
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./compose/kafka/logs:/kafka
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest                ## 镜像：开源的web管理kafka集群的界面
+    container_name: kafka-manager
+    environment:
+      ZK_HOSTS: 192.168.58.131                         ## 修改:宿主机IP
+    ports:
+      - "9009:9000"
+    networks:
+      - basic
+    depends_on:
+      - kafka
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - basic
+    environment:
+      - RABBITMQ_DEFAULT_USER=jianlu
+      - RABBITMQ_DEFAULT_PASS=jianlupw
+      - RABBITMQ_DEFAULT_VHOST=admin
+      - RABBITMQ_PLUGINS_DIR='/plugins:/myplugins'
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./compose/rabbitmq/data:/var/lib/rabbitmq
+      - ./compose/rabbitmq/plugins:/myplugins
+
+  neo4j:
+    #image: neo4j:5.9.0-community
+    image: neo4j:5.21.0-community
+    networks:
+      - basic
+    volumes:
+      - ./compose/neo4j/config:/var/lib/neo4j/conf
+      - ./compose/neo4j/import:/var/lib/neo4j/import
+      - ./compose/neo4j/plugins:/plugins
+      - ./compose/neo4j/data:/data
+      - ./compose/neo4j/logs:/var/lib/neo4j/logs
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    environment:
+      - NEO4J_AUTH=neo4j/neo4jadmin123456
+    restart: always
+    container_name: neo4j
+
+  xxljob:
+    image: xxl-job-admin:2.4.0
+    ports:
+      - '8089:8888'
+    volumes:
+      - ./compose/xxl-job/logs/:/usr/share/xxl-job/logs/
+      - ./compose/xxl-job/config/:/usr/share/xxl-job/config/
+      - ./compose/xxl-job/lib/:/usr/share/xxl-job/lib/
+    container_name: xxl-job
+    privileged: true
+    networks:
+      - basic
+    restart: always
+
+  nacos:
+    image: nacos/nacos-server:latest
+    networks:
+      - basic
+    container_name: nacos-server
+    ports:
+      - '8848:8848'
+      - '9848:9848'
+      - '9849:9849'
+    environment:
+      # 支持IP还是域名模式 default:ip choose:hostname
+      #- PREFER_HOST_MODE=hostname
+      # 数据库编号
+      #- MYSQL_DATABASE_NUM=1
+      - TZ=Asia/Shanghai
+      # 系统启动方式: 集群/单机 cluster/standalone默认 cluster
+      - MODE=standalone
+      # 单机模式下支持MYSQL数据库 mysql / 空 默认:空
+      #- SPRING_DATASOURCE_PLATFORM=mysql
+      # 数据库 连接地址
+      #- MYSQL_SERVICE_HOST=192.168.58.110
+      # 数据库端口
+      #- MYSQL_SERVICE_PORT=3306
+      # 数据库用户名
+      #- MYSQL_SERVICE_USER=root
+      # 数据库用户密码
+      #- MYSQL_SERVICE_PASSWORD=123456
+      # 数据库库名
+      #- MYSQL_SERVICE_DB_NAME=nacos
+      # 数据库连接参数 default : characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
+      #- MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=10000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+      # -Xms 默认 :1g
+      #- JVM_XMS=128m
+      # -Xmx 默认 :1g
+      #- JVM_XMX=128m
+      # -Xmn 默认 :512m
+      #- JVM_XMN=128m
+    volumes:
+      - ./compose/nacos/logs:/home/nacos/logs
+      - ./compose/nacos/conf:/home/nacos/conf
+      - ./compose/nacos/data:/home/nacos/data
+    restart: on-failure
+    hostname: nacos
+    depends_on:
+      mysql:
+        condition: service_started
+
+  dm:
+    image: dm8:20241022
+    networks:
+      - basic
+    restart: always
+    container_name: dameng
+    privileged: true
+    environment:
+      - 'PAGE_SIZE=16'
+      - LD_LIBRARY_PATH=/opt/dmdbms/bin
+      - EXTENT_SIZE=32
+      - BLANK_PAD_MODE=1
+      - LOG_SIZE=1024
+      - UNICODE_FLAG=1
+      - LENGTH_IN_CHAR=1
+      - INSTANCE_NAME=dm8
+    ports:
+      - '5236:5236'
+    volumes:
+      - ./compose/dameng8/data:/opt/dmdbms/data
+      - ./compose/dameng8/log:/opt/dmdbms/log
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      #- ./compose/dameng8/conf/dm.ini:/opt/dmdbms/conf/dm.ini
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 2G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+
+  pgsql:
+    image: postgres:16.3-alpine3.20
+    container_name: postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./compose/postgresql/data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - LANG=zh_CN.UTF-8
+      - TZ=Asia/Shanghai
+      #- POSTGRES_INITDB_ARGS="--locale-provider=icu --icu-locale=zh-CN"
+      - POSTGRES_INITDB_ARGS="--locale=zh-CN"
+    networks:
+      - basic
+    deploy:
+      resources:
+        limits:
+          cpus: '2' # 限制容器使用的CPU个数
+          memory: 1G # 限制容器使用的内存大小
+        reservations:
+          cpus: '1' # 预留 CPU 为 1 个核心
+          memory: 1G # 预留内存为 2 GB
+
+  redisinsight:
+    restart: always
+    privileged: true
+    user: root
+    networks:
+      - basic
+    image: redis/redisinsight:2.58.0
+    container_name: redis-insight
+    ports:
+      - '5540:5540'
+    volumes:
+      - ./compose/redis-insight/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - RI_LOG_LEVEL=info
+      - RI_FILES_LOGGER=true
+      - RI_STDOUT_LOGGER=true
+
+  gitlab-ce:
+    restart: unless-stopped
+    networks:
+      - basic
+    ports:
+      - '80:80'
+      - '8822:22'
+      - '443:443'
+    hostname: my-gitlab.com
+    container_name: gitlab-ce
+    #image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:17.4.2-ce.0
+    environment:
+      - GITLAB_ROOT_PASSWORD=Qwe1234567890@
+    volumes:
+      - ./compose/gitlab-ce/config:/etc/gitlab
+      - ./compose/gitlab-ce/data:/var/opt/gitlab
+      - ./compose/gitlab-ce/log:/var/log/gitlab
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  oceanbase:
+    image: oceanbase/oceanbase-ce:4.2.1-lts
+    container_name: oceanbase
+    restart: always
+    ports:
+      - '2881:2881'
+    # https://www.oceanbase.com/docs/common-oceanbase-database-cn-1000000001758821#%E6%94%AF%E6%8C%81%E9%85%8D%E7%BD%AE%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F
+    environment:
+      - TZ=Asia/Shanghai
+      - OB_TENANT_NAME=demo
+      - OB_TENANT_PASSWORD=admin123$
+      - MODE=MINI
+      - OB_MEMORY_LIMIT=6G
+      - OB_DATAFILE_SIZE=5G
+      - OB_LOG_DISK_SIZE=5G
+      - OB_SYS_PASSWORD=admin123$
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/zoneinfo:/etc/zoneinfo:ro
+      #- ./oceanbase/data:/root
+    networks:
+      - basic

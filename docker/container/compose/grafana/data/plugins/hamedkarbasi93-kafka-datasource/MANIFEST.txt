@@ -1,0 +1,37 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "hamedkarbasi93",
+  "signedByOrgName": "hamedkarbasi93",
+  "plugin": "hamedkarbasi93-kafka-datasource",
+  "version": "0.2.0",
+  "time": 1658868046577,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "CHANGELOG.md": "aaa78be4710ef41d56ddab1edbd180ef9f9adfea2f293109aae925dc33a1b9b3",
+    "module.js.map": "046aa3b839d76eb2cd78294ba7406a92039ce4cfffa78a0dc1364483a4cf5413",
+    "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "module.js": "1d02c3162ac34703cd35797c1ab01d2e0bff46bd8a069f57812d900fad8700f5",
+    "img/graph.gif": "bc2435427bdc894600c085f1182d4361b9f0b2a3b9ebcbd255210ddc68de6651",
+    "img/kafka_logo.svg": "6fa65c611b19a253f716f9a9811c342c92212cb3b2d74e4e358fa300faa7fb18",
+    "module.js.LICENSE.txt": "0d8f66cd4afb566cb5b7e1540c68f43b939d3eba12ace290f18abc4f4cb53ed0",
+    "plugin.json": "b5aa465fe184c14a9493a2d169d896f0d5b36a5a8eefcea3c24f4cfc895ba39a",
+    "gpx_kafka-datasource_linux_amd64": "a98939f318f1b2729b60d03971120b22295c46aa4775c9aebefce0988be75b8a",
+    "README.md": "3dc96ad1b75a53b2a50bebf189cc88383786b34d606d5b153aef7ea931d25104"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.10
+Comment: https://openpgpjs.org
+
+wrkEARMKAAYFAmLgUU4AIQkQfk0ManCIZucWIQTzOyW2kQdOhGNlcPN+TQxq
+cIhm53Y/AgkBH7wc6V52nSKXMgpw7fmZvWrPnYgOXEyz6jDt03sWF/wGllsp
+6kwWe8Gi4RFCE6+JuIVg4BOpsRxRb1aet5V8rh4CCQH5iR5WxLEiDoAu/UX+
+QAfCcgNKsSJP/chSqH5rEHjEm0bJhCrYMvb7b3CrlQ460VKvXLfb2gm2cjHW
+gwPX3DxyFw==
+=W2Ph
+-----END PGP SIGNATURE-----

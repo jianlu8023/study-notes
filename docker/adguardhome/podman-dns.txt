@@ -1,0 +1,16 @@
+1. 创建pod 需要拉取k8s.gcr.io/pause:3.5
+	podman pod create --name dns -p 53:53/udp -p 3000:3000 --ip 172.110.0.1 --network basic
+
+2. 启动mosdns
+	podman run --name mosdns -d -e TZ=Asia/Shanghai -v ${PWD}/conf:/etc/mosdns -v ${PWD}/cache:/var/cache/mosdns -v ${PWD}/logs:/var/log/mosdns --pod dns --restart unless-stopped --log-driver k8s-file --log-opt max-size=500m --log-opt max-file=3 --log-opt path=${PWD}/mosdns.json --memory-reservation=125m --memory=256m irinesistiana/mosdns:v5.3.3
+
+2. 启动smartdns
+	podman run --name smartdns -d "--health-cmd=nslookup dns.pub 127.0.0.1 | grep answer | wc -l" --pod dns -e TZ=Asia/Shanghai -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone -v /home/user/.local/dev/dns/smartdns/conf:/etc/smartdns -v /home/user/.local/dev/dns/smartdns/cache:/var/cache/smartdns -v /home/user/.local/dev/dns/smartdns/logs:/var/log/smartdns -v /etc/ssl:/etc/ssl --log-driver k8s-file --log-opt max-size=500m --log-opt max-file=3 --log-opt path=/home/user/.local/dev/dns/smartdns/smartdns.json --memory-reservation=125m --memory=256m pymumu/smartdns
+
+3. 启动adguard
+	podman run --name adguard -d -e TZ=Asia/Shanghai --pod dns -v /home/user/.local/dev/dns/adguardhome/work:/opt/adguardhome/work -v /home/user/.local/dev/dns/adguardhome/conf:/opt/adguardhome/conf --log-driver k8s-file --log-opt max-size=500m --log-opt max-file=3 --log-opt path=/home/user/.local/dev/dns/adguardhome/adguard.json --memory-reservation=128m --memory=256m adguard/adguardhome:latest
+
+4. 生成systemd的service 在 ~/.config/systemd/$(whoami)执行 没有文件夹创建 mkdir -p ~/.config/systemd/$(whoami)
+	podman generate systemd --new --files --name dns
+	systemctl --user enable --now pod-dns.service
+	sudo loginctl enable-linger $(whoami)

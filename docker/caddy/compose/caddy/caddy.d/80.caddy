@@ -1,0 +1,54 @@
+:80 {
+    log DEBUG
+    handle /pricomp-visual/* {
+        reverse_proxy {
+           to https://192.168.58.110:9989
+           transport http {              # 定义传输协议
+               tls                      # 配置 TLS 参数
+               tls_insecure_skip_verify  # 跳过证书验证                
+           }
+           #import skip_tls
+        }
+    }
+    
+    handle_path /hello {
+        respond "Hello, world!" 200
+    }
+
+    handle / {
+        root * /srv
+        file_server {
+            index index.html
+        }
+    }
+    
+    handle_path /404.html {
+        root * /srv 
+        file_server {
+            index 404.html
+        }
+    }
+    
+    handle {
+        #abort
+        #@404 expression `{err.status_code} in [404]`
+        #handle @404 {
+        #    respond "Not Found" 404
+        #}
+        redir * /404.html
+    }
+
+    handle_errors {
+        @404-410 expression `{err.status_code} in [404,410]`
+        handle @404-410 {
+            respond "It is a 4xx error!"
+            #rewrite * /404.html
+        }
+        @5xx expression `{err.status_code} >=500 && {err.status_code} <600`
+        handle @5xx {
+            respond "It is a 5xx error!"
+        }
+        respond "{err.status_code} {err.status_text}"
+        
+    }
+}

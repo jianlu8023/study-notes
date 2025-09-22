@@ -1,0 +1,19 @@
+#cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+
+discovery.type: single-node
+
+xpack.security.enabled: true
+
+xpack.security.enrollment.enabled: true
+
+xpack.security.http.ssl:
+  enabled: false
+#  keystore.path: certs/http.p12
+
+xpack.security.transport.ssl:
+  enabled: false
+#  verification_mode: certificate
+#  keystore.path: certs/transport.p12
+#  truststore.path: certs/transport.p12
+

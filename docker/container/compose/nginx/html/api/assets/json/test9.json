@@ -1,0 +1,181 @@
+{
+    "Peers":[
+        {"id":"Org1 Peer1", "org":"Org1", "anchor":"1",  "channelID":"channel1", "score": 47},
+        {"id":"Org1 Peer2", "org":"Org1", "anchor":"0",  "channelID":"channel1", "score": 55},
+        {"id":"Org1 Peer3", "org":"Org1", "anchor":"0",  "channelID":"channel1", "score": 60},
+        {"id":"Org1 Peer4", "org":"Org1", "anchor":"0",  "channelID":["channel1" ,"channel3"], "score": 35},
+        {"id":"Org1 Peer5", "org":"Org1", "anchor":"0",  "channelID": ["channel1" ,"channel2"], "score": 24},
+        {"id":"Org1 Peer6", "org":"Org1", "anchor":"0",  "channelID":"channel2", "score": 81},
+        {"id":"Org1 Peer7", "org":"Org1", "anchor":"0",  "channelID":"channel2", "score": 89},
+        {"id":"Org1 Peer8", "org":"Org1", "anchor":"0",  "channelID":"channel2", "score": 73},
+        {"id":"Org1 Peer9", "org":"Org1", "anchor":"0",  "channelID":"channel3", "score": 88},
+        {"id":"Org1 Peer10", "org":"Org1", "anchor":"0",  "channelID":"channel3",  "score": 61},
+        {"id":"Org1 Peer11", "org":"Org1", "anchor":"0",  "channelID":"channel3", "score": 79},
+        {"id":"Org2 Peer1", "org":"Org2", "anchor":"0", "channelID":"channel1", "score": 28},
+        {"id":"Org2 Peer2", "org":"Org2", "anchor":"1",  "channelID":"channel1", "score": 39},
+        {"id":"Org2 Peer3", "org":"Org2", "anchor":"0",  "channelID":"channel1", "score": 41},
+        {"id":"Org3 Peer1", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 27},
+        {"id":"Org3 Peer2", "org":"Org3", "anchor":"1",  "channelID":"channel1", "score": 48},
+        {"id":"Org3 Peer3", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 44},
+        {"id":"Org3 Peer4", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 56},
+        {"id":"Org3 Peer5", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 38},
+        {"id":"Org3 Peer6", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 52},
+        {"id":"Org3 Peer7", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 47},
+        {"id":"Org3 Peer8", "org":"Org3", "anchor":"0",  "channelID":"channel1", "score": 48},
+        {"id":"Org4 Peer1", "org":"Org4", "anchor":"0",  "channelID":"channel1", "score": 45},
+        {"id":"Org4 Peer2", "org":"Org4", "anchor":"1",  "channelID":"channel1", "score": 26},
+        {"id":"Org4 Peer3", "org":"Org4", "anchor":"0",  "channelID":"channel1", "score": 55},
+        {"id":"Org4 Peer4", "org":"Org4", "anchor":"0",  "channelID":"channel1", "score": 46},
+        {"id":"Org5 Peer1", "org":"Org5", "anchor":"0",  "channelID":"channel1", "score": 38},
+        {"id":"Org5 Peer2", "org":"Org5", "anchor":"1",  "channelID":"channel1", "score": 23},
+        {"id":"Org5 Peer3", "org":"Org5", "anchor":"0",  "channelID":"channel1", "score": 29},
+        {"id":"Org5 Peer4", "org":"Org5", "anchor":"0",  "channelID":"channel1", "score": 36},
+        {"id":"Org6 Peer1", "org":"Org6", "anchor":"0",  "channelID":"channel1", "score": 49},
+        {"id":"Org6 Peer2", "org":"Org6", "anchor":"1",  "channelID":"channel1", "score": 56},
+        {"id":"Org6 Peer3", "org":"Org6", "anchor":"0",  "channelID":"channel1", "score": 32},
+        {"id":"Org7 Peer1", "org":"Org7", "anchor":"0",  "channelID":"channel1", "score": 51},
+        {"id":"Org7 Peer2", "org":"Org7", "anchor":"1",  "channelID":"channel1", "score": 44},
+        {"id":"Org7 Peer3", "org":"Org7", "anchor":"0",  "channelID":"channel1", "score": 62},
+        {"id":"Org7 Peer4", "org":"Org7", "anchor":"0",  "channelID":"channel1", "score": 50},
+        {"id":"Org7 Peer7", "org":"Org7", "anchor":"0",  "channelID":"channel1", "score": 39},
+        {"id":"Org8 Peer1", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 34},
+        {"id":"Org8 Peer2", "org":"Org8", "anchor":"1",  "channelID":"channel1", "score": 56},
+        {"id":"Org8 Peer3", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 53},
+        {"id":"Org8 Peer4", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 66},
+        {"id":"Org8 Peer5", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 46},
+        {"id":"Org8 Peer6", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 40},
+        {"id":"Org8 Peer7", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 57},
+        {"id":"Org8 Peer8", "org":"Org8", "anchor":"0",  "channelID":"channel1", "score": 66},
+        {"id":"Org9 Peer1", "org":"Org9", "anchor":"0",  "channelID":"channel2", "score": 79},
+        {"id":"Org9 Peer2", "org":"Org9", "anchor":"1",  "channelID":"channel2", "score": 84},
+        {"id":"Org9 Peer3", "org":"Org9", "anchor":"0",  "channelID":"channel2", "score": 78},
+        {"id":"Org9 Peer4", "org":"Org9", "anchor":"0",  "channelID":"channel2", "score": 83},
+        {"id":"Org9 Peer5", "org":"Org9", "anchor":"0",  "channelID":"channel2", "score": 77},
+        {"id":"Org9 Peer6", "org":"Org9", "anchor":"0",  "channelID":"channel2", "score": 82},
+        {"id":"Org10 Peer1", "org":"Org10", "anchor":"0",  "channelID":"channel2", "score": 79},
+        {"id":"Org10 Peer2", "org":"Org10", "anchor":"1",  "channelID":"channel2", "score": 88},
+        {"id":"Org10 Peer3", "org":"Org10", "anchor":"0",  "channelID":"channel2", "score": 70},
+        {"id":"Org10 Peer4", "org":"Org10", "anchor":"0",  "channelID":"channel2", "score": 81},
+        {"id":"Org10 Peer5", "org":"Org10", "anchor":"0",  "channelID":"channel2", "score": 92},
+        {"id":"Org11 Peer1", "org":"Org11", "anchor":"0",  "channelID":"channel2", "score": 77},
+        {"id":"Org11 Peer2", "org":"Org11", "anchor":"1",  "channelID":"channel2", "score": 86},
+        {"id":"Org11 Peer3", "org":"Org11", "anchor":"0",  "channelID":"channel2", "score": 76},
+        {"id":"Org11 Peer4", "org":"Org11", "anchor":"0",  "channelID":"channel2", "score": 78},
+        {"id":"Org11 Peer5", "org":"Org11", "anchor":"0",  "channelID":"channel2", "score": 90},
+        {"id":"Org12 Peer1", "org":"Org12", "anchor":"0",  "channelID":"channel3", "score": 61},
+        {"id":"Org12 Peer2", "org":"Org12", "anchor":"1",  "channelID":"channel3", "score": 72},
+        {"id":"Org12 Peer3", "org":"Org12", "anchor":"0",  "channelID":"channel3", "score": 85},
+        {"id":"Org12 Peer4", "org":"Org12", "anchor":"0",  "channelID":"channel3", "score": 79},
+        {"id":"Org12 Peer5", "org":"Org12", "anchor":"0",  "channelID":"channel3", "score": 94},
+        {"id":"Org13 Peer1", "org":"Org13", "anchor":"0",  "channelID":"channel3", "score": 92},
+        {"id":"Org13 Peer2", "org":"Org13", "anchor":"1",  "channelID":"channel3", "score": 79},
+        {"id":"Org13 Peer3", "org":"Org13", "anchor":"0",  "channelID":"channel3", "score": 76},
+        {"id":"Org13 Peer4", "org":"Org13", "anchor":"0",  "channelID":"channel3", "score": 57},
+        {"id":"Org13 Peer5", "org":"Org13", "anchor":"0",  "channelID":"channel3", "score": 64},
+        {"id":"Org13 Peer6", "org":"Org13", "anchor":"0",  "channelID":"channel3", "score": 68},
+        {"id":"Org14 Peer1", "org":"Org14", "anchor":"0",  "channelID":"channel4", "score": 91},
+        {"id":"Org14 Peer2", "org":"Org14", "anchor":"0",  "channelID":"channel4", "score": 88}
+    ],
+    "Orgs":["Org1", "Org2", "Org3", "Org4", "Org5", "Org6", "Org7", "Org8", "Org9", "Org10", "Org11", "Org12", "Org13", "Org14"],
+    "Channels" : ["channel1", "channel2", "channel3", "channel4"],
+    "Orders": [{"id": "order1", "channelID":"channel1"},
+        {"id": "order2", "channelID":"channel1"},
+        {"id": "order3", "channelID":"channel1"},
+        {"id": "order4", "channelID":"channel1"},
+        {"id": "order5", "channelID":"channel2"},
+        {"id": "order6", "channelID":"channel2"},
+        {"id": "order7", "channelID":"channel2"},
+        {"id": "order8", "channelID":"channel3"}],
+
+    "Clients": [{"id": "client1", "channelID":"channel1"},
+        {"id": "client2", "channelID":"channel3"},
+        {"id": "client3", "channelID":"channel2"}
+    ],
+
+    "CPU_Use_Ratio": 61,
+    "BlockSize": 2,
+
+    "animation": {
+        "fa0f757bc278fdf6a32d00975602eb853e23a86a156781588d99ddef5b80720f": [
+            {
+                "commitTime" : "2022-4-21 14:40:32", "submitTime" : "2022-4-21 14:39:53"
+            },
+            {
+                "endorserPeer" : ["Org1 Peer1", "Org2 Peer1", "Org5 Peer1", "Org6 Peer1", "Org8 Peer1"]
+            },
+            {
+                "channel" : "channel1", "clientID" : "client1", "block_num":"90"
+            },
+            {
+                "proposal": [{"source": "node-user", "target": "Org1 Peer1", "time":"2500", "type":"proposal"}, {"source": "node-user", "target": "Org2 Peer1", "time":"4000", "type":"proposal"},
+                    {"source": "node-user", "target": "Org5 Peer1", "time":"2500", "type":"proposal"},{"source": "node-user", "target": "Org6 Peer1", "time":"3500", "type":"proposal"},
+                    {"source": "node-user", "target": "Org8 Peer1", "time":"1500", "type":"proposal"}],
+        
+                "return": [{"source": "Org1 Peer1", "target": "node-user", "time":"2500", "type":"return"}, {"source": "Org2 Peer1", "target": "node-user", "time":"4000", "type":"return"},
+                    {"source": "Org5 Peer1", "target": "node-user", "time":"2500", "type":"return"},{"source": "Org6 Peer1", "target": "node-user", "time":"2500", "type":"return"},
+                    {"source": "Org8 Peer1", "target": "node-user", "time":"2500", "type":"return"}],
+        
+                "submit": [{"source": "node-user", "target": "node-order-leader", "time":"3500", "type":"submit"}],
+        
+                "chain": [{"source": "node-order-leader", "target": "Org1 Peer1", "time":"2500", "type":"chain"}, {"source": "node-order-leader", "target": "Org2 Peer2", "time":"4000", "type":"chain"},
+                    {"source": "node-order-leader", "target": "Org3 Peer2", "time":"2500", "type":"chain"},  {"source": "node-order-leader", "target": "Org4 Peer2", "time":"2500", "type":"chain"},
+                    {"source": "node-order-leader", "target": "Org5 Peer2", "time":"3500", "type":"chain"},{"source": "node-order-leader", "target": "Org6 Peer2", "time":"2500", "type":"chain"},
+                    {"source": "node-order-leader", "target": "Org7 Peer2", "time":"2500", "type":"chain"},{"source": "node-order-leader", "target": "Org8 Peer2", "time":"3500", "type":"chain"}],
+        
+                "final": [{"source": "node-order-leader", "target": "node-user", "time":"3500", "type":"final"}]
+            }
+        ],
+
+        "aldb72lc0cfb6fl07fc4550ld29866633d2la3492c87bb352687b2e8e85b652e": [
+            {
+                "commitTime" : "2022-4-21 14:40:21", "submitTime" : "2022-4-21 14:39:35"
+            },
+            {
+                "endorserPeer" : ["Org9 Peer1", "Org10 Peer1", "Org11 Peer1"]
+            },
+            {
+                "channel" : "channel2", "clientID" : "client2", "block_num":"90"
+            },
+            {
+                "proposal": [{"source": "node-user", "target": "Org9 Peer1", "time":"1500", "type":"proposal"}, {"source": "node-user", "target": "Org10 Peer1", "time":"5000", "type":"proposal"},
+                    {"source": "node-user", "target": "Org11 Peer1", "time":"2500", "type":"proposal"}],
+        
+                "return": [{"source": "Org9 Peer1", "target": "node-user", "time":"2500", "type":"return"}, {"source": "Org10 Peer1", "target": "node-user", "time":"6000", "type":"return"},
+                    {"source": "Org11 Peer1", "target": "node-user", "time":"500", "type":"return"}],
+        
+                "submit": [{"source": "node-user", "target": "node-order-leader", "time":"3500", "type":"submit"}],
+        
+                "chain": [{"source": "node-order-leader", "target": "Org9 Peer2", "time":"2500", "type":"chain"}, {"source": "node-order-leader", "target": "Org10 Peer2", "time":"4000", "type":"chain"},
+                    {"source": "node-order-leader", "target": "Org11 Peer2", "time":"2500", "type":"chain"}, {"source": "node-order-leader", "target": "Org1 Peer6", "time":"5500", "type":"chain"}],
+        
+                "final": [{"source": "node-order-leader", "target": "node-user", "time":"3500", "type":"final"}]
+            }
+        ],
+
+        "f92d78e8195795e3all5c4cl29d78edaac70ec4f5ef4764df43elde245e7d467": [
+            {
+                "commitTime" : "2022-4-21 14:40:19", "submitTime" : "2022-4-21 14:39:37"
+            },
+            {
+                "endorserPeer" : ["Org12 Peer1", "Org13 Peer1"]
+            },
+            {
+                "channel" : "channel3", "clientID" : "client3", "block_num":"90"
+            },
+            {
+                "proposal": [{"source": "node-user", "target": "Org12 Peer1", "time":"2500", "type":"proposal"}, {"source": "node-user", "target": "Org13 Peer1", "time":"4000", "type":"proposal"}],
+        
+                "return": [{"source": "Org12 Peer1", "target": "node-user", "time":"2500", "type":"return"}, {"source": "Org13 Peer1", "target": "node-user", "time":"4000", "type":"return"}],
+        
+                "submit": [{"source": "node-user", "target": "node-order-leader", "time":"3500", "type":"submit"}],
+   
+                "chain": [{"source": "node-order-leader", "target": "Org12 Peer2", "time":"1000", "type":"chain"}, {"source": "node-order-leader", "target": "Org13 Peer2", "time":"4000", "type":"chain"},
+                    {"source": "node-order-leader", "target": "Org1 Peer11", "time":"2500", "type":"chain"}],
+        
+                "final": [{"source": "node-order-leader", "target": "node-user", "time":"3500", "type":"final"}]
+            }
+        ]
+        
+    }
+
+}

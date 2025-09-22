@@ -1,0 +1,48 @@
+{
+  "type": "datasource",
+  "name": "SQLite",
+  "id": "frser-sqlite-datasource",
+  "metrics": true,
+  "backend": true,
+  "alerting": true,
+  "category": "sql",
+  "executable": "gpx_sqlite-datasource",
+  "info": {
+    "description": "SQLite as a (Backend) Datasource",
+    "author": {
+      "name": "Sergej Herbert",
+      "url": "https://github.com/fr-ser"
+    },
+    "keywords": ["sqlite", "sql", "raspberry", "arm"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/fr-ser/grafana-sqlite-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/fr-ser/grafana-sqlite-datasource/blob/main/LICENSE"
+      }
+    ],
+    "screenshots": [
+      {
+        "name": "Example Dashboard",
+        "path": "img/sine-wave-example-dashboard.png"
+      },
+      {
+        "name": "Example Panel Edit",
+        "path": "img/sine-wave-timeseries-panel-edit.png"
+      }
+    ],
+    "version": "3.3.2",
+    "updated": "2023-07-19"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.3.3",
+    "plugins": []
+  }
+}

@@ -1,0 +1,29 @@
+smartdns 去广告
+https://pymumu.github.io/smartdns/config/ad-block/
+wget https://anti-ad.net/anti-ad-for-smartdns.conf -O /etc/smartdns/anti-ad-smartdns.conf
+conf-file /etc/smartdns/anti-ad-smartdns.conf
+
+yandex dns:
+https://dns.yandex.com/  需要proxy
+basic
+	ip4 77.88.8.1 77.88.8.1
+	ip6 2a02:6b8::feed:0ff 2a02:6b8:0:1::feed:0ff
+ 	doh https://77.88.8.8/dns-query		common.dot.dns.yandex.net
+	dot tls://77.88.8.8:853 
+
+safe
+	ip4 77.88.8.88 77.88.8.2
+	ip6 2a02:6b8::feed:bad 2a02:6b8:0:1::feed:bad
+	doh https://77.88.8.88/dns-query	safe.dot.dns.yandex.net
+	dot tls://77.88.8.88:853
+
+family
+	ip4 77.88.8.7 77.88.8.3
+	ip6 2a02:6b8::feed:a11 2a02:6b8:0:1::feed:a11
+	doh https://77.88.8.7/dns-query 	family.dot.dns.yandex.net
+	dot tls://77.88.8.7:853
+
+dns-list
+https://cyx.im/archives/12/
+https://www.set-fire.com/topic/433/%E5%B9%B2%E5%87%80%E6%97%A0%E6%B1%A1%E6%9F%93%E5%85%AC%E5%85%B1-dns
+https://github.com/Disturs/dns

@@ -1,0 +1,75 @@
+# 日志设置
+log:
+  level: debug   # 日志级别。可选 "debug" "info" "warn" "error"。默认 "info"。
+  production: false            # 纯 json 输出。
+  #file: "/var/log/mosdns/mosdns.log"    # (实验性) 记录日志到文件。默认输出至 stderr。
+                               # 注意: 日志应由守护进程处理而不是直接写入文件。
+                               # 此选项仅用于调试。panic 日志不会被记录，其内容仍会
+                               # 输出至 stderr 。
+
+plugins:
+  # 转发至 Google 服务器的插件
+  - tag: forward
+    type: forward
+    args:
+      concurrent: 1
+      upstreams:
+        #- tag: google_doh # 本上游的 tag。用于标识和 log。可省略。同一插件内该 tag 必需唯一。建议全局唯一。
+          #addr: https://dns.google/dns-query # 必需。服务器地址。格式: [protocol://]host[:port][/path] 。protocol 默认为 udp 。省略端口号会使用协议的默认值。protocol: udp(dns over udp host是ip) tcp(dns over tcp host是ip) tls(dns over tls RC7858) https(dns over https base http/2) quic(dns over quic RFC9250)
+          #bootstrap: 223.5.5.5 # (实验性) 手动指定用于解析 host 域名的 bootstrap 服务器。只能是 UDP 服务器。不推荐使用此方式。bootstrap 仅适用于没有固定 IP 的服务器，比如自建服务器
+          #bootstrap_version: 4 # 设定 4 或 6 可控制解析 IP 的版本。默认 0 等于 4 。
+          #dial_addr: "8.8.8.8" # IP 协议层面建立连接时使用的地址。如果 host 是域名，此处填入 IP 可免去每次建立连接时解析服务器域名。支持指定端口号。
+          #socks5: "127.0.0.1:1080" # socks5 服务器地址。格式 host:port。数据将会通过该代理中转。暂不支持用户名密码认证。只支持基于 TCP 的协议。
+          #idle_timeout: 30 # TCP/DoT/DoH 连接复用空连接保持时间。单位: 秒。默认 DoH/DoQ: 30 ，TCP/DoT: 10。一般不需要改。
+          #enable_pipeline: false # TCP/DoT 使用 RFC 7766 新的 query pipelining 连接复用模式 
+          #enable_http3: false # (实验性) DoH 使用 HTTP/3 连接服务器。
+          #max_conns: 2 # (5.3+) 已弃用。最大连接数量由插件自动控制。
+          #insecure_skip_verify: false #  禁用 TLS 服务器证书验证。
+          #so_mark: 0 # 设定 SO_MARK。
+          #bind_to_device: "" # 设定 SO_BINDTODEVICE。
+        - tag: ali_doh
+          addr: https://dns.alidns.com/dns-query
+          bootstrap: 223.5.5.5
+        - tag: tencent_dns
+          addr: "119.29.29.29:53"
+        - tag: dnspod_doh
+          addr: https://doh.pub/dns-query
+          bootstrap: 223.5.5.5
+        - tag: ali_dns
+          addr: 223.5.5.5
+
+
+
+
+ # 在同一端口启动 udp 和 tcp 服务器。
+  - tag: udp53
+    type: udp_server
+    args:
+      entry: forward
+      listen: 0.0.0.0:53
+  - tag: tcp53
+    type: tcp_server
+    args:
+      entry: forward
+      listen: 0.0.0.0:53
+
+
+  - tag: "cache"
+    type: "cache"
+    args:
+      size: 1024  # 内置内存缓存大小。单位: 条。默认: 1024。每个 cache 插件的内存缓存是独立的。
+
+      # (实验性) lazy cache 设定。lazy_cache_ttl > 0 会启用 lazy cache。
+      # 所有应答都会在缓存中存留 lazy_cache_ttl 秒，但自身的 TTL 仍然有效。如果命中过期的应答，
+      # 则缓存会立即返回 TTL 为 5 的应答，然后自动在后台发送请求更新数据。
+      # 相比强行增加应答自身的 TTL 的方法，lazy cache 能提高命中率，同时还能保持一定的数据新鲜度。
+      lazy_cache_ttl: 86400        # lazy cache 生存时间。单位: 秒。默认: 0 (禁用 lazy cache)。
+                           # 建议值 86400（1天）~ 259200（3天）
+  
+      # (实验性) 将缓存保存在磁盘。插件启动时也会自动从该文件载入缓存。
+      # 缓存将在 mosdns 被关闭时保存。
+      dump_file: /var/cache/moddns/cache.dump
+      # (实验性) 自动保存间隔。单位秒。默认 600。
+      # 如果距离上次 dump 有 1024 次更新，则自动保存。
+      dump_interval: 600
+ 

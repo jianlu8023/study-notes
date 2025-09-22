@@ -1,0 +1,66 @@
+﻿{
+	"data": {
+		"global": "通用通道",
+		"casingchannel": "可信计算",
+		"kbmxt": "跨部门协同",
+
+		"zhangyu": "数据共享",
+		"chanel1": "棉纱供应链",
+		"channel3": "网盘",
+		"channel4": "文件存证",
+		"channel5": "协同审批",
+		"channel6": "通道6",
+		"channel2": "通道3",
+	
+	
+		
+		"manager": "管理组织",
+		"org1": "组织1",
+		"org2": "组织2",
+
+		"org1": "组织1",
+		"zfw": "政法委",
+		"gat": "公安厅",
+		"jcy": "检察院",
+		"fy": "法院",
+		"sf": "司法",
+		"jy": "监狱",
+		"kss": "看守所",
+		
+		"peer0": "节点0",
+		"peer1": "节点1",
+		"peer2": "节点2",
+		"peer3": "节点3",
+		"peer4": "节点4",
+		"peer5": "节点5",
+		"peer6": "节点6",
+		"peer7": "节点7",
+		"peer8": "节点8",
+		"peer9": "节点9",
+		"peer10": "节点10",
+		"peer11": "节点11",
+		"peer12": "节点12",
+		"peer13": "节点13",
+		"peer14": "节点14",
+		"peer15": "节点15",
+		"orderer0": "排序节点0",
+		"orderer1": "排序节点1",
+		"orderer2": "排序节点2",
+		"orderer3": "排序节点3",
+		"orderer4": "排序节点4",
+		"orderer5": "排序节点5",
+		"orderer6": "排序节点6",
+		"orderer7": "排序节点7",
+		"orderer8": "排序节点8",
+		"orderer9": "排序节点9",
+		"orderer10": "排序节点10",
+		"orderer11": "排序节点11",
+		"orderer12": "排序节点12",
+		"orderer13": "排序节点13",
+		"orderer14": "排序节点14",
+		"orderer15": "排序节点15"
+	}
+}
+
+
+

@@ -1,0 +1,27 @@
+sudo fdisk /dev/sdb
+sudo mkfs -t ext4 /dev/sdb
+
+fdisk /dev/sdx
+sudo mkfs -t ext4 /dev/sdb
+
+/dev/ubuntu-vg/ubuntu-lv
+
+如果硬盘完全使用完情况下使用此命令，如果有多余的空间请跳过此命令：
+lvresize -A n -L +30G /dev/mapper/ubuntu--vg-ubuntu--lv
+resize2fs -p /dev/mapper/ubuntu--vg-ubuntu--lv
+
+
+dmsetup remove_all
+
+sudo vgextend ubuntu-vg /dev/sdb
+vgextend ubuntu-vg /dev/sdc
+
+
+
+sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+
+ccf@34%^&*
+
+
+50 no 

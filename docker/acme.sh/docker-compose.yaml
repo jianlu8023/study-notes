@@ -1,0 +1,19 @@
+networks:
+  acme:
+    name: "acme.sh"
+
+services:
+  acme:
+    image: neilpang/acme.sh
+    container_name: acme.sh
+    volumes:
+      - ./compose/acme.sh/out:/acme.sh
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - acme
+    #network_mode: host
+    command: daemon
+    stdin_open: true
+    tty: true
+    restart: no

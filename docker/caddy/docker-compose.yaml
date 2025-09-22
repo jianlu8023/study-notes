@@ -1,0 +1,25 @@
+networks:
+  caddy:
+    name: "basic"
+    external: true
+
+services:
+  caddy:
+    image: caddy:2.9.1-alpine
+    container_name: caddy
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "2019:2019"
+    volumes:
+      - ./compose/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./compose/caddy/data:/data
+      - ./compose/caddy/srv:/srv
+      - ./compose/caddy/config:/config
+      - ./compose/caddy/caddy.d:/etc/caddy/caddy.d
+    networks:
+      - caddy
+    #command: caddy

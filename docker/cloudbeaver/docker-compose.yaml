@@ -1,0 +1,19 @@
+networks:
+  dbeaver:
+    name: "cloudbeaver"
+
+services:
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:24.3.5
+    #image: dbeaver/cloudbeaver:latest
+    networks:
+      - dbeaver
+    restart: unless-stopped
+    environment: 
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./compose/cloudbeaver/workspace:/opt/cloudbeaver/workspace
+    ports:
+      - "8978:8978"
+    container_name: cloudbeaver
+

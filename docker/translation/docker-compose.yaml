@@ -1,0 +1,28 @@
+networks:
+  translate:
+    name: "translate_net"
+
+services:
+  mtranserver:
+    image: xxnuo/mtranserver:latest
+    container_name: mtranserver
+    ports:
+      - "8989:8989"
+    volumes:
+      - ./mtranserver/models:/app/models
+    environment:
+      - CORE_API_TOKEN=nihaomtranserver
+      - TZ=Asia/Shanghai
+    networks:
+      - translate
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1G
+        reservations:
+          cpus: 0.5
+          memory: 256M
+    restart: unless-stopped
+    
+            

@@ -1,0 +1,101 @@
+{
+  "AutoNAT": {
+    "ServiceMode": "disabled"
+  },
+  "Peering": {
+    "Peers": [
+      {
+        "ID": "node的id",
+        "Addrs": [
+          "/ip4/127.0.0.1/udp/4001/quic-v1",
+          "/ip4/127.0.0.1/tcp/4001"
+        ]
+      }
+    ]
+  },
+  "Reprovider": {
+    "Strategy": "all"
+  },
+  "Routing": {
+    "AcceleratedDHTClient": false,
+    "Methods": {
+      "find-peers": {
+        "RouterName": "ParallelHelper"
+      },
+      "find-providers": {
+        "RouterName": "ParallelHelper"
+      },
+      "get-ipns": {
+        "RouterName": "ParallelHelper"
+      },
+      "provide": {
+        "RouterName": "ParallelHelper"
+      },
+      "put-ipns": {
+        "RouterName": "ParallelHelper"
+      }
+    },
+    "Routers": {
+      "LanDHT": {
+        "Parameters": {
+          "AcceleratedDHTClient": false,
+          "Mode": "auto",
+          "PublicIPNetwork": false
+        },
+        "Type": "dht"
+      },
+      "ParallelHelper": {
+        "Parameters": {
+          "Routers": [
+            {
+              "IgnoreErrors": true,
+              "RouterName": "LanDHT",
+              "Timeout": "3s"
+            },
+            {
+              "ExecuteAfter": "2s",
+              "IgnoreErrors": false,
+              "RouterName": "WanDHT",
+              "Timeout": "5m0s"
+            }
+          ]
+        },
+        "Type": "parallel"
+      },
+      "WanDHT": {
+        "Parameters": {
+          "AcceleratedDHTClient": false,
+          "Mode": "auto",
+          "PublicIPNetwork": true
+        },
+        "Type": "dht"
+      }
+    },
+    "Type": "dhtclient"
+  },
+  "Swarm": {
+    "ConnMgr": {
+      "GracePeriod": "30s",
+      "HighWater": 200,
+      "LowWater": 100,
+      "Type": "basic"
+    },
+    "DisableNatPortMap": true,
+    "RelayClient": {
+      "Enabled": false
+    },
+    "RelayService": {
+      "Enabled": false
+    },
+    "Transports": {
+      "Network": {
+        "QUIC": false,
+        "Relay": true,
+        "TCP": true,
+        "WebRTCDirect": false,
+        "WebTransport": false,
+        "Websocket": true
+      }
+    }
+  }
+}

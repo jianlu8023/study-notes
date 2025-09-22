@@ -1,0 +1,25 @@
+networks:
+  openwebui:
+    name: "openwebui_net"
+
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:v0.5.19
+    networks:
+      - openwebui
+    ports:
+      - "3001:8080"
+    container_name: open-webui
+    restart: unless-stopped
+    environment:
+      - ENABLE_OPENAP_API=False
+      - OFFLINE_MODE=True
+      #- OLLAMA_BASE_URL=http://ip:port
+      #- USE_OLLAMA_DOCKER=False
+      #- HTTP_PROXY=
+      #- HTTPS_PROXY=
+      #- NO_PROXY=
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./openwebui/data:/app/backend/data
+

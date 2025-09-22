@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>Welcome</title>
+    <style>
+        /* 表格样式 */
+        table {
+            width: 50%; /* 表格宽度为 50% */
+            border-collapse: collapse; /* 合并边框 */
+            margin: 0 auto; /* 水平居中 */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center; /* 居中显示 */
+        }
+
+        th {
+            background-color: #f2f2f2; /* 表头背景色 */
+        }
+
+        /* 页面内容居中样式 */
+        .ct {
+            text-align: center;
+        }
+
+        /* 容器居中样式 */
+        #tableContainer {
+            display: flex; /* 使用 Flexbox 布局 */
+            justify-content: center; /* 水平居中 */
+        }
+    </style>
+
+    <script>
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                // 获取表格容器元素
+                const tableContainer = document.getElementById('tableContainer');
+
+                // 创建表格元素
+                const table = document.createElement('table');
+
+                // 创建表头
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+
+                // 创建 服务 表头单元格
+                const urlHeader = document.createElement('th');
+                urlHeader.textContent = '服务';
+                headerRow.appendChild(urlHeader);
+
+                // 创建 描述 表头单元格
+                const descHeader = document.createElement('th');
+                descHeader.textContent = '描述';
+                headerRow.appendChild(descHeader);
+
+                // 创建 路由 表头单元格
+                const routerHeader = document.createElement('th');
+                routerHeader.textContent = '全部路由';
+                headerRow.appendChild(routerHeader);
+
+                // 添加到表头行
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                // 创建表体
+                const tbody = document.createElement('tbody');
+
+                data.forEach(item => {
+                    // 如果skip=true 则跳过生成
+                    if (item.skip) {
+                        return; // 跳过
+                    }
+
+                    const row = document.createElement('tr');
+
+                    // 创建链接元素
+                    if (item.url !== "") {
+                        const urlCell = document.createElement('td');
+                        const link = document.createElement('a');
+                        link.href = item.url; // 设置链接的 href 属性
+                        link.textContent = item.url; // 设置链接的文本内容
+                        link.target = "_blank";
+                        urlCell.appendChild(link); // 将链接添加到单元格中
+                        row.appendChild(urlCell);
+                    }else {
+                        const urlCell = document.createElement('td');
+                        urlCell.textContent = '';
+                        row.appendChild(urlCell);
+                    }
+
+                    if (item.desc !== "") {
+                        const descCell = document.createElement('td');
+                        descCell.textContent = item.desc;
+                        row.appendChild(descCell);
+                    } else {
+                        const descCell = document.createElement('td');
+                        descCell.textContent = '未知';
+                        row.appendChild(descCell);
+                    }
+
+
+                    // 创建链接元素
+                    if (item.router !== "") {
+                        const routerCell = document.createElement('td');
+                        const routerLink = document.createElement('a');
+                        routerLink.href = item.router; // 设置链接的 href 属性
+                        routerLink.textContent = "路由"; // 设置链接的文本内容
+                        routerLink.target = "_blank";
+                        routerCell.appendChild(routerLink); // 将链接添加到单元格中
+                        row.appendChild(routerCell);
+                    } else {
+                        const routerCell = document.createElement('td');
+                        routerCell.textContent = '';
+                        row.appendChild(routerCell);
+                    }
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+
+                // 将表格添加到容器中
+                tableContainer.appendChild(table);
+            })
+            .catch(error => console.error('Error fetching JSON:', error));
+    </script>
+</head>
+<body>
+
+<div class="ct">
+    <h1>App List</h1>
+</div>
+
+<div id="tableContainer">
+    <!-- 表格将动态生成在这里 -->
+</div>
+
+</body>
+</html>

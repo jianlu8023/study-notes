@@ -1,0 +1,44 @@
+networks:
+  qube:
+    name: "sonarqube"
+
+services:
+  pre:
+    image: sonarqube:lts-community
+    networks:
+      - qube
+    user: root
+    privileged: true
+    volumes:
+      - ./compose/sonarqube/data:/opt/sonarqube/data
+      - ./compose/sonarqube/logs:/opt/sonarqube/logs
+      - ./compose/sonarqube/conf:/opt/sonarqube/conf
+      - ./compose/sonarqube/plugins:/opt/sonarqube/extensions
+      - ./compose/sonarqube/plugins/downloads:/opt/sonarqube/extensions/downloads
+    command: chown -R sonarqube:sonarqube /opt/sonarqube
+    container_name: prepare
+
+  sonarqube:
+    image: sonarqube:lts-community
+    #image: sonarqube:9.9.8-community
+    networks:
+      - qube
+    #command: chown -R sonarqube:sonarqube /opt/sonarqube
+    depends_on: 
+      pre:
+        condition: service_started
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      - TZ=Asia/Shanghai
+    #privileged: true
+    user: sonarqube
+    volumes:
+      - ./compose/sonarqube/data:/opt/sonarqube/data
+      - ./compose/sonarqube/conf:/opt/sonarqube/conf
+      - ./compose/sonarqube/logs:/opt/sonarqube/logs
+      - ./compose/sonarqube/plugins:/opt/sonarqube/extensions
+      #- /etc/localtime:/etc/localtime:ro
+      #- /etc/timezone:/etc/timezone:ro
+    container_name: sonarqube

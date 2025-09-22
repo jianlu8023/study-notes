@@ -1,0 +1,3 @@
+staticcheck： https://staticcheck.dev/
+golangci-lint: https://golangci-lint.run/
+go-reporter: https://github.com/qax-os/goreporter

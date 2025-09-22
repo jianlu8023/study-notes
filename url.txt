@@ -1,0 +1,40 @@
+hexo: https://hexo.io/zh-cn/
+go-redis: https://jking412.github.io/2022/09/08/go-api-practice-9/
+go-swagger: https://jking412.github.io/2022/11/17/swaggo%E7%9A%84%E4%BD%BF%E7%94%A8/
+go-jwt: https://jking412.github.io/2022/10/01/%E5%9C%A8Go%E4%B8%AD%E4%BD%BF%E7%94%A8JWT/
+go-mail: https://jking412.github.io/2022/09/08/go-api-practice-12/
+go-mobile: https://jking412.github.io/2022/09/08/go-api-practice-13/
+fabric 中文：https://hyperledger-fabric.readthedocs.io/zh-cn/latest/private-data/private-data.html ----目前看到私有数据
+ipfs-cluster-config: https://ipfscluster.io/documentation/reference/configuration/
+juicefs: https://juicefs.com/zh-cn/
+go-mod-amigous import:https://blog.csdn.net/DisMisPres/article/details/120075283
+gitlab-ce1: https://www.cnblogs.com/mithrilon/p/13985710.html
+gitlab-ce2: https://zhuanlan.zhihu.com/p/680598666#:~:text=Docker%20Com
+elasticsearch-ik下载:https://release.infinilabs.com/analysis-ik/stable/
+dockerfile-help: https://docs.docker.com/reference/dockerfile/#overview
+compose-help: https://docs.docker.com/reference/compose-file/version-and-name/
+gin-双向https: https://blog.csdn.net/chen_peng7/article/details/128978575
+openssl 生成证书: https://www.cnblogs.com/exmyth/p/18109696
+clash-verge: https://tangwenlongno1.github.io/clash-verge-rev.github.io/index.html
+dns-q: https://github.com/natesales/q.git
+sslscan: https://github.com/rbsec/sslscan.git
+yazi: https://github.com/sxyazi/yazi
+proxy-rules:https://github.com/luestr/ShuntRules/blob/main/README.md
+ipfs-check:https://check.ipfs.network/
+vmware-macos: https://blog.csdn.net/fallingflower/article/details/128844335
+vscode-extentions1: https://www.cnblogs.com/vPYer/p/18253594
+vscode-extentions2: https://blog.csdn.net/weixin_43751329/article/details/122506815
+
+--------------------------------------------
+20250613
+pid golang
+https://github.com/sevlyar/go-daemon
+https://github.com/brandondube/pctl
+https://github.com/einride/pid-go
+--------------------------------------------
+20250905
+https://blog.csdn.net/Mr_XiMu/article/details/124937025
+https://www.topgoer.cn/docs/grpc/grpc-1d2ud6l06grvs
+https://gitcode.com/GitHub_Trending/gr/grpc-go
+https://www.madbull.site/
+--------------------------------------------

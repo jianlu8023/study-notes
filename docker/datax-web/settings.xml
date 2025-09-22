@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0
+          https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+    <mirrors>
+        <mirror>
+            <id>aliyun-mirror</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <name>aliyun-cloud-maven-mirror</name>
+            <mirrorOf>central,!jitpack-repo</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>jitpack.io</id>
+            <mirrorOf>jitpack-repo</mirrorOf>
+            <name>jitpack</name>
+            <url>https://www.jitpack.io</url>
+        </mirror>
+    </mirrors>
+   
+    <profiles>
+        <profile>
+            <id>mirror</id>
+            <repositories>
+                <!-- central -->
+                <repository>
+                    <id>central</id>
+                    <name>Aliyun Maven Repository</name>
+                    <url>https://maven.aliyun.com/repository/public</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                </repository>
+                <!-- jetpack.io -->
+                <repository>
+                    <id>jitpack-repo</id>
+                    <name>jitpack Maven Repository</name>
+                    <url>https://www.jitpack.io</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>aliyun-plugin</id>
+                    <name>aliyun-plugin</name>
+                    <url>https://maven.aliyun.com/repository/public</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>mirror</activeProfile>
+    </activeProfiles>
+</settings>
