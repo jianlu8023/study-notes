@@ -1,0 +1,67 @@
+ubuntu 安装nvidia-container-toolkit 1.17.8
+
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.17.8/install-guide.html
+
+测试命令 docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi  nvidia/cuda:11.0.3-base-ubuntu20.04环境自己cuda版本的镜像
+
+
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt-get update
+
+export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.17.8-1
+  sudo apt-get install -y \
+      nvidia-container-toolkit=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      nvidia-container-toolkit-base=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container-tools=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container1=${NVIDIA_CONTAINER_TOOLKIT_VERSION}
+
+
+centos 
+
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
+  sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+
+sudo dnf-config-manager --enable nvidia-container-toolkit-experimental
+
+export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.17.8-1
+  sudo dnf install -y \
+      nvidia-container-toolkit-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      nvidia-container-toolkit-base-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container-tools-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container1-${NVIDIA_CONTAINER_TOOLKIT_VERSION}
+
+
+
+configuration 测试时直接重启docker就能识别到 没有用到下方
+Configure the container runtime by using the nvidia-ctk command:
+ 	sudo nvidia-ctk runtime configure --runtime=docker
+The nvidia-ctk command modifies the /etc/docker/daemon.json file on the host. The file is updated so that Docker can use the NVIDIA Container Runtime.
+
+Restart the Docker daemon:
+	sudo systemctl restart docker
+
+rootless-mode
+	nvidia-ctk runtime configure --runtime=docker --config=$HOME/.config/docker/daemon.json
+
+	systemctl --user restart docker
+
+	sudo nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
+
+
+
+Configuring containerd (for Kubernetes)
+	sudo nvidia-ctk runtime configure --runtime=containerd
+	sudo systemctl restart containerd
+
+Configuring containerd (for nerdctl)
+	
+
+	
+
+
