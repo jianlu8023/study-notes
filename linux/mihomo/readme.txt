@@ -41,6 +41,11 @@ services:
 5. wget https://github.com/haishanh/yacd/releases/latest/download/yacd.tar.xz
 6. tar xvf yacd.tar.xz
 
+https://blog.l3zc.com/2025/07/switch-to-pure-mihomo-kernel/
+https://www.diggingfly.com/index.php/archives/18/
+https://www.oryoy.com/news/ubuntu-ufw-pei-zhi-quan-gong-lve-qing-song-shi-xian-duan-kou-zhuan-fa-yu-wang-luo-an-quan.html
+
+
 sudo systemctl enable mihomo
 sudo systemctl daemon-reload  
 sudo systemctl start mihomo 
