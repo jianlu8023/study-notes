@@ -1,0 +1,8 @@
+# comment
+
+SHELL=/bin/bash
+
+# m h  dom mon dow user command
+#  * *   *  *   *   root sleep 5 && id >> /tmp/test-1
+#  * *   *  *   *   root sleep 5 && id >> /tmp/test-2
+@every 1m 1000 bash ${PWD}/update.sh >> update.log 2>&1 
