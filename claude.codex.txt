@@ -1,0 +1,78 @@
+基础
+安装 node 当前使用的node22.8
+
+claude-code
+
+1. npm install -g @anthropic-ai/claude-code
+2. npm install -g @musistudio/claude-code-router
+3. ~/.claude-code-router/config.json win【c://User/{用户名}/.claude-code-router/config.json】
+4.  {"Providers":[{"name":"modelscope","api_base_url":"https://api-inference.modelscope.cn/v1/chat/completions","api_key":"","models":["Qwen/Qwen3-Coder-480B-A35B-Instruct","Qwen/Qwen3-235B-A22B-Thinking-2507"],"transformer":{"use":[["maxtoken",{"max_tokens":65536}],"enhancetool"],"Qwen/Qwen3-235B-A22B-Thinking-2507":{"use":["reasoning"]}}},{"name":"gemini","api_base_url":"https://generativelanguage.googleapis.com/v1beta/models/","api_key":"sk-xxx","models":["gemini-2.5-flash","gemini-2.5-pro"],"transformer":{"use":["gemini"]}},{"name":"openrouter","api_base_url":"https://open.bigmodel.cn/api/pass/v4/chat/completions","api_key":"sk-xxx","models":["glm-4.5"],"transformer":{"use":["openrouter"]}}],"Router":{"default":"modelscope,Qwen/Qwen3-Coder-4808-A35B-Instruct","think":"gemini,gemini-2.5-pro"},"PORT":23456}
+5. ccr stop && ccr code 
+6. 
+    /init 生成CLAUDE.md
+    /compact 压缩对话
+    /clear 清理对话
+    /ide 选择ide  vscode 需要安装claude code插件
+   /think /think hard /think harder /ultrathink 加上提示词
+    ！ 临时命令行模式
+    # 记忆模式 可以添加信息到claude.md中 全局~/.claude/CLAUDE.md
+    ccr code -p "" claude  -p 
+7. mcp 
+  add
+	context7 : claude mcp add context7 --scope user -- npx @upstash/context7-mcp # --scope user 用户级别
+  delete claude mcp remove context7
+8. /permissions
+    Bash(git commit:*)
+    claude --dangerously-skip-permissions 开放全部权限 ccr code --danxxx
+9. 自定义命令 ~/.claude/commands 
+    code_review.md
+        对比这个分支: $ARGUMENTS, 与main分支的差异，并提出你的review意见。
+10. hook
+  project/.claude/settings.json || settings.local.json
+    {"hooks":{"PostToolUse":[{"matcher":"Edit|MultiEdit|Write","hooks":[{"type":"command","command":"npx prettier --check"}]}],"PreToolUse":[],"Notification":[]}}
+
+11. sub agent ~/.claude/agents
+  /agents 
+12. GitHub cli
+    GitHub.com/cli/cli
+13. /resume 找回历史话题
+14. ccundo 
+15. Claudia 可视化
+
+codex
+ 
+1. npm i -g @openai/codex
+2.  登录openai 
+3. 其他大模型使用 ~/.codex/config.toml 
+    model = "ZhipuAI/GLM-4.6"
+    model_provider  = "modelscope"
+    [model_provider.modelscope]
+    name = "Modelscope"
+    base_url = "https://api-inference.modelscopse.cn/v1"
+    env_key = "MODELSCOPE_API_KEY" # 这里需要添加环境变量 key=modelscopse value 是apikey
+
+4. 
+    /init  AGENTS.md 通用的md
+    /compact 
+    /new 开始新任务
+    /approval
+    /mcp 
+    context7  ~/.codex/config.toml
+    [mcp_servers.context7]   # Linux mac
+    args = ["-y" , "@upstash/context7-mcp"]
+    command = "npx"
+    
+    [mcp_servers.context7]       
+    command = "cmd"
+    args = ["/c","npx","-y","@upstash/context7-mcp"]
+    env = {SystemRoot="C:\\Windows"}
+    startup_timeout_ms=20_000
+
+    [mcp_servers.excel]
+    command = "cmd"
+    args = ["/c","uvx","excel-mcp-server","stdio"]
+    env = {SystemRoot="C:\\Windows"}
+    startup_timeout_ms =20_000
+
+5. 自定义命令 ~/.codex/prompts/ 一个文件是一个命令 文件名是命令
+    git_diff.md  对比分支 $1 与 $2 的差异，用自然语言总结
