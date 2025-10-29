@@ -1,0 +1,5 @@
+
+SHELL=/bin/sh
+
+@every 5s 1000 echo "$(date +%Y-%m-%d\ %A\ %T) [debug] example..."  >> ${PWD}/logs/example.log
+@every 6h 1000 sh ${PWD}/scripts/smartdns.update.sh
