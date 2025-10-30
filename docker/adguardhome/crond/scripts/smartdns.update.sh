@@ -1,11 +1,50 @@
 #!/bin/sh
 
 # 工作目录
-wd=$(pwd)
+wd="$(pwd)"
 
-# 日志
-log_path="$wd/logs/smartdns.update.log"
 
+load() {
+  local filename="$1"
+  local SCRIPT_DIR
+  local dst_shell_path
+
+  # 获取脚本所在目录
+  if command -v realpath > /dev/null 2>&1; then
+    SCRIPT_DIR=$(dirname "$(realpath "$0")")
+  else
+    if command -v readlink > /dev/null 2>&1; then
+      SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+    else
+      SCRIPT_DIR=$(dirname "$0")
+    fi
+  fi
+
+  if [ ! "${SCRIPT_DIR:0:1}" = "/" ]; then
+    SCRIPT_DIR=$(pwd)/"${SCRIPT_DIR}"
+  fi
+
+  # 如果 filename 是绝对路径，则直接使用
+  if [ "${filename:0:1}" = "/" ]; then
+      dst_shell_path="${filename}"
+  else
+      # 否则，拼接脚本目录和文件名
+      dst_shell_path="${SCRIPT_DIR}/${filename}"
+  fi
+
+  #echo "SCRIPT_DIR: ${SCRIPT_DIR}"
+  #echo "filename: ${filename}"
+  #echo "dst_shell_path: ${dst_shell_path}"
+
+  if [ -f "${dst_shell_path}" ]; then
+    . "${dst_shell_path}"
+  else
+    #echo "Error: File not found: ${dst_shell_path}"
+    exit 1
+  fi
+}
+
+load tools.sh
 
 # 存储目录
 dstdownload="${wd}/resources"
@@ -16,29 +55,16 @@ tmpdownload="${dstdownload}/tmp"
 # ghproxy
 ghproxy=""
 
-# 获取当前时间
-now(){
-  date +"%Y-%m-%d %A %T"
-}
-
 preparedst(){
   if [ ! -d "$tmpdownload" ]; then
     mkdir -p $tmpdownload
     if [ "$?" -ne 0 ]; then
-      addlog error "failed to create directory: $tmpdownload"
+      log error "failed to create directory: $tmpdownload"
       return 1
     fi
   fi
   return 0
 }
-
-addlog() {
-  level="$1" 
-  msg="$2"
-  echo "$(now) [$level] $msg" >> $log_path
-}
-
-
 
 download() {
   local url="$1"
@@ -46,10 +72,10 @@ download() {
   local max_retries=3 # 最大重试次数
   local retry_delay=5 # 重试间隔
 
-  addlog debug "downloading resources from: ${url} to ${dwonload_dst} with max_retries: ${max_retries} retry_delay: ${retry_delay}"
+  log debug "downloading resources from: ${url} to ${download_dst} with max_retries: ${max_retries} retry_delay: ${retry_delay}"
  
   if [ -z "$url" ]; then
-    addlog error "url failed: $url is empty"
+    log error "url failed: $url is empty"
     return 1
   fi
 
@@ -58,13 +84,13 @@ download() {
     wget -q --no-check-certificate -c -O "$download_dst" "$url"
     status="$?"
     if [ "$status" -eq 0 ]; then
-      addlog info "download resources successfully..."
+      log info "download resources successfully..."
       return 0
     else
-      addlog warn "download resources failed (attempt $((retries+1))/$max_retries)..."
+      log warn "download resources failed (attempt $((retries+1))/$max_retries)..."
       retries=$((retries + 1))
       if [ "${retries}" -ge "$max_retries" ]; then
-        addlog error "download resources failed after $max_retries retries..."
+        log error "download resources failed after $max_retries retries..."
 	return 1
       fi
       sleep "${retry_delay}"
@@ -87,38 +113,38 @@ update(){
     if [ "${line}" -ge "${mini}" ]; then
       if ! grep -q "<html>" "$dst"; then
         if [ -f "$dstdownload/${filename}" ]; then
-          addlog info "Removing existing file: $dstdownload/${filename}"
+          log info "Removing existing file: $dstdownload/${filename}"
           rm -rf "$dstdownload/${filename}"
           if [ "$?" -ne 0 ]; then
-            addlog error "Failed to remove file: $dstdownload/${filename}"
+            log error "Failed to remove file: $dstdownload/${filename}"
             return 1
           fi
         fi
-        addlog info "Moving $dst to $dstdownload/${filename}"
+        log info "Moving $dst to $dstdownload/${filename}"
         mv -n "$dst" "$dstdownload/${filename}" #  -n  不覆盖
         if [ "$?" -ne 0 ]; then
-          addlog error "Failed to move file: $dst to $dstdownload/${filename}"
+          log error "Failed to move file: $dst to $dstdownload/${filename}"
           return 1
         fi
       else
-        addlog warn "File $dst contains HTML, skipping update."
+        log warn "File $dst contains HTML, skipping update."
       fi
     else
-      addlog warn "File $dst has fewer than $mini lines, skipping update."
+      log warn "File $dst has fewer than $mini lines, skipping update."
     fi
   else
-        addlog error "File $dst does not exist after download."
+    log error "File $dst does not exist after download."
   fi
 }
 
-addlog info "starting pull anti-ad-for-smartdns.conf..."
+log info "starting pull anti-ad-for-smartdns.conf..."
 update https://anti-ad.net/anti-ad-for-smartdns.conf anti-ad.conf
 
-addlog info "starting pull adrules.top-smart-dns.conf..."
+log info "starting pull adrules.top-smart-dns.conf..."
 update https://adrules.top/smart-dns.conf adrules.conf
 
-addlog info "starting pull neodevpro.conf..."
+log info "starting pull neodevpro.conf..."
 update ${ghproxy}https://raw.githubusercontent.com/neodevpro/neodevhost/master/lite_smartdns.conf neodevpro.conf
 
-addlog info "update successfully..."
+log info "update successfully..."
 

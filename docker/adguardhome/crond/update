@@ -1,5 +1,8 @@
 
 SHELL=/bin/sh
 
-@every 5s 1000 echo "$(date +%Y-%m-%d\ %A\ %T) [debug] example..."  >> ${PWD}/logs/example.log
+@every 30s 1000 sh ${PWD}/scrupts/check.sh
+@every 1s 1000 echo "$(date +%Y-%m-%d\ %A\ %T) [debug] every 1s..." >> ${PWD}/logs/common.log
+@every 1m 1000 echo "$(date +%Y-%m-%d\ %A\ %T) [debug] every 1m..." >> ${PWD}/logs/common.log
+@every 1h 1000 echo "$(date +%Y-%m-%d\ %A\ %T) [debug] every 1h..." >> ${PWD}/logs/common.log
 @every 6h 1000 sh ${PWD}/scripts/smartdns.update.sh

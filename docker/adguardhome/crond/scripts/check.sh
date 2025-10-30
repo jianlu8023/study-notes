@@ -28,9 +28,9 @@ load() {
       dst_shell_path="${SCRIPT_DIR}/${filename}"
   fi
 
-  #echo "SCRIPT_DIR: ${SCRIPT_DIR}"  
-  #echo "filename: ${filename}" 
-  #echo "dst_shell_path: ${dst_shell_path}" 
+  #echo "SCRIPT_DIR: ${SCRIPT_DIR}"
+  #echo "filename: ${filename}"
+  #echo "dst_shell_path: ${dst_shell_path}"
 
   if [ -f "${dst_shell_path}" ]; then
     . "${dst_shell_path}"
@@ -40,14 +40,6 @@ load() {
   fi
 }
 
-load tools.sh
-
-log "info" "service is alive..."
-
-log "debug" "this is a debug log..."
-
-log "error" "this is a error log..."
-
-log "warn" "this is a warn log..."
-
+load tools.sh 
+log "info" "check logfile size and backup logfile..."
 check_log_size
