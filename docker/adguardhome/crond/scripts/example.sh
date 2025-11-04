@@ -50,4 +50,3 @@ log "error" "this is a error log..."
 
 log "warn" "this is a warn log..."
 
-check_log_size

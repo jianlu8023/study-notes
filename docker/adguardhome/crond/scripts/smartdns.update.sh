@@ -66,38 +66,6 @@ preparedst(){
   return 0
 }
 
-download() {
-  local url="$1"
-  local download_dst="$2"
-  local max_retries=3 # 最大重试次数
-  local retry_delay=5 # 重试间隔
-
-  log debug "downloading resources from: ${url} to ${download_dst} with max_retries: ${max_retries} retry_delay: ${retry_delay}"
- 
-  if [ -z "$url" ]; then
-    log error "url failed: $url is empty"
-    return 1
-  fi
-
-  retries=0
-  while true; do
-    wget -q --no-check-certificate -c -O "$download_dst" "$url"
-    status="$?"
-    if [ "$status" -eq 0 ]; then
-      log info "download resources successfully..."
-      return 0
-    else
-      log warn "download resources failed (attempt $((retries+1))/$max_retries)..."
-      retries=$((retries + 1))
-      if [ "${retries}" -ge "$max_retries" ]; then
-        log error "download resources failed after $max_retries retries..."
-	return 1
-      fi
-      sleep "${retry_delay}"
-    fi
-  done
-}
-
 update(){
   local url="$1"
   local filename="$2"
