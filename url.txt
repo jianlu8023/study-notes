@@ -43,4 +43,16 @@ doxgen: https://www.madbull.site/?p=1868
 技巧合集: https://adoyle.me/Today-I-Learned/
 
 --------------------------------------------
+20251114
+vmware-卡顿1: https://blog.csdn.net/h244259402/article/details/125469749
+vmware-卡顿2: https://blog.csdn.net/duke_ding2/article/details/142499333
+vmware-卡顿3: https://cn.bing.com/search?q=vmware+%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BE%93%E5%85%A5%E5%8D%A1%E9%A1%BF&PC=U316&FORM=CHROMN
+docker-微信: docker pull nickrunning/wechat-selkies
+cgroup版本: stat -fc %T /sys/fs/cgroup/
+openeuler-iso1: https://repo.huaweicloud.com/openeuler/
+openeuler-iso2: https://www.openeuler.openatom.cn/zh/download/
+局域网文件共享(http协议 没办法浏览器下打文件): curl -fsSL https://github.com/TCP404/OneTiny/releases/latest/download/OneTiny
+zsh加速1: https://blog.csdn.net/gitblog_00290/article/details/151641318 
+zsh加速2: https://cloud.tencent.com/developer/article/2546474
 
+--------------------------------------------
