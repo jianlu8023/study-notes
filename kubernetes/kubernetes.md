@@ -751,3 +751,14 @@ spec:
 
 ### 安装
 
+```shell
+sudo curl -fsSL https://github.com/k3s-io/k3s/releases/latest/download/k3s -o /usr/local/bin/k3s && sudo chmod +x /usr/local/bin/k3s
+```
+
+
+### 生成 config.yaml文件
+
+```shell
+sudo mkdir -p /etc/rancher/k3s && sudo touch /etc/rancher/k3s/config.yaml
+```
+
