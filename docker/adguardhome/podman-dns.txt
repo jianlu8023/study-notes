@@ -20,3 +20,16 @@ podman run -v webdevops/go-crond:23.12.0-alpine --allow-unprivileged --working-d
 podman run --name go-crond -d --health-cmd "pgrep go-crond || exit 0" --health-interval 60s --health-retries 3 --health-start-period 15s --health-timeout 15s --hostname go-crond -u 1000 -e LOG_JSON=0 -e PUID=$(id -u) -e PGID=$(id -g) -v ${PWD}/cron.d:/cron.d -v ${PWD}/crontab:/crontab -v ${PWD}/example:/example webdevops/go-crond:23.12.0-alpine --allow-unprivileged --working-directory / --run-parts=100s:1000:cron.d -v crontab
 
 podman run --name crond -d --health-retries 3 --health-timeout 15s --health-start-period 15s --health-interval 60s --health-cmd "pgrep go-crond || exit 0" -e LOG_JSON=0 -e PUID=1000 -e PGID=1000 -u 1000 -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v ${PWD}/crond/update:/crond/update -v ${PWD}/crond/scripts:/crond/scripts -v ${PWD}/crond/logs:/crond/logs -v ${PWD}/crond/15s.d:/crond/15s.d -v ${PWD}/crond/resources:/crond/resources webdevops/go-crond:23.12.0-alpine --allow-unprivileged --working-directory /crond -v --run-parts=15s:1000:/crond/15s.d /crond/update
+
+
+--------------------------------------------------------------
+
+启动自建dns服务 需要修改 linux的文件如下(关闭服务恢复即可)
+/etc/netplan/01-xxx.yaml 的 nameservers.addresses
+/etc/sysctl.conf 的 net.ipv4.ip_unprivileged_port_start=53
+/etc/systemd/resolved.conf 的 [Resolve]下 DNS=
+
+
+
+
+

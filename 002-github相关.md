@@ -1,4 +1,8 @@
-# githubAPI 使用
+# github 相关的内容
+
+
+## githubAPI 使用
+
 
 * ChatGPT 回答
 
@@ -23,9 +27,11 @@ GitHub 提供了强大的 API，允许你通过编程方式访问和操作 GitHu
 这些文档和资源应该足够帮助你开始使用 GitHub API 进行自动化的开发和集成。如果你有特定的问题或需要更详细的信息，请查阅官方文档或提出具体问题。
 ```
 
-[comment]: <GitHubAPI文档> (https://docs.github.com/zh/rest)
 
-## 查询拥有的仓库
+### 链接
+* [GitHubAPI文档](https://docs.github.com/zh/rest)
+
+### 查询拥有的仓库
 
 * 仓库结构
 
@@ -136,7 +142,6 @@ GitHub 提供了强大的 API，允许你通过编程方式访问和操作 GitHu
   "watchers": 0,
   "default_branch": "master"
 }
-
 ```
 
 * 使用golang调用demo
@@ -222,7 +227,7 @@ func main() {
 }
 ```
 
-## 创建仓库
+### 创建仓库
 
 * 使用golang调用demo
 
@@ -301,7 +306,7 @@ func main() {
 }
 ```
 
-## 删除仓库
+### 删除仓库
 
 * 使用golang调用demo
 
@@ -355,3 +360,10 @@ func main() {
 	DeleteARepository(owner, repository, token)
 }
 ```
+
+
+## github action 相关
+
+### 链接
+* [action使用样例](https://blog.csdn.net/z1360408752/article/details/113690103)
+* [hutool获取农历](https://blog.csdn.net/JAVA_YU_XIN/article/details/103999755)

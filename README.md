@@ -56,11 +56,11 @@
 
 ## makefile
 
-> * [makefile学习笔记](./makefile/001-makefile笔记.md)
+> * [makefile学习笔记](009-makefile笔记.md)
 
 ## maven
 
-> * [maven配置](./maven/001-maven相关配置.md)
+> * [maven配置](008-maven相关配置.md)
 
 ## docker
 
@@ -72,21 +72,19 @@
 
 ## rpc
 
-> * [grpc使用demo](./rpc/001-grpc使用.md)
+> * [grpc使用demo](006-grpc使用.md)
 
 ## p2p
 
 ### libp2p
 
-> * [go-libp2p学习](./p2p/libp2p/001-go-libp2p学习.md)
+> * [go-libp2p学习](007-go-libp2p学习.md)
 
 ## ipfs
 
-> * [ipfs使用docker部署](./ipfs/001-ipfs打镜像.md)
-> * [ipfs生成swarm.key](./ipfs/002-ipfs-swarmkey生成.md)
-> * [ipfsAPI调用](./ipfs/003-ipfsAPI.md)
-> * [ipfs-cluster](./ipfs/004-ipfs-cluster.md)
-> * [ipfs简单使用](./ipfs/005-ipfs使用.md)
+> * [ipfs相关](004-ipfs相关.md)
+> * [ipfs-cluster](005-ipfs-cluster.md)
+
 
 ## shell
 
@@ -107,8 +105,7 @@
 
 ## github
 
-> * [githubAPI使用](./github/001-githubAPI使用.md)
-> * [github-action使用](github/002-github-action使用.md)
+> * [github相关](002-github相关.md)
 
 ## python
 
@@ -116,15 +113,15 @@
 
 ## other
 
-> * [文章连接](other/002-文章链接.md)-- 文章链接
-> * [plantUml工具](other/001-plantUml.md)--(jetbrains系列ide中画图插件)
-> * [plantUml问题](other/003-plantUml-缺少工具.md)--(jetbrains系列ide插件无法正常使用问题)
-> * [zsh工具](other/004-zsh配置.md)--(ubuntu终端美化)
+> * [文章连接](019-文章链接.md)-- 文章链接
+> * [plantUml工具](020-plantUml.md)--(jetbrains系列ide中画图插件)
+> * [plantUml问题](018-plantUml-缺少工具.md)--(jetbrains系列ide插件无法正常使用问题)
+> * [zsh工具](017-zsh配置.md)--(ubuntu终端美化)
 > * [定时更新hosts](linux/005-定时更新hosts.md)--(ubuntu定时更新hosts上github)
-> * [格式化shell脚本](./other/006-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
-> * [command命令](./other/007-command记录.md)
-> * [linux中jetbrains外部文件更新慢](./other/008-linux-jetbrains-external-file-changes-sync-slow.md)
-> * [MyBatisX使用](./other/009-MyBatisX使用.md)
-> * [直接下载windows10.iso](./other/010-卡bug从微软官方下载iso镜像.md)
-> * [https请求跳过证书验证](./https/001-https请求.md)
+> * [格式化shell脚本](015-Jetbrains中Shfmt配置.md)--(JetBrains系列软件中如何格式化shell脚本)
+> * [command命令](014-command记录.md)
+> * [linux中jetbrains外部文件更新慢](013-linux-jetbrains-external-file-changes-sync-slow.md)
+> * [MyBatisX使用](012-MyBatisX使用.md)
+> * [直接下载windows10.iso](011-卡bug从微软官方下载iso镜像.md)
+> * [https请求跳过证书验证](003-https请求.md)
 

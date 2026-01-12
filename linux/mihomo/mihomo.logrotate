@@ -1,0 +1,13 @@
+/home/user/.local/dev/mihomo/logs/*.log {
+    su user users
+    daily # 每天
+    missingok # 如果日志文件丢失 继续
+    rotate 7
+    dateext
+    dateformat -%Y%m%d
+    compress # 压缩旧文件
+    delaycompress # 延迟压缩
+    notifempty # 日志空 不轮换
+    copytruncate
+    create 0644 user users
+}

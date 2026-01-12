@@ -1,10 +1,9 @@
-https://wiki.metacubex.one/
+网址: https://wiki.metacubex.one/ 需要代理
 
-metacubex/mihomo:Alpha 
+镜像名: metacubex/mihomo:Alpha metacubex/mihomo:latest
 
-metacubex/mihomo:latest
+镜像名: dashboard: docker run -d -p 80:80 ghcr.io/zephyruso/zashboard:latest
 
-dashboard: docker run -d -p 80:80 ghcr.io/zephyruso/zashboard:latest
 
 -----------docker compose---------
 services:
@@ -33,13 +32,17 @@ services:
 
 
 ---------------------------------------------------------------------------------------------
+手动安装到指定目录
 
-1. wget mihomo.gz 
-2. install -D -m -x <(gzip -dc ~/.mihomo/mihomo-linux-amd64-compatible-v1.19.11.gz) ~/.mihomo/mihomo
-3. config.yaml 
-4. systemd.unit
-5. wget https://github.com/haishanh/yacd/releases/latest/download/yacd.tar.xz
-6. tar xvf yacd.tar.xz
+安装目录(以~/.local/dev/mihomo为例) 
+0. 准备工作: mkdir -p ~/.local/dev/mihomo && mkdir -p ~/.local/dev/mihomo/logs && touch ~/.local/dev/mihomo/logs/mihomo.log && cd ~/.local/dev/mihomo
+1. 下载mihomo.gz文件: wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.18/mihomo-linux-amd64-compatible-v1.19.18.gz
+2. 使用install安装 install -D -m -x <(gzip -dc ~/.local/dev/mihomo/mihomo-linux-amd64-compatible-v1.19.18.gz) ~/.local/dev/mihomo/mihomo
+3. 配置config.yaml文件(参考文件夹下的config.yaml文件): config.yaml 
+4. 生成systemd单元: systemd.unit(参考mihomo.service)
+5. 下载mihomo前端: wget https://github.com/haishanh/yacd/releases/latest/download/yacd.tar.xz
+6. 解压前端: tar xvf yacd.tar.xz
+7. 配置logrotate: 参考mihomo.logrotate 放置到/etc/logrotate.d/下
 
 https://blog.l3zc.com/2025/07/switch-to-pure-mihomo-kernel/
 https://www.diggingfly.com/index.php/archives/18/

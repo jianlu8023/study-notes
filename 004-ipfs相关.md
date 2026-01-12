@@ -1,14 +1,13 @@
-# go ipfs 打镜像
+# ipfs相关
 
-
-## clone 
+## ipfs 自己打镜像
 
 ```shell
-git clone -b v0.12.1 https://mirror.ghproxy.com/https://github.com/ifps/go-ipfs.git go-ipfs
+# 1. clone 
+git clone -b v0.12.1 https://github.com/ifps/go-ipfs.git go-ipfs
 ```
 
-
-## Dockerfile
+### dockerfile 调整
 
 ```dockerfile
 # Note: when updating the go minor version here, also update the go-channel in snap/snapcraft.yml
@@ -141,7 +140,7 @@ CMD ["daemon", "--migrate=true", "--agent-version-suffix=docker"]
 ```
 
 
-## docker-compose
+### docker-compose
 
 ```yaml
 version: '3.8'
@@ -172,4 +171,170 @@ services:
       # HTTP Gateway
       - 127.0.0.1:8080:8080
 
+```
+
+
+
+
+
+## ipfs 生成swarm.key文件
+
+
+### 方案一
+
+Tips: 此方案直白来说就是使用crypto.random生成32位随机数，然后转化为16进制，最后生成swarm.key文件。
+
+#### 步骤
+
+```shell
+# 1. 安装工具
+go install github.com/Kubuxu/go-ipfs-swarm-key-gen/ipfs-swarm-key-gen@latest
+
+# 2. 生成swarm.key文件
+ipfs-swarm-key-gen >./swarm.key
+```
+
+### 方案二
+
+#### 步骤
+
+```shell
+# 1. 编写shell脚本
+
+echo > swarmkey.sh << EOF
+PWD=$1
+echo "/key/swarm/psk/1.0.0/" > $PWD/swarm.key
+echo "/base16/" >> $PWD/swarm.key
+cat /dev/urandom | tr -dc 'a-f0-9' | head -c64 >> $PWD/swarm.key
+
+#echo "/key/swarm/psk/1.0.0/" > ~/.ipfs/swarm.key
+#echo "/base16/" >> ~/.ipfs/swarm.key
+#cat /dev/urandom | tr -dc 'a-f0-9' | head -c64 >> ~/.ipfs/swarm.key
+EOF
+
+# 2. 执行脚本
+bash swarmkey.sh ${PWD}
+```
+
+
+
+## ipfs的API调用
+
+### 链接
+* [API](https://docs.ipfs.tech/reference/kubo/rpc/#api-v0-urlstore-add)
+
+## ipfs使用
+
+```text
+This is a set of short examples with minimal explanation. It is meant as
+a "quick start".
+
+
+Add a file to ipfs:
+
+echo "hello world" >hello
+ipfs add hello
+
+
+View it:
+
+ipfs cat <the-hash-you-got-here>
+
+
+Try a directory:
+
+mkdir foo
+mkdir foo/bar
+echo "baz" > foo/baz
+echo "baz" > foo/bar/baz
+ipfs add -r foo
+
+
+View things:
+
+ipfs ls <the-hash-here>
+ipfs ls <the-hash-here>/bar
+ipfs cat <the-hash-here>/baz
+ipfs cat <the-hash-here>/bar/baz
+ipfs cat <the-hash-here>/bar
+ipfs ls <the-hash-here>/baz
+
+
+References:
+
+ipfs refs <the-hash-here>
+ipfs refs -r <the-hash-here>
+ipfs refs --help
+
+
+Get:
+
+ipfs get <the-hash-here> -o foo2
+diff foo foo2
+
+
+Objects:
+
+ipfs object get <the-hash-here>
+ipfs object get <the-hash-here>/foo2
+ipfs object --help
+
+
+Pin + GC:
+
+ipfs pin add <the-hash-here>
+ipfs repo gc
+ipfs ls <the-hash-here>
+ipfs pin rm <the-hash-here>
+ipfs repo gc
+
+
+Daemon:
+
+ipfs daemon  (in another terminal)
+ipfs id
+
+
+Network:
+
+(must be online)
+ipfs swarm peers
+ipfs id
+ipfs cat <hash-of-remote-object>
+
+
+Mount:
+
+(warning: fuse is finicky!)
+ipfs mount
+cd /ipfs/<the-hash-here>
+ls
+
+
+Tool:
+
+ipfs version
+ipfs update
+ipfs commands
+ipfs config --help
+open http://localhost:5001/webui
+
+
+Browse:
+
+WebUI:
+
+    http://localhost:5001/webui
+
+video:
+
+    http://localhost:8080/ipfs/QmVc6zuAneKJzicnJpfrqCH9gSy6bz54JhcypfJYhGUFQu/play#/ipfs/QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse
+
+images:
+
+    http://localhost:8080/ipfs/QmZpc3HvfjEXvLWGQPWbHk3AjD5j8NEN4gmFN8Jmrd5g83/cs
+
+markdown renderer app:
+
+    http://localhost:8080/ipfs/QmX7M9CiYXjVeFnkfVGf3y5ixTZ2ACeSGyL1vBJY1HvQPp/mdown
 ```

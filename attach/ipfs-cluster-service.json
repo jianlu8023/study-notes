@@ -196,14 +196,14 @@
       "metric_ttl": "30s",
       "weight_bucket_size": 100000
     },
-    "numpin":{
+    "numpin": {
       "metric_ttl": "10s"
     },
     "tags": {
       "metric_ttl": "30s",
       "tags": {
-        "region说明":"权重，us自己解读应为地区",
-        "region":"us:100",
+        "region说明": "权重，us自己解读应为地区",
+        "region": "us:100",
         "group": "default"
       }
     }

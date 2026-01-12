@@ -2,8 +2,6 @@
 
 ## JAVA
 
-### okhttp3 操作步骤
-
 * 通用SSLUtils
 
 ```java
@@ -50,6 +48,8 @@ public class SSLUtils {
 }
 ```
 
+### okhttp3 操作步骤
+
 ```java
 
 public class OkHttpUtil {
@@ -91,16 +91,16 @@ public class OkHttpUtil {
         OkHttpClient client = getUnsafeOkHttpClient();
         // 等效于
         // OkHttpClient build = new OkHttpClient.Builder().sslSocketFactory(SSLUtils.createSSLContext().getSocketFactory(), (X509TrustManager) SSLUtils.getTrustAllCerts()[0]).hostnameVerifier((hostname, session) -> true).build();
-        
+
         String url = "https://example.com:8090/api/login";
         String param2 = "this is a param";
         String path = "/opt/files/demo.txt";
         File param1 = new File(path);
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("param1", param1.getName(),
-                        RequestBody.create(param1, MediaType.parse("application/octet-stream")))
-                .addFormDataPart("param2", param2)
-                .build();
+                                          .addFormDataPart("param1", param1.getName(),
+                                                  RequestBody.create(param1, MediaType.parse("application/octet-stream")))
+                                          .addFormDataPart("param2", param2)
+                                          .build();
         Request request = new Request.Builder().url(url).post(requestBody).build();
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
@@ -119,9 +119,9 @@ public class OkHttpUtil {
 public class Example {
     public static void main(String[] args) {
         HttpResponse execute = HttpRequest.post("https://example.com:8090/api/login")
-                .header("Content-Type", "application/json;charset=utf-8")
-                .setSSLSocketFactory(SSLUtils.createSSLContext().getSocketFactory())
-                .execute();
+                                       .header("Content-Type", "application/json;charset=utf-8")
+                                       .setSSLSocketFactory(SSLUtils.createSSLContext().getSocketFactory())
+                                       .execute();
         System.out.println(execute.body());
     }
 }
