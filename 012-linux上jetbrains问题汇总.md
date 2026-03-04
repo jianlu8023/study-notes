@@ -50,3 +50,5 @@ sudo sysctl -p --system
 ```text
 直接装BashSupport Pro
 ```
+
+## 占位

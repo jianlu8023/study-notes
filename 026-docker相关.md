@@ -1,6 +1,14 @@
-# 基础服务容器部署
+# docker相关
 
-## mysql
+## docker 搭建私有镜像仓库
+
+[comment]: <> (https://www.cnblogs.com/FengZeng666/p/14160639.html)
+
+[comment]: <> (https://www.madbull.site/?p=2158)
+
+## 基础服务容器部署
+
+### mysql
 
 ```yaml
 version: "3.7"
@@ -61,7 +69,7 @@ default-character-set=utf8
 
 ```
 
-## redis
+### redis
 
 ```yaml
 version: "3.7"
@@ -515,7 +523,7 @@ activerehashing yes
 # include /path/to/other.conf
 ```
 
-## nginx
+### nginx
 
 ```yaml
 version: "3.7"
@@ -633,7 +641,7 @@ server {
 }
 ```
 
-## mongodb
+### mongodb
 
 ```yaml
 version: "3.7"
@@ -664,7 +672,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 ```
 
-## prometheus+grafana+cadvisor+node-exporter
+### prometheus+grafana+cadvisor+node-exporter
 
 ```yaml
 version: "3.9"
@@ -840,7 +848,7 @@ datasources:
     editable: true
 ```
 
-## portainer
+### portainer
 
 ```yaml
 version: "3.9"
@@ -863,7 +871,7 @@ services:
     restart: always
 ```
 
-## ipfs
+### ipfs
 
 ```yaml
 version: "3.9"
@@ -892,7 +900,7 @@ services:
       - basic
 ```
 
-## zookeeper*3+kafka
+### zookeeper*3+kafka
 
 ```yaml
 version: "3.9"
@@ -1070,9 +1078,9 @@ server.3=zookeeper3:2888:3888;2181
 4lw.commands.whitelist=*
 ```
 
-## elasticsearch+kibana
+### elasticsearch+kibana
 
-> Tips: 
+> Tips:
 >> 1. data、logs文件夹权限为777
 >> 2. plugins版本需与elasticsearch版本保持一致
 
@@ -1181,7 +1189,7 @@ server.port: 5601
 # 服务IP
 server.host: "0.0.0.0"
 # ES
-elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
 monitoring.ui.container.elasticsearch.enabled: true
 # 汉化
 i18n.locale: "zh-CN"
@@ -1192,7 +1200,7 @@ elasticsearch.username: "kibana_system"
 elasticsearch.password: "kibana_systempw"
 ```
 
-## neo4j
+### neo4j
 
 ```yaml
 version: "3.7"
@@ -1221,7 +1229,7 @@ services:
     container_name: neo4j
 ```
 
-## rabbitmq
+### rabbitmq
 
 ```yaml
 version: "3.7"
@@ -1249,3 +1257,238 @@ services:
       - ./rabbitmq/data:/var/lib/rabbitmq
       - ./rabbitmq/plugins:/myplugins
 ```
+
+## docker镜像导入导出
+
+### 镜像导入
+
+0. 准备要导入的镜像的tarball
+1. 创建load.sh
+
+```shell
+touch load.sh
+```
+
+2. 将下方shell脚本输入到load.sh中
+
+```shell
+#bin/bash
+
+folders=""
+echo "load image start..."
+# $1 不为 0
+if [[ ! -z  $1 ]]; then
+    folders="$1"
+else
+  folders="$(pwd)"
+fi
+
+files=`ls $folders`
+
+file_type='.tar'
+for file in $files ; do
+  if [[ $file =~ $file_type ]]; then
+    image_origin_name_tar=`basename $file`
+    docker image load -i $image_origin_name_tar
+  fi
+  sleep 1
+done
+
+```
+
+3. 加权
+
+```shell
+chmod +x *.sh
+```
+
+4. 执行
+
+```shell
+# 二选一
+bash load.sh
+
+./load.sh
+```
+
+### 镜像导出
+
+#### 步骤
+
+0. 创建文件夹保存导出镜像
+
+```shell
+# 创建文件夹
+mkdir ~/docker
+cd ~/docker
+```
+
+1. 根据需求改写下方shell
+
+```shell
+#bin/bash
+
+ehco "start..."
+
+key=""
+
+if [[ ! -z $1  ]]; then
+	key="$1"
+fi
+
+docker_rmi=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "$key")
+
+for i in $docker_rmi ;do
+  echo "current image: " +$i
+  set -x
+  docker_name=$(echo $i | sed -e 's/\//-/g')
+  docker image save $i -o './'""$docker_name""'.tar'
+  { set +x; } 2>/dev/null
+  sleep 1
+done
+```
+
+2. 创建save.sh
+
+```shell
+
+cd ~/docker
+touch save.sh
+# 粘贴修改后的步骤1中shell
+```
+
+3. 加权
+
+```shell
+cd ~/docker
+
+chmod +x *.sh
+```
+
+4. 执行
+
+```shell
+
+./save.sh
+
+# bash save.sh
+```
+
+## 限制容器占用资源
+
+```yaml
+version: "3.8"
+networks:
+  basic:
+    name: basic
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7.18
+    container_name: mysql
+    # 此部分
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 100M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
+    # 此部分
+    networks:
+      - basic
+    volumes:
+      - ./mysql/mydir:/mydir
+      - ./mysql/datadir:/var/lib/mysql
+      - ./mysql/conf/my.cnf:/etc/my.cnf
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+      - ./mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=basic"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - '3306:3306'
+```
+
+[comment]: <> (https://blog.csdn.net/qq_36148847/article/details/79427878)
+
+## 技巧4
+
+docker rmi $(docker images --format "{{.Repository}}:{{.Tag}}" | grep 'gcbaas-gm' )
+
+docker restart `docker ps -a -f "status=exited" --format "{{.ID}}"`
+
+## 制作基于alpine镜像的mysql镜像
+
+```dockerfile
+# 基镜像
+# 基础镜像
+FROM alpine:3.18
+
+# 设置国科大镜像
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories \
+    && apk update \
+    && apk upgrade
+
+# 安装 mysql和musql客户端
+RUN apk add mysql mysql-client
+
+# 创建目录，作为数据库存储路径
+RUN mkdir -p /var/lib/mysql
+
+
+RUN mkdir /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    mkdir /docker-entrypoint-initdb.d
+
+RUN echo "mysqld --user=mysql" > /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN ln -s /usr/local/bin/entrypoint.sh /
+
+
+
+RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+VOLUME /var/lib/mysql
+
+EXPOSE 3306
+
+WORKDIR /
+
+ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["mysqld", "--user=mysql"]
+
+
+```
+
+curl
+-L https://mirror.ghproxy.com/https://raw.githubusercontent.com/docker-library/mysql/master/5.7/docker-entrypoint.sh >
+docker-entrypoint.sh
+
+## docker启动成功，确无法进入docker 报错信息 exec user process caused  "permission denied"
+
+```text
+解决方法： 
+关闭selinux
+
+1、临时关闭selinux: setenforce 0 
+2、修改配置文件需要重启机器： 
+修改/etc/selinux/config 文件 
+将SELINUX=enforcing改为SELINUX=disabled 
+```
+
+## docker获取镜像
+
+```bash
+bash -c "$(curl -sSLf https://xy.ggbond.org/xy/docker_pull.sh)" -s minio/minio:latest
+ ```
+
+```text
+https://docker.fxxk.dedyn.io/
+```
+
+## 占位

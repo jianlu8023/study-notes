@@ -1,6 +1,87 @@
-# chainmaker 学习记录
+# blockchain相关
 
-## 初始化过程
+## hyperledger fabric
+
+### 配置fabric环境
+
+#### 步骤
+
+```shell
+# 1.到gopath目录
+cd $GOPATH
+# 2.创建文件夹
+mkdir {src,pkg,bin}
+mkdir -p src/github.com/hyperledger/fabric/
+# 3.克隆指定版本fabric
+git clone -b v2.2.0 https://gitee.com/hyperledger/fabric.git fabric2.2.0
+# 4.进入fabric/script文件夹
+cd $GOPATH/src/github.com/hyperledger/fabric/fabric2.2.0/script
+# 5.修改bootstrap.sh
+vi bootstrap.sh
+######################展示有改动位置##########################
+# 这里指定fabric-simple版本
+VERSION=2.2.0
+
+# 指定fabric-ca版本
+CA_VERSION=1.4.9
+
+cloneSamplesRepo() {
+    if [ -d test-network ]; then
+        echo "==> Already in fabric-samples repo"
+    elif [ -d fabric-samples ]; then
+        echo "===> Changing directory to fabric-samples"
+        cd fabric-samples
+    else
+        echo "===> Cloning hyperledger/fabric-samples repo"
+        # 这里有修改
+        git clone -b main https://mirror.ghproxy.com/https://github.com/hyperledger/fabric-samples.git && cd fabric-samples
+    fi
+    if GIT_DIR=.git git rev-parse v${VERSION} >/dev/null 2>&1; then
+        echo "===> Checking out v${VERSION} of hyperledger/fabric-samples"
+        git checkout -q v${VERSION}
+    else
+        echo "fabric-samples v${VERSION} does not exist, defaulting to main. fabric-samples main branch is intended to work with recent versions of fabric."
+        git checkout -q main
+    fi
+}
+pullBinaries() {
+    echo "===> Downloading version ${FABRIC_TAG} platform specific fabric binaries"
+            # 这里有修改
+    download "${BINARY_FILE}" "https://mirror.ghproxy.com/https://github.com/hyperledger/fabric/releases/download/v${VERSION}/${BINARY_FILE}"
+    if [ $? -eq 22 ]; then
+        echo
+        echo "------> ${FABRIC_TAG} platform specific fabric binary is not available to download <----"
+        echo
+        exit
+    fi
+    echo "===> Downloading version ${CA_TAG} platform specific fabric-ca-client binary"
+# 这里有修改
+    download "${CA_BINARY_FILE}" "https://mirror.ghproxy.com/https://github.com/hyperledger/fabric-ca/releases/download/v${CA_VERSION}/${CA_BINARY_FILE}"
+    if [ $? -eq 22 ]; then
+        echo
+        echo "------> ${CA_TAG} fabric-ca-client binary is not available to download  (Available from 1.1.0-rc1) <----"
+        echo
+        exit
+    fi
+}
+
+# 6.执行脚本
+./bootstrap.sh
+# 7.启动测试环境
+cd fabric-simples/test-network
+# 启动测试网络并创建名为mychannel的通道
+./network.sh createChannel -ca -s couchdb
+# 关闭测试网络
+./network.sh down
+```
+
+###  
+
+## chainmaker
+
+### chainmaker 学习记录
+
+#### 初始化过程
 
 1. 读取配置文件并将配置文件分别形成webconfig、dbconfig、logconfig三个独立的viper <br>
    数据库表名可修改
@@ -35,15 +116,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// fix
-// @Description: 
-//
-// @author ght
-// @date 2023-09-22 18:52:42
-//
-// @param configPath
-//
-// @return string
+
 func fix(configPath string) string {
 	conf := viper.New()
 	conf.SetConfigFile(configPath)
@@ -133,13 +206,6 @@ func FixSdkConfig(cfg string) string {
    return use
 }
 
-// main
-// @Description: 
-//
-// @author ght
-// @date 2023-09-22 18:52:37
-//
-//
 func main() {
 	wd, _ := os.Getwd()
 	configPath := filepath.Join(wd, "testdata", "sdk_configs", "sdk_config.yml")

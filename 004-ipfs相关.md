@@ -139,7 +139,6 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["daemon", "--migrate=true", "--agent-version-suffix=docker"]
 ```
 
-
 ### docker-compose
 
 ```yaml
@@ -159,26 +158,21 @@ services:
       - IPFS_PATH=/data/ipfs
     ports:
       # Swarm listens on all interfaces, so is remotely reachable.
-      - 4001:4001/tcp
-      - 4001:4001/udp
-      
+      - "4001:4001/tcp"
+      - "4001:4001/udp"
+
       # The following ports only listen on the loopback interface, so are not remotely reachable by default.
       # If you want to override these or add more ports, see https://docs.docker.com/compose/extends/ .
-      
+
       # API port, which includes admin operations, so you probably don't want this remotely accessible.
-      - 127.0.0.1:5001:5001
-      
+      - "127.0.0.1:5001:5001"
+
       # HTTP Gateway
-      - 127.0.0.1:8080:8080
+      - "127.0.0.1:8080:8080"
 
 ```
 
-
-
-
-
 ## ipfs 生成swarm.key文件
-
 
 ### 方案一
 
@@ -216,11 +210,10 @@ EOF
 bash swarmkey.sh ${PWD}
 ```
 
-
-
 ## ipfs的API调用
 
 ### 链接
+
 * [API](https://docs.ipfs.tech/reference/kubo/rpc/#api-v0-urlstore-add)
 
 ## ipfs使用
