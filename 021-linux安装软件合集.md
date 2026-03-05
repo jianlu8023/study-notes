@@ -722,6 +722,13 @@ auto_activate_base: false
 
 ```
 
+### wps-缺失字体
+
+```shell
+git clone https://github.com/IamDH4/ttf-wps-fonts.git && cd ttf-wps-fonts
+sudo bash install.sh
+```
+
 ### 占位
 
 ## centos
