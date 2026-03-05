@@ -14,7 +14,22 @@ sudo dpkg -i *.deb
 ### edge浏览器
 
 ```shell
-
+# download gpg key for microsoft repository
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+# add gpg key to apt
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+# add repository to apt 
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-stable.list'
+# rm gpg key
+sudo rm microsoft.gpg
+# update apt and install msedge
+sudo apt update && sudo apt install microsoft-edge-stable
+# settings zh-ch 
+cd /opt/microsoft/msedge
+sudo vi microsft-edge 
+# 在最上面的注释下方 添加
+export LANGUAGE=ZH-CN.UTF-8
+# 保存并退出
 ```
 
 ### vscode
@@ -441,6 +456,270 @@ apt update
 apt install git
 
 export GIT_TERMINAL_PROMPT=1
+```
+
+### podman
+
+#### ubuntu20.04
+
+```shell
+# 1. you will need to install some dependencies required to install Podman
+sudo apt-get install curl wget gnupg2 -y
+# 2.  source your Ubuntu release and add the Podman repository with the following command
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+# 3. download and add the GPG key with the following command
+sudo wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key -O- | sudo apt-key add -
+# 4. update the repository and install Podman with the following command
+sudo apt-get update -qq -y
+sudo apt-get -qq --yes install podman
+```
+
+#### ubuntu20.10 later
+
+```shell
+sudo apt update 
+sudo apt install podman -y
+```
+
+#### 配置镜像
+
+##### 位置
+
+```text
+其他配置同下
+用户级别 $HOME/.config/containers/registries.conf
+系统级别 /etc/containers/registries.conf
+```
+
+##### 自用配置
+
+```toml
+# For more information on this configuration file, see containers-registries.conf(5).
+#
+# NOTE: RISK OF USING UNQUALIFIED IMAGE NAMES
+# We recommend always using fully qualified image names including the registry
+# server (full dns name), namespace, image name, and tag
+# (e.g., registry.redhat.io/ubi8/ubi:latest). Pulling by digest (i.e.,
+# quay.io/repository/name@digest) further eliminates the ambiguity of tags.
+# When using short names, there is always an inherent risk that the image being
+# pulled could be spoofed. For example, a user wants to pull an image named
+# `foobar` from a registry and expects it to come from myregistry.com. If
+# myregistry.com is not first in the search list, an attacker could place a
+# different `foobar` image at a registry earlier in the search list. The user
+# would accidentally pull and run the attacker's image and code rather than the
+# intended content. We recommend only adding registries which are completely
+# trusted (i.e., registries which don't allow unknown or anonymous users to
+# create accounts with arbitrary names). This will prevent an image from being
+# spoofed, squatted or otherwise made insecure.  If it is necessary to use one
+# of these registries, it should be added at the end of the list.
+#
+# # An array of host[:port] registries to try when pulling an unqualified image, in order.
+
+# unqualified-search-registries 和 registries.search 含义相同
+unqualified-search-registries = ["docker.io", "quay.io", "gcr.io", "k8s.gcr.io", "ghcr.io", "registry.access.redhat.com", "container-registry.oracle.com", "registry.suse.com", "registry.fedoraproject.org", "registry.opensuse.org"]
+# unqualified-search-registries = ["registry.access.redhat.com", "registry.fedoraproject.org", "docker.io"]
+
+
+[[registry]]
+# # The "prefix" field is used to choose the relevant [[registry]] TOML table;
+# # (only) the TOML table with the longest match for the input image name
+# # (taking into account namespace/repo/tag/digest separators) is used.
+# #
+# # The prefix can also be of the form: *.example.com for wildcard subdomain
+# # matching.
+# #
+# # If the prefix field is missing, it defaults to be the same as the "location" field.
+# prefix = "example.com/foo"
+prefix = "docker.io"
+location = "docker.io"
+
+# # If true, unencrypted HTTP as well as TLS connections with untrusted
+# # certificates are allowed.
+# 允许使用http协议获取镜像 默认 false
+# insecure = true
+insecure = false
+
+#
+# # If true, pulling images with matching names is forbidden.
+# blocked = false
+#
+# # The physical location of the "prefix"-rooted namespace.
+# #
+# # By default, this is equal to "prefix" (in which case "prefix" can be omitted
+# # and the [[registry]] TOML table can only specify "location").
+# #
+# # Example: Given
+# #   prefix = "example.com/foo"
+# #   location = "internal-registry-for-example.net/bar"
+# # requests for the image example.com/foo/myimage:latest will actually work with the
+# # internal-registry-for-example.net/bar/myimage:latest image.
+#
+# # The location can be empty iff prefix is in a
+# # wildcarded format: "*.example.com". In this case, the input reference will
+# # be used as-is without any rewrite.
+# location = internal-registry-for-example.com/bar"
+#
+# # (Possibly-partial) mirrors for the "prefix"-rooted namespace.
+# #
+# # The mirrors are attempted in the specified order; the first one that can be
+# # contacted and contains the image will be used (and if none of the mirrors contains the image,
+# # the primary location specified by the "registry.location" field, or using the unmodified
+# # user-specified reference, is tried last).
+# #
+# # Each TOML table in the "mirror" array can contain the following fields, with the same semantics
+# # as if specified in the [[registry]] TOML table directly:
+# # - location
+# # - insecure
+# [[registry.mirror]]
+# location = "example-mirror-0.local/mirror-for-foo"
+# [[registry.mirror]]
+# location = "example-mirror-1.local/mirrors/foo"
+# insecure = true
+# # Given the above, a pull of example.com/foo/image:latest will try:
+# # 1. example-mirror-0.local/mirror-for-foo/image:latest
+# # 2. example-mirror-1.local/mirrors/foo/image:latest
+# # 3. internal-registry-for-example.net/bar/image:latest
+# # in order, and use the first one that exists.
+
+
+# 镜像
+[[registry.mirror]]
+location = "hub-dev.cnbn.org.cn"
+insecure = false
+[[registry.mirror]]
+location = "mirror.ustc.edu.cn"
+insecure = false
+#[[registry.mirror]]
+#location = "dockerproxy.net"
+#insecure = true
+[[registry.mirror]]
+location = "docker.1ms.run"
+insecure = true
+[[registry.mirror]]
+location = "hub-mirror.c.163.com"
+insecure = false
+[[registry.mirror]]
+location = "mirror.baiduce.com"
+insecure = false
+[[registry.mirror]]
+location = "docker.mirrors.sjtug.sjtu.edu.cn"
+insecure = false
+[[registry.mirror]]
+location = "docker.nju.edu.cn"
+insecure = false
+
+[[registry]]
+prefix = "quay.io"
+location = "quay.io"
+insecure = false
+
+[[registry.mirror]]
+location = "quay.mirrors.ustc.edu.cn"
+insecure = false
+[[registry.mirror]]
+location = "quay-mirror.qiniu.com"
+
+[[registry]]
+prefix = "gcr.io"
+location = "gcr.io"
+insecure = false
+
+[[registry.mirror]]
+location = "gcr.lank8s.io"
+insecure = true
+[[registry.mirror]]
+location = "lank8s.cn"
+insecure = true
+[[registry.mirror]]
+#location= "registry.cn-hangzhou.aliyuncs.com"
+location = "registry.cn-hangzhou.aliyuncs.com/google_containers"
+[[registry.mirror]]
+location = "gcr.1ms.run"
+insecure = true
+
+[[registry]]
+prefix = "k8s.gcr.io"
+location = "k8s.gcr.io"
+insecure = false
+
+[[registry.mirror]]
+location = "registry.aliyuncs.com/google_containers"
+[[registry.mirror]]
+location = "registry.cn-hangzhou.aliyuncs.com/google_containers"
+
+[[registry]]
+location = "ghcr.io"
+prefix = "ghcr.io"
+
+
+[[registry.mirror]]
+location = "ghcr.1ms.run"
+insecure = true
+```
+
+### conda
+
+```shell
+# 1. 下载miniconda3的sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda3.sh
+# 2. 安装miniconda3
+# -b 无交互模式安装
+# -p 指定安装路径
+bash miniconda3.sh -b -p $HOME/miniconda3
+
+# 3. 激活miniconda3
+source $HOME/miniconda3/bin/activate
+# 4. 确保conda命令在所有shell中都能用 --user 用戶级
+conda init --all --user
+```
+
+#### 自用condarc
+
+```text
+# 优先级 从上到下
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+
+
+# 严格通道优先 strict flexible
+channel_priority: flexible
+
+# 使用libmamba求解器 更快 默认classic
+solver: libmamba
+
+# 包缓存
+pkgs_dirs:
+  # 这里是因为miniconda安装到/data/dev/miniconda3下
+  - /data/dev/miniconda3/pkgs
+
+# 保留下载的.tar.bz2包
+always_copy: false # false 表示尽量使用硬连接/软连接 节省空间
+always_softlink: false
+
+# ssl验证
+ssl_verify: true
+
+# 禁止自动更新
+auto_update_conda: false
+
+# 显示 channel urls 信息
+show_channel_urls: true
+
+#
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+
+# 是否自动激活base环境
+auto_activate_base: false
+
 ```
 
 ### 占位
