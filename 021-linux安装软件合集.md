@@ -729,6 +729,66 @@ git clone https://github.com/IamDH4/ttf-wps-fonts.git && cd ttf-wps-fonts
 sudo bash install.sh
 ```
 
+### node管理工具
+
+#### nvm
+
+```shell
+git clone https://github.com/nvm-sh/nvm.git /data/dev/nvm 
+cd /data/dev/nvm
+. ./nvm.sh
+# 6 edit ~/.bashrc ~/.zshrc or ~/.profile 
+edit ~/.zshrc
+export NVM_DIR="/data/dev/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_NODEJS_ORG_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
+```
+
+#### fnm
+
+```shell
+# 1
+cargo install fnm # 安装到$CARGO_HOME/bin
+# 2
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "/data/dev/fnm" --skip-shell
+# --install-dir 设置 fnm 的自定义安装目录。
+#               默认值为 $XDG_DATA_HOME/fnm
+#               （如果未定义 $XDG_DATA_HOME，则在 Linux 上回退为 $HOME/.local/share/fnm，
+#               在 MacOS 上回退为 $HOME/Library/Application Support/fnm）
+# --skip-shell  根据 $SHELL 中定义的当前用户 shell，
+#               跳过将 shell 特定的加载程序附加到 shell 配置文件的步骤。
+#               例如，对于 Bash，$HOME/.bashrc。对于 Zsh，$HOME/.zshrc。
+#               适用于 Fish - $HOME/.config/fish/conf.d/fnm.fish
+# --force-install  使用安装脚本的 macOS 安装已被弃用，取而代之的是 Homebrew 方案，但这会强制脚本使用它进行安装。
+# 3
+winget install Schniz.fnm
+
+# 添加到 ~/.zshrc
+echo 'eval "$(fnm env --use-on-cd --shell zsh)"' >> ~/.zshrc
+# 添加到 ~/.bashrc
+echo 'eval "$(fnm env --use-on-cd --shell bash)"' >> ~/.bashrc
+# 添加到 ~/.config/fish/config.fish
+echo 'fnm env --use-on-cd --shell fish | source' >> ~/.config/fish/config.fish
+# 添加到 PowerShell Profile
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+
+# 或者添加到 profile 文件
+Add-Content -Path $PROFILE -Value 'fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression'
+
+# 自定义 FNM 安装目录
+export FNM_DIR="$HOME/.fnm"
+
+# 设置 Node.js 下载镜像源（提高下载速度）
+export FNM_NODE_DIST_MIRROR="https://npmmirror.com/mirrors/node/"
+
+# 设置远程版本列表缓存时间（秒）
+export FNM_REMOTE_VERSIONS_CACHE_DURATION=86400
+
+export FNM_NODE_DIST_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
+
+```
+
 ### 占位
 
 ## centos
