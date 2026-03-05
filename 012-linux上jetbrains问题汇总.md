@@ -51,4 +51,42 @@ sudo sysctl -p --system
 直接装BashSupport Pro
 ```
 
+## 配置文件
+
+### 位置
+
+```text
+linux: $HOME/.config/JetBrains/GoLand2024.3/goland64.vmoptions
+windows: c:/
+```
+
+### 内容参考
+
+```text
+# custom GoLand VM options (expand/override 'bin/goland64.vmoptions')
+-Xms512m
+-Xmx2048m
+-XX:ReservedCodeCacheSize=1024m
+-XX:+IgnoreUnrecognizedVMOptions
+-XX:+UseG1GC
+-XX:SoftRefLRUPolicyMSPerMB=50
+-XX:CICompilerCount=2
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:-OmitStackTraceInFastThrow
+-ea
+-Dsun.io.useCanonCaches=false
+-Djdk.http.auth.tunneling.disabledSchemes=""
+-Djdk.attach.allowAttachSelf=true
+-Djdk.module.illegalAccess.silent=true
+-Dkotlinx.coroutines.debug=off
+-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log
+-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof
+
+--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
+--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
+
+#-javaagent:/data/dev/jetbra/ja-netfilter.jar=jetbrains
+-javaagent:/data/dev/jetbra2025/linux2021-2024/ja-netfilter.jar=jetbrains
+```
+
 ## 占位
