@@ -1383,6 +1383,44 @@ pkgs_dirs:
 # 应该是看不到其他用户环境
 ```
 
+#### conda单独环境jupyter
+
+```shell
+conda create -n jupyter python=3.11
+
+conda activate jupyter 
+
+pip install uv 
+
+uv pip install --system jupyerlab ipykernel
+
+# 其他环境加入jupyter
+python -m ipykernel install \
+--prefix ~/miniconda3/envs/jupyter \
+--name torch \
+--display-name "Python (torch)"
+
+python -m ipykernel install \
+--prefix $CONDA_PREFIX/../jupyter \
+--name $(basename $CONDA_PREFIX) \
+--display-name "Python ($(basename $CONDA_PREFIX))"
+
+
+for env in /home/user/.conda/envs/*; do
+    conda activate "$env"
+    pip install -q ipykernel
+    python -m ipykernel install \
+        --prefix /data/dev/miniconda3/envs/jupyter \
+        --name $(basename $env) \
+        --display-name "Python ($(basename $env))"
+done
+
+python -m ipykernel install \
+--prefix /data/dev/miniconda3/envs/jupyter \
+--name $(basename $CONDA_PREFIX) \
+--display-name "Python ($(basename $CONDA_PREFIX))"
+```
+
 ### wps-缺失字体
 
 ```shell
