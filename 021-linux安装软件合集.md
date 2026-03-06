@@ -662,6 +662,7 @@ insecure = true
 ```shell
 # 1. 下载miniconda3的sh
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda3.sh
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # 2. 安装miniconda3
 # -b 无交互模式安装
 # -p 指定安装路径
