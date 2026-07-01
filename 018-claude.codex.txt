@@ -51,6 +51,21 @@ codex
     base_url = "https://api-inference.modelscopse.cn/v1"
     env_key = "MODELSCOPE_API_KEY" # 这里需要添加环境变量 key=modelscopse value 是apikey
 
+----------------------------------2026-7-1安装------------------------
+方式1 curl -fsSL https://chatgpt.com/codex/install.sh | sh
+方式2 npm install -g @openai/codex
+方式3 二进制安装
+    1 打开https://github.com/openai/codex/releases 找到最新
+    2 linux 下载 bwrap-x86_65-unknown-linux-musl.tar.gz codex-x86_64-unknown-linux-musl.tar.gz  
+    3 解压到$HOME/.local/bin  并重命名wbrap codex
+    4 bwrap解压之后安装到/usr/bin/bwrap
+    5 创建脚本并执行 修复bwrap报错 (可用shell在attach下)
+    6 配置大模型如上方3配置即可
+    
+
+---------------------------------------------------------------------
+
+
 4. 
     /init  AGENTS.md 通用的md
     /compact 
