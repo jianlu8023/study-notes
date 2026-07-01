@@ -61,7 +61,7 @@ codex
     4 bwrap解压之后安装到/usr/bin/bwrap
     5 创建脚本并执行 修复bwrap报错 (可用shell在attach下)
     6 配置大模型如上方3配置即可
-    
+   https://blog.chaos.run/dreams/codex-ubuntu-bubblewrap-fix/ 
 
 ---------------------------------------------------------------------
 
