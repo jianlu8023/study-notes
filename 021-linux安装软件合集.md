@@ -1489,6 +1489,12 @@ export FNM_NODE_DIST_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
 
 ```
 
+### 7z
+
+```shell
+sudo apt install p7zip-full
+```
+
 ### 占位
 
 ## centos
@@ -1695,6 +1701,15 @@ Configuring containerd (for Kubernetes)
 	sudo systemctl restart containerd
 
 Configuring containerd (for nerdctl)
+```
+
+### 7z
+
+```shell
+wget -c http://mirrors.kernel.org/fedora-epel/epel-release-latest-7.noarch.rpm
+rpm -ivh epel-release-latest-7.noarch.rpm
+yum repolist #查看是否启用
+yum install -y p7zip*
 ```
 
 ### 占位
