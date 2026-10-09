@@ -1,0 +1,1 @@
+out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=root 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }

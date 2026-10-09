@@ -1,0 +1,2 @@
+podman network create --subnet 172.110.0.0/24 --gateway 172.110.0.254 basic
+podman run -d --name mysql --network basic --ip 172.110.0.2 -p 3306:3306 -v ${PWD}/init.d:/docker-entrypoint-initdb.d -v ${PWD}/my.cnf:/etc/my.cnf -v ${PWD}/datadir:/var/lib/mysql -v ${PWD}/logs:/var/log/mysql --health-cmd "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD} || exit 1" --env-file ${PWD}/.mysql.env --log-driver k8s-file --log-opt max-size=500mb --log-opt path=${PWD}/mysql.podman.log mysql:8.4.2

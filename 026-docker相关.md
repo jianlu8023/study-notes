@@ -27,17 +27,18 @@ services:
       - ./mysql/mydir:/mydir
       - ./mysql/datadir:/var/lib/mysql
       - ./mysql/conf/my.cnf:/etc/my.cnf
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - ./mysql/source:/docker-entrypoint-initdb.d
     environment:
       - "MYSQL_ROOT_PASSWORD=123456"
       - "MYSQL_DATABASE=basic"
       - "TZ=Asia/Shanghai"
+	  - "MYSQL_USER=appuser"
+	  - "MYSQL_PASSWORD=appuserpw123456789"
     ports:
       - '3306:3306'
     command: [ "--lower_case_table_names=1" ]
-
+# health-check mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD} || exit 1
+# health-check out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=root 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }
 ```
 
 my.cnf
@@ -72,6 +73,7 @@ default-character-set=utf8
 ### redis
 
 ```yaml
+# 需要添加一个redis先起容器挂载datadir和logs 改权限
 version: "3.7"
 networks:
   basic:
@@ -84,15 +86,19 @@ services:
     #   image: redis:latest
     image: redis:7.2.0-alpine3.18
     container_name: redis
+    environment:
+      - "TZ=Asia/Shanghai"
+      - "REDISCLI_AUTH=123456"
     volumes:
       - ./redis/datadir:/data
-      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/redis.conf:/etc/redis/redis.conf
       - ./redis/logs:/logs
       - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-    command: redis-server --requirepass 123456
+    command: redis-server /etc/redis/redis.conf
     ports:
       - '6379:6379'
+# health-check redis-cli ping
 ```
 
 redis.conf
@@ -112,7 +118,7 @@ redis.conf
  
 # Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程
 # 启用守护进程后，Redis会把pid写到一个pidfile中，在/var/run/redis.pid
-daemonize yes
+daemonize no
  
 # 当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定
 pidfile /var/run/redis.pid
@@ -190,7 +196,7 @@ dbfilename dump.rdb
 # Also the Append Only File will be created inside this directory.
 #
 # 注意，这里只能指定一个目录，不能指定文件名
-dir ./
+dir /data
  
 ################################# REPLICATION #################################
  
@@ -239,7 +245,7 @@ slave-serve-stale-data yes
 # 150k passwords per second against a good box. This means that you should
 # use a very strong password otherwise it will be very easy to break.
 # 设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过auth <password>命令提供密码，默认关闭
-requirepass yourpassword
+requirepass 123456
 # Command renaming.
 #
 # It is possilbe to change the name of dangerous commands in a shared
@@ -288,7 +294,20 @@ requirepass yourpassword
 #
 # volatile-lru -> remove the key with an expire set using an LRU algorithm
 # allkeys-lru -> remove any key accordingly to the LRU algorithm
-# volatile-random -> remove a random key with an expire set
+# volatile-randong the main dictionaries, freeing memory when possible.
+#
+# If unsure:
+# use "activerehashing no" if you have hard latency requirements and it is
+# not a good thing in your environment that Redis can reply form time to time
+# to queries with 2 milliseconds delay.
+# 指定是否激活重置哈希，默认为开启
+activerehashing yes
+ 
+################################## INCLUDES ###################################
+ 
+# 指定包含其他的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各实例又拥有自己的特定配置文件
+# include /path/to/local.conf
+# include /path/to/other.confm -> remove a random key with an expire set
 # allkeys->random -> remove a random key, any key
 # volatile-ttl -> remove the key with the nearest expire time (minor TTL)
 # noeviction -> don't expire at all, just return an error on write operations
@@ -1485,7 +1504,7 @@ docker-entrypoint.sh
 
 ```bash
 bash -c "$(curl -sSLf https://xy.ggbond.org/xy/docker_pull.sh)" -s minio/minio:latest
- ```
+```
 
 ```text
 https://docker.fxxk.dedyn.io/

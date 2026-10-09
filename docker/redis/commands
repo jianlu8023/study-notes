@@ -1,0 +1,1 @@
+podman run -d --name redis --network basic --ip 172.110.0.247 --restart unless-stopped -v ${PWD}/datadir:/data -v ${PWD}/logs:/logs -v ${PWD}/redis.conf:/etc/redis/redis.conf -p 6379:6379 --health-cmd "redis-cli ping" --env-file ${PWD}/.redis.env redis:7.2.0-alpine3.18 redis-server /etc/redis/redis.conf
